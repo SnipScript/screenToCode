@@ -1,9 +1,21 @@
-FROM python:3.10
+FROM python:3.12.3-slim-bullseye
 
+ENV POETRY_VERSION 1.7.1
+
+# Install system dependencies
+RUN pip install "poetry==$POETRY_VERSION"
+
+# Set work directory
 WORKDIR /app
 
-COPY . /app
+# Copy only requirements to cache them in docker layer
+COPY poetry.lock pyproject.toml /app/
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Disable the creation of virtual environments
+RUN poetry config virtualenvs.create false
 
-CMD ["uvicorn", "backend:app", "--host", "0.0.0.0", "--port", "8000"]
+# Install dependencies
+RUN poetry install
+
+# Copy the current directory contents into the container at /app
+COPY ./ /app/
