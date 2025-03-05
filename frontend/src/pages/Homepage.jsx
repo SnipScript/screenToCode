@@ -1,9 +1,9 @@
-import Priceing from "../section/Homepage/Priceing";
 import Work from "../section/Homepage/Work";
 import Trusted from "../section/Homepage/Trusted";
 import Features from "../section/Homepage/Features";
 import CTA from "../section/Homepage/CTA";
 import Hero from "../section/Homepage/Hero";
+import Priceing from "../section/Homepage/Pricing";
 
 const Homepage = () => {
   return (
