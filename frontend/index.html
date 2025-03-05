@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Parcel App</title>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+            const originalTitle = document.title;
+
+            // Change title on mouseover
+            document.addEventListener('mouseover', function () {
+              document.title = 'Code Smarter, Not Harder';
+            });
+
+            // Reset title on mouseout
+            document.addEventListener('mouseout', function () {
+              document.title = originalTitle;
+            });
+          });
+        </script>
 </head>
 <body>
     <div id="root"></div>
