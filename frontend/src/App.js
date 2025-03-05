@@ -10,6 +10,7 @@ import MainPage from './pages/MainPage';
 import LoginSignup from './pages/LoginSignup';
 import PricingPlan from './pages/PricingPlan';
 import AdminBackend from './pages/AdminBackend';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/pricing" element={<PricingPlan />} />
         <Route path="/admin" element={<AdminBackend />} />
       </Routes>
-      
+      <Footer/>
     </Router>
   );
 }
