@@ -16,12 +16,11 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
-      <CommonContainer >
-  
-        <div className="flex justify-between h-16">
+      <CommonContainer>
+        <div className="flex justify-between w-full h-16 ">
           <div className="flex items-center">
             <Link to="/" className="flex items-center flex-shrink-0 max-w-12">
-            <img src={logo} alt="SnipScript" />
+              <img src={logo} alt="SnipScript" />
               <span className="text-xl font-bold text-gray-800">
                 SnipScript<span className="text-2xl text-primary-600">.</span>
               </span>
@@ -72,7 +71,7 @@ const Navbar = () => {
               </Link>
               <Link
                 to="/auth"
-                className="px-4 py-2 text-sm font-medium text-white transition-colors duration-200 rounded-md bg-primary-600 hover:bg-primary-700"
+                className="px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-md bg-primary-600 hover:bg-primary-700"
               >
                 Sign Up
               </Link>
@@ -123,7 +122,6 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-    
       </CommonContainer>
 
       {/* Mobile menu, show/hide based on menu state */}
