@@ -22,6 +22,7 @@ function App() {
         <Route path="/pricing" element={<PricingPlan />} />
         <Route path="/admin" element={<AdminBackend />} />
       </Routes>
+      
     </Router>
   );
 }
