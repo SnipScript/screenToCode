@@ -1,7 +1,7 @@
 
 
-const SapceBottom = ({ children }) => {
-  return <div className="w-full pb-16">{children}</div>;
+const SapceBottom = ({ children, Class }) => {
+  return <div className={`w-full py-16 ${Class}`}>{children}</div>;
 };
 
 export default SapceBottom;
