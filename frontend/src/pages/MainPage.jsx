@@ -1,24 +1,109 @@
 import React, { useState } from "react";
-import  Button  from "../components/ui/Button";
-import  Input  from "../components/ui/Input";
-import  Card  from "../components/ui/Card";
-import  CardContent  from "../components/ui/CardContent";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
+import Card from "../components/ui/Card";
+import CardContent from "../components/ui/CardContent";
 import Editor from "@monaco-editor/react"; // Monaco Editor for live code preview
 
 const codeOptions = [
-  { name: "HTML + CSS", value: "html", icon: "🌐", desc: "Basic HTML & CSS output", template: "<div>Hello World</div>" },
-  { name: "Tailwind CSS", value: "tailwind", icon: "🎨", desc: "Utility-first CSS framework", template: '<div class="text-xl font-bold">Hello Tailwind</div>' },
-  { name: "React + Tailwind", value: "react", icon: "⚛️", desc: "React components with Tailwind", template: 'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);' },
-  { name: "Vue + Tailwind", value: "vue", icon: "🟢", desc: "Vue.js components styled with Tailwind", template: '<template><div class="text-xl font-bold">Hello Vue</div></template>' },
-  { name: "Bootstrap", value: "bootstrap", icon: "📦", desc: "Bootstrap-based component output", template: '<div class="container"><h1 class="display-4">Hello Bootstrap</h1></div>' },
-  { name: "Flutter", value: "flutter", icon: "💙", desc: "Flutter UI components", template: 'Widget build(BuildContext context) { return Text("Hello Flutter"); }' },
-  { name: "Svelte", value: "svelte", icon: "🔥", desc: "Svelte framework output", template: '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>' },
-  { name: "Angular", value: "angular", icon: "🟥", desc: "Angular component structure", template: '<h1>Hello Angular</h1>' },
-  { name: "Next.js", value: "nextjs", icon: "⬛", desc: "Next.js components", template: 'export default function Home() { return <h1>Hello Next.js</h1>; }' },
-  { name: "Nuxt.js", value: "nuxtjs", icon: "🟩", desc: "Nuxt.js components for Vue", template: '<template><h1>Hello Nuxt.js</h1></template>' },
-  { name: "Qwik", value: "qwik", icon: "⚡", desc: "Qwik framework optimized for speed", template: '<div>Hello Qwik</div>' },
-  { name: "Solid.js", value: "solidjs", icon: "🔷", desc: "Solid.js UI components", template: 'const App = () => <h1>Hello Solid.js</h1>;' },
-  { name: "Web Components", value: "web_components", icon: "🖥️", desc: "Standardized Web Components", template: 'class HelloComponent extends HTMLElement { connectedCallback() { this.innerHTML = "<h1>Hello Web Components</h1>"; } } customElements.define("hello-component", HelloComponent);' },
+  {
+    name: "HTML + CSS",
+    value: "html",
+    icon: "🌐",
+    desc: "Basic HTML & CSS output",
+    template: "<div>Hello World</div>",
+  },
+  {
+    name: "Tailwind CSS",
+    value: "tailwind",
+    icon: "🎨",
+    desc: "Utility-first CSS framework",
+    template: '<div class="text-xl font-bold">Hello Tailwind</div>',
+  },
+  {
+    name: "React + Tailwind",
+    value: "react",
+    icon: "⚛️",
+    desc: "React components with Tailwind",
+    template:
+      'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
+  },
+  {
+    name: "Vue + Tailwind",
+    value: "vue",
+    icon: "🟢",
+    desc: "Vue.js components styled with Tailwind",
+    template:
+      '<template><div class="text-xl font-bold">Hello Vue</div></template>',
+  },
+  {
+    name: "Bootstrap",
+    value: "bootstrap",
+    icon: "📦",
+    desc: "Bootstrap-based component output",
+    template:
+      '<div class="container"><h1 class="display-4">Hello Bootstrap</h1></div>',
+  },
+  {
+    name: "Flutter",
+    value: "flutter",
+    icon: "💙",
+    desc: "Flutter UI components",
+    template:
+      'Widget build(BuildContext context) { return Text("Hello Flutter"); }',
+  },
+  {
+    name: "Svelte",
+    value: "svelte",
+    icon: "🔥",
+    desc: "Svelte framework output",
+    template:
+      '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>',
+  },
+  {
+    name: "Angular",
+    value: "angular",
+    icon: "🟥",
+    desc: "Angular component structure",
+    template: "<h1>Hello Angular</h1>",
+  },
+  {
+    name: "Next.js",
+    value: "nextjs",
+    icon: "⬛",
+    desc: "Next.js components",
+    template:
+      "export default function Home() { return <h1>Hello Next.js</h1>; }",
+  },
+  {
+    name: "Nuxt.js",
+    value: "nuxtjs",
+    icon: "🟩",
+    desc: "Nuxt.js components for Vue",
+    template: "<template><h1>Hello Nuxt.js</h1></template>",
+  },
+  {
+    name: "Qwik",
+    value: "qwik",
+    icon: "⚡",
+    desc: "Qwik framework optimized for speed",
+    template: "<div>Hello Qwik</div>",
+  },
+  {
+    name: "Solid.js",
+    value: "solidjs",
+    icon: "🔷",
+    desc: "Solid.js UI components",
+    template: "const App = () => <h1>Hello Solid.js</h1>;",
+  },
+  {
+    name: "Web Components",
+    value: "web_components",
+    icon: "🖥️",
+    desc: "Standardized Web Components",
+    template:
+      'class HelloComponent extends HTMLElement { connectedCallback() { this.innerHTML = "<h1>Hello Web Components</h1>"; } } customElements.define("hello-component", HelloComponent);',
+  },
 ];
 
 export default function CodeSelectionPage() {
@@ -49,22 +134,25 @@ export default function CodeSelectionPage() {
   // Simulate AI-generated code from text prompt
   const handleGenerateFromText = () => {
     if (!textPrompt.trim()) return;
-    setCode(`/* AI-generated code for: ${textPrompt} */\n<div>Generated Code Here</div>`);
+    setCode(
+      `/* AI-generated code for: ${textPrompt} */\n<div>Generated Code Here</div>`
+    );
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex items-center justify-center p-6">
-      <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg p-6 flex gap-8">
-        
+    <div className="flex items-center justify-center min-h-screen p-6 text-gray-900 bg-gray-100">
+      <div className="flex w-full max-w-6xl gap-8 p-6 bg-white rounded-lg shadow-lg">
         {/* Left Panel: Code Selection */}
         <div className="w-1/3">
-          <h2 className="text-xl font-bold mb-4">Select Code Output</h2>
+          <h2 className="mb-4 text-xl font-bold">Select Code Output</h2>
           <div className="space-y-3">
             {codeOptions.map((option) => (
               <Card
                 key={option.value}
                 className={`p-4 cursor-pointer rounded-lg border ${
-                  selectedFormat.value === option.value ? "border-green-500 bg-gray-200" : "border-gray-300"
+                  selectedFormat.value === option.value
+                    ? "border-green-500 bg-gray-200"
+                    : "border-gray-300"
                 }`}
                 onClick={() => {
                   setSelectedFormat(option);
@@ -85,36 +173,74 @@ export default function CodeSelectionPage() {
 
         {/* Right Panel: File Upload, Capture, and AI Generation */}
         <div className="w-2/3">
-          <h2 className="text-xl font-bold mb-4">Upload Screenshot or Enter URL</h2>
-          <div className="bg-gray-50 p-6 border-dashed border-2 border-gray-300 rounded-lg flex items-center justify-center h-40">
-            <p className="text-gray-500">Drag & drop a screenshot here, or click to upload</p>
+          <h2 className="mb-4 text-xl font-bold">
+            Upload Screenshot or Enter URL
+          </h2>
+          <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+            <p className="text-gray-500">
+              Drag & drop a screenshot here, or click to upload
+            </p>
           </div>
-          <div className="mt-4 flex gap-4">
+          <div className="flex gap-4 mt-4">
             <Input placeholder="Enter URL to capture" className="flex-1" />
-            <Button className="bg-gray-700 text-white px-6 py-3">Capture</Button>
+            <Button className="px-6 py-3 text-white bg-gray-700">
+              Capture
+            </Button>
           </div>
 
           {/* AI Text-to-Code Feature */}
           <div className="mt-6">
-            <h3 className="text-lg font-bold mb-2">Generate Code from Text</h3>
+            <h3 className="mb-2 text-lg font-bold">Generate Code from Text</h3>
             <div className="flex gap-2">
-              <Input value={textPrompt} onChange={(e) => setTextPrompt(e.target.value)} placeholder="Describe what you want..." className="flex-1" />
-              <Button className="bg-blue-500 text-white px-6 py-3" onClick={handleGenerateFromText}>Generate</Button>
+              <Input
+                value={textPrompt}
+                onChange={(e) => setTextPrompt(e.target.value)}
+                placeholder="Describe what you want..."
+                className="flex-1"
+              />
+              <Button
+                className="px-6 py-3 text-white bg-blue-500"
+                onClick={handleGenerateFromText}
+              >
+                Generate
+              </Button>
             </div>
           </div>
 
           {/* Live Code Editor & Export Options */}
-          <div className="mt-6 bg-gray-900 text-white p-4 rounded-lg shadow-lg">
-            <h3 className="text-lg font-semibold mb-2">Generated Code ({selectedFormat.name})</h3>
-            <Editor height="250px" defaultLanguage="javascript" theme="vs-dark" value={code} onChange={(newValue) => setCode(newValue)} />
-            <div className="mt-4 flex justify-between">
-              <Button className="bg-gray-500 text-white px-6 py-3" onClick={handleCopy}>Copy to Clipboard</Button>
-              <Button className="bg-red-500 text-white px-6 py-3" onClick={handleResetCode}>Reset Code</Button>
-              <Button className="bg-green-500 text-white px-6 py-3" onClick={() => handleDownload("zip")}>Download Full Template</Button>
+          <div className="p-4 mt-6 text-white bg-gray-900 rounded-lg shadow-lg">
+            <h3 className="mb-2 text-lg font-semibold">
+              Generated Code ({selectedFormat.name})
+            </h3>
+            <Editor
+              height="250px"
+              defaultLanguage="javascript"
+              theme="vs-dark"
+              value={code}
+              onChange={(newValue) => setCode(newValue)}
+            />
+            <div className="flex justify-between mt-4">
+              <Button
+                className="px-6 py-3 text-white bg-gray-500"
+                onClick={handleCopy}
+              >
+                Copy to Clipboard
+              </Button>
+              <Button
+                className="px-6 py-3 text-white bg-red-500"
+                onClick={handleResetCode}
+              >
+                Reset Code
+              </Button>
+              <Button
+                className="px-6 py-3 text-white bg-green-500"
+                onClick={() => handleDownload("zip")}
+              >
+                Download Full Template
+              </Button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
