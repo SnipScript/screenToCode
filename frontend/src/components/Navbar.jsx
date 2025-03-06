@@ -17,15 +17,10 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <CommonContainer>
-        <div className="flex justify-between w-full h-16 ">
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center flex-shrink-0 max-w-12">
-              <img src={logo} alt="SnipScript" />
-              <span className="text-xl font-bold text-gray-800">
-                SnipScript<span className="text-2xl text-primary-600">.</span>
-              </span>
-            </Link>
-          </div>
+        <div className="flex items-center justify-between w-full h-16 ">
+          <Link to="/" className="max-w-28">
+            <img src={logo} alt="SnipScript" />
+          </Link>
 
           {/* Desktop menu */}
           <div className="hidden md:flex md:items-center md:space-x-4">
