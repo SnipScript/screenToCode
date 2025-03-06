@@ -7,9 +7,8 @@ import Priceing from "../section/Homepage/Pricing";
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen text-gray-900 bg-gray-100">
+    <div className="min-h-screen text-gray-900 bg-gray-100 font-Nunito">
       <Hero />
-      <Trusted />
       <Work />
       <Features />
       <Priceing />

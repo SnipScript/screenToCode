@@ -5,7 +5,12 @@ module.exports = {
     "./index.html",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        "Nunito":["Nunito", "sans-serif"]
+      },
+      colors: {grayColor: "#202842"}
+    },
   },
   plugins: [],
 } 
