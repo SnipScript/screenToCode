@@ -3,8 +3,9 @@ import React from 'react';
 const Button = ({ children, className, onClick, variant = 'default' }) => {
     const baseStyles = "px-4 py-2 rounded focus:outline-none";
     const variantStyles = {
-        default: "bg-blue-500 text-white hover:bg-blue-600",
-        outline: "border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white",
+      default: "bg-grayColor text-white hover:bg-grayColor",
+      outline:
+        "border border-grayColor text-grayColor hover:bg-grayColor hover:text-white",
     };
 
     return (
