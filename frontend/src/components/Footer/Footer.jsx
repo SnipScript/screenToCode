@@ -1,21 +1,40 @@
+import { Link } from "react-router-dom";
+import CommonContainer from "../../common/CommonContainer";
+
 const Footer = () => {
-    return (
-      <footer className="bg-gray-900 text-white py-6 text-center w-full mt-auto">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center space-x-6">
-            <a href="/terms" className="hover:underline">Terms of Service</a>
-            <a href="/privacy" className="hover:underline">Privacy Policy</a>
-            <a href="/refund" className="hover:underline">Refund & Dispute Policy</a>
-            <a href="/faqs" className="hover:underline">FAQs</a>
-            <a href="/about" className="hover:underline">About</a>
-          </div>
-          <p className="mt-4 text-sm text-gray-400">
-            Powered by screenshot-to-code – Open-source project by Abi
-          </p>
-        </div>
-      </footer>
-    );
-  };
-  
-  export default Footer;
-  
+  return (
+    <footer className="w-full py-6 mt-auto text-center text-white bg-gray-900">
+      <div className="flex flex-wrap justify-center gap-4 ">
+        <Link to="/terms" className="hover:underline">
+          Terms of Service
+        </Link>
+        <Link to="/privacy" className="hover:underline">
+          Privacy Policy
+        </Link>
+        <Link to="/refund" className="hover:underline">
+          Refund & Dispute Policy
+        </Link>
+        <Link to="/faqs" className="hover:underline">
+          FAQs
+        </Link>
+        <Link to="/about" className="hover:underline">
+          About
+        </Link>
+      </div>
+
+      <p className="pt-2 text-sm text-gray-400 ">
+        Powered by
+        <a
+          className="px-2 underline"
+          href="https://github.com/abi/screenshot-to-code"
+          target="_blank"
+        >
+          screenshot-to-code
+        </a>
+        – Open-source project by Abi
+      </p>
+    </footer>
+  );
+};
+
+export default Footer;

@@ -4,6 +4,7 @@ import Input from "../components/ui/Input";
 import Card from "../components/ui/Card";
 import CardContent from "../components/ui/CardContent";
 import Editor from "@monaco-editor/react"; // Monaco Editor for live code preview
+import CommonContainer from "../common/CommonContainer";
 
 const codeOptions = [
   {
@@ -140,108 +141,112 @@ export default function CodeSelectionPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-6 text-gray-900 bg-gray-100">
-      <div className="flex w-full max-w-6xl gap-8 p-6 bg-white rounded-lg shadow-lg">
-        {/* Left Panel: Code Selection */}
-        <div className="w-1/3">
-          <h2 className="mb-4 text-xl font-bold">Select Code Output</h2>
-          <div className="space-y-3">
-            {codeOptions.map((option) => (
-              <Card
-                key={option.value}
-                className={`p-4 cursor-pointer rounded-lg border ${
-                  selectedFormat.value === option.value
-                    ? "border-green-500 bg-gray-200"
-                    : "border-gray-300"
-                }`}
-                onClick={() => {
-                  setSelectedFormat(option);
-                  setCode(option.template);
-                }}
-              >
-                <CardContent className="flex items-center gap-3">
-                  <span className="text-2xl">{option.icon}</span>
-                  <div>
-                    <h3 className="text-lg font-semibold">{option.name}</h3>
-                    <p className="text-sm text-gray-600">{option.desc}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Panel: File Upload, Capture, and AI Generation */}
-        <div className="w-2/3">
-          <h2 className="mb-4 text-xl font-bold">
-            Upload Screenshot or Enter URL
-          </h2>
-          <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
-            <p className="text-gray-500">
-              Drag & drop a screenshot here, or click to upload
-            </p>
-          </div>
-          <div className="flex gap-4 mt-4">
-            <Input placeholder="Enter URL to capture" className="flex-1" />
-            <Button className="px-6 py-3 text-white bg-gray-700">
-              Capture
-            </Button>
+    <div className="flex items-center justify-center min-h-screen text-gray-900 bg-gray-100">
+      <CommonContainer>
+        <div className="flex w-full gap-8 bg-white rounded-lg shadow-lg">
+          {/* Left Panel: Code Selection */}
+          <div className="w-1/3">
+            <h2 className="mb-4 text-xl font-bold">Select Code Output</h2>
+            <div className="space-y-3">
+              {codeOptions.map((option) => (
+                <Card
+                  key={option.value}
+                  className={`p-4 cursor-pointer rounded-lg border ${
+                    selectedFormat.value === option.value
+                      ? "border-green-500 bg-gray-200"
+                      : "border-gray-300"
+                  }`}
+                  onClick={() => {
+                    setSelectedFormat(option);
+                    setCode(option.template);
+                  }}
+                >
+                  <CardContent className="flex items-center gap-3">
+                    <span className="text-2xl">{option.icon}</span>
+                    <div>
+                      <h3 className="text-lg font-semibold">{option.name}</h3>
+                      <p className="text-sm text-gray-600">{option.desc}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
 
-          {/* AI Text-to-Code Feature */}
-          <div className="mt-6">
-            <h3 className="mb-2 text-lg font-bold">Generate Code from Text</h3>
-            <div className="flex gap-2">
-              <Input
-                value={textPrompt}
-                onChange={(e) => setTextPrompt(e.target.value)}
-                placeholder="Describe what you want..."
-                className="flex-1"
+          {/* Right Panel: File Upload, Capture, and AI Generation */}
+          <div className="w-2/3">
+            <h2 className="mb-4 text-xl font-bold">
+              Upload Screenshot or Enter URL
+            </h2>
+            <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+              <p className="text-gray-500">
+                Drag & drop a screenshot here, or click to upload
+              </p>
+            </div>
+            <div className="flex gap-4 mt-4">
+              <Input placeholder="Enter URL to capture" className="flex-1" />
+              <Button className="px-6 py-3 text-white bg-gray-700">
+                Capture
+              </Button>
+            </div>
+
+            {/* AI Text-to-Code Feature */}
+            <div className="mt-6">
+              <h3 className="mb-2 text-lg font-bold">
+                Generate Code from Text
+              </h3>
+              <div className="flex gap-2">
+                <Input
+                  value={textPrompt}
+                  onChange={(e) => setTextPrompt(e.target.value)}
+                  placeholder="Describe what you want..."
+                  className="flex-1"
+                />
+                <Button
+                  className="px-6 py-3 text-white bg-blue-500"
+                  onClick={handleGenerateFromText}
+                >
+                  Generate
+                </Button>
+              </div>
+            </div>
+
+            {/* Live Code Editor & Export Options */}
+            <div className="p-4 mt-6 text-white bg-gray-900 rounded-lg shadow-lg">
+              <h3 className="mb-2 text-lg font-semibold">
+                Generated Code ({selectedFormat.name})
+              </h3>
+              <Editor
+                height="250px"
+                defaultLanguage="javascript"
+                theme="vs-dark"
+                value={code}
+                onChange={(newValue) => setCode(newValue)}
               />
-              <Button
-                className="px-6 py-3 text-white bg-blue-500"
-                onClick={handleGenerateFromText}
-              >
-                Generate
-              </Button>
-            </div>
-          </div>
-
-          {/* Live Code Editor & Export Options */}
-          <div className="p-4 mt-6 text-white bg-gray-900 rounded-lg shadow-lg">
-            <h3 className="mb-2 text-lg font-semibold">
-              Generated Code ({selectedFormat.name})
-            </h3>
-            <Editor
-              height="250px"
-              defaultLanguage="javascript"
-              theme="vs-dark"
-              value={code}
-              onChange={(newValue) => setCode(newValue)}
-            />
-            <div className="flex justify-between mt-4">
-              <Button
-                className="px-6 py-3 text-white bg-gray-500"
-                onClick={handleCopy}
-              >
-                Copy to Clipboard
-              </Button>
-              <Button
-                className="px-6 py-3 text-white bg-red-500"
-                onClick={handleResetCode}
-              >
-                Reset Code
-              </Button>
-              <Button
-                className="px-6 py-3 text-white bg-green-500"
-                onClick={() => handleDownload("zip")}
-              >
-                Download Full Template
-              </Button>
+              <div className="flex justify-between mt-4">
+                <Button
+                  className="px-6 py-3 text-white bg-gray-500"
+                  onClick={handleCopy}
+                >
+                  Copy to Clipboard
+                </Button>
+                <Button
+                  className="px-6 py-3 text-white bg-red-500"
+                  onClick={handleResetCode}
+                >
+                  Reset Code
+                </Button>
+                <Button
+                  className="px-6 py-3 text-white bg-green-500"
+                  onClick={() => handleDownload("zip")}
+                >
+                  Download Full Template
+                </Button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </CommonContainer>
     </div>
   );
 }

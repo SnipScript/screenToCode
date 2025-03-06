@@ -3,7 +3,6 @@ import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
 import { BsCheck } from "react-icons/bs";
 import CommonContainer from "../../common/CommonContainer";
-import SapceBottom from "../../common/SapceBottom";
 const price = [
   {
     plan: "Free Plan",
