@@ -153,6 +153,26 @@ const Navbar = () => {
             >
               Pricing
             </Link>
+            <Link
+              to="/auth"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isActive("/pricing")
+                  ? "text-primary-600 bg-primary-50"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-primary-600"
+              }`}
+            >
+              Login
+            </Link>
+            <Link
+              to="/auth"
+              className={`block px-3 py-2 rounded-md text-base font-medium ${
+                isActive("/pricing")
+                  ? "text-primary-600 bg-primary-50"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-primary-600"
+              }`}
+            >
+              Sign Up
+            </Link>
           </div>
         </div>
       )}

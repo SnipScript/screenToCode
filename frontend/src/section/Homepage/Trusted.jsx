@@ -62,13 +62,10 @@ const company = [
     label: "stanford",
   },
 ];
-const Trusted = () => {
+const Trusted = ({ title }) => {
   return (
-    <div className="flex flex-col gap-4 ">
-      <h2 className="text-2xl font-semibold text-grayColor">
-        The #1 tool trusted by developers, designers, and industry leaders to
-        transform UI into clean, production-ready code.
-      </h2>
+    <div className="flex flex-col items-center gap-4 ">
+      <h2 className="text-2xl font-semibold text-grayColor">{title}</h2>
       <div className="flex flex-wrap justify-center gap-4 ">
         {company.map((company, index) => (
           <img

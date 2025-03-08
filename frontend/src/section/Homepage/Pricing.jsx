@@ -3,7 +3,7 @@ import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
 import { BsCheck } from "react-icons/bs";
 import CommonContainer from "../../common/CommonContainer";
-import SapceBottom from "../../common/SapceBottom";
+import CommonHeader from "../../common/CommonHeader";
 const price = [
   {
     plan: "Free Plan",
@@ -62,7 +62,7 @@ const Priceing = () => {
   return (
     <CommonContainer>
       <CommonSpace>
-        <h2 className="pb-10 text-6xl font-bold text-center ">Pricing Plans</h2>
+        <CommonHeader className="pb-10">Pricing Plans</CommonHeader>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 ">
           {price.map((item, index) => (
@@ -70,8 +70,11 @@ const Priceing = () => {
               key={index}
               className="flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer "
             >
-              <h3 className="text-5xl font-bold ">{item.plan}</h3>
-              <p className="text-5xl font-semibold">{item.price}</p>
+              <CommonHeader className="text-start">{item.plan}</CommonHeader>
+              <CommonHeader className="font-semibold text-start">
+                {item.price}
+              </CommonHeader>
+
               <div className="flex flex-col gap-2">
                 {item.features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-2 ">
