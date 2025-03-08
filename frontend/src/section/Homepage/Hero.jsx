@@ -16,7 +16,10 @@ const Hero = () => {
                 generate HTML, Tailwind, React, Vue, and more—ready to use.
               </p>
             </div>
-            <Trusted />
+            <Trusted
+              title="The #1 tool trusted by developers, designers, and industry leaders to
+        transform UI into clean, production-ready code."
+            />
           </div>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row ">
             <Button className="px-6 py-3 text-lg transition-all rounded-xl">
