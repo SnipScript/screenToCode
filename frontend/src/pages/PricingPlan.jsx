@@ -6,6 +6,7 @@ import CommonContainer from "../common/CommonContainer";
 import CommonSpace from "../common/CommonSpace";
 import PricingButton from "../section/price/PricingButton";
 import SapceBottom from "../common/SapceBottom";
+import CommonHeader from "../common/CommonHeader";
 
 const PricingPage = () => {
   const [billingCycle, setBillingCycle] = useState("monthly");
@@ -14,11 +15,10 @@ const PricingPage = () => {
     <div className="min-h-screen bg-gray-100 text-grayColor font-Nunito">
       <CommonContainer>
         <CommonSpace>
-          <div className="flex flex-col items-center gap-4 ">
-            <h1 className="text-6xl font-bold ">
-              Choose the right plan for you
-            </h1>
-            <p className="text-lg">
+          <div className="flex flex-col items-center w-full gap-4 ">
+            <CommonHeader> Choose the right plan for you</CommonHeader>
+
+            <p className="text-lg text-center">
               Flexible pricing plans tailored for developers, businesses, and
               enterprises.
             </p>
@@ -33,7 +33,10 @@ const PricingPage = () => {
                   className="bg-white shadow-md  flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer  "
                 >
                   <div>
-                    <h2 className="text-5xl font-bold ">{plan.name}</h2>
+                    <CommonHeader className="text-start">
+                      {plan.name}
+                    </CommonHeader>
+
                     <p className="text-xl font-medium">
                       {plan.period === "one-time"
                         ? "One-time purchase"
@@ -41,7 +44,7 @@ const PricingPage = () => {
                     </p>
                   </div>
 
-                  <p className="text-5xl font-semibold">
+                  <p className="text-2xl font-semibold sm:text-4xl md:text-5xl">
                     {typeof plan.price === "string"
                       ? plan.price
                       : billingCycle === "monthly"
