@@ -124,6 +124,9 @@ const Navbar = () => {
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg sm:px-3">
             <Link
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
               to="/"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive("/")
@@ -134,6 +137,9 @@ const Navbar = () => {
               Home
             </Link>
             <Link
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
               to="/app"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive("/app")
@@ -144,6 +150,9 @@ const Navbar = () => {
               App
             </Link>
             <Link
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
               to="/pricing"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive("/pricing")
@@ -154,6 +163,9 @@ const Navbar = () => {
               Pricing
             </Link>
             <Link
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
               to="/auth"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive("/pricing")
@@ -164,6 +176,9 @@ const Navbar = () => {
               Login
             </Link>
             <Link
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
               to="/auth"
               className={`block px-3 py-2 rounded-md text-base font-medium ${
                 isActive("/pricing")
