@@ -1,24 +1,33 @@
 const pricingPlans = [
   {
-    name: "Free",
+    name: "Free Plan",
     price: "$0",
     period: "month",
-    features: ["5 conversions/month", "Basic HTML & CSS only", "No AI Editor", "Watermarked output"],
+     features: [
+      "5 conversions/month",
+      "Basic HTML & CSS only",
+      "No AI Editor",
+      "Watermarked output",
+      "Cannot download or save generated files",
+      "Can generate unlimited previews before conversion",
+    ],
   },
+
+  
   {
-    name: "Basic",
+    name: "Basic Plan",
     price: { monthly: "$10", yearly: "$5" },
     period: "month",
     features: ["50 conversions", "Full framework support", "AI-powered editor (limited)", "No watermark"],
   },
   {
-    name: "Pro",
+    name: "Pro Plan",
     price: { monthly: "$20", yearly: "$10" },
     period: "month",
     features: ["150 conversions", "AI-powered editor", "Priority processing", "No watermark"],
   },
   {
-    name: "Business",
+    name: "Business Plan",
     price: { monthly: "$40", yearly: "$20" },
     period: "month",
     features: ["500 conversions", "AI-powered editor", "Priority processing", "No watermark"],
