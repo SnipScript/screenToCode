@@ -1,4 +1,5 @@
 import CommonContainer from "../../common/CommonContainer";
+import CommonHeader from "../../common/CommonHeader";
 import CommonSpace from "../../common/CommonSpace";
 import Button from "../../components/ui/Button";
 
@@ -7,13 +8,14 @@ const CTA = () => {
     <section className="text-center text-white bg-gray-800">
       <CommonContainer>
         <CommonSpace>
-          <h2 className="text-3xl font-bold">
+          <CommonHeader>
             Start Converting Screenshots & Websites to Code Today!
-          </h2>
+          </CommonHeader>
+
           <p className="pt-4 text-lg">
             Try it free or upgrade for full access.
           </p>
-          <Button className="px-6 py-3 mt-6 text-lg text-white bg-green-700 hover:bg-green-800">
+          <Button className="px-6 py-3 mt-6 text-lg text-white bg-green-700 hover:bg-green-800 rounded-xl">
             Try for Free
           </Button>
         </CommonSpace>

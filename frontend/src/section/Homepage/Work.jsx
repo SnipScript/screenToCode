@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import CommonSpace from "../../common/CommonSpace";
 import CommonContainer from "../../common/CommonContainer";
+import CommonHeader from "../../common/CommonHeader";
 
 const work = [
   {
@@ -21,9 +22,8 @@ const Work = () => {
     <CommonContainer>
       <div className="max-w-6xl mx-auto text-grayColor">
         <CommonSpace>
-          <h2 className="pb-10 text-6xl font-bold text-center ">
-            How It Works
-          </h2>
+          <CommonHeader className="pb-10 "> How It Works</CommonHeader>
+
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {work.map((item, index) => (
               <motion.div
