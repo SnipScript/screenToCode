@@ -1,12 +1,15 @@
 import React from 'react'
 
-const Paragraph = ({title,des}) => {
+const Paragraph = ({ title, subtitle, des, bold }) => {
   return (
-    <div>
-      <h4 className="text-lg font-medium">{title}</h4>
-      <p>{des}</p>
+    <div className="flex flex-col">
+      <h2 className="text-lg font-semibold">{title}</h2>
+      <h3 className="">{subtitle}</h3>
+      <h4>
+        {des} <b>{bold}</b>
+      </h4>
     </div>
   );
-}
+};
 
 export default Paragraph
