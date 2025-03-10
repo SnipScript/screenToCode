@@ -142,7 +142,7 @@ export default function CodeSelectionPage() {
     );
   };
 
-  console.log("codeOptions", codeOptions);
+
 
   return (
     <CommonContainer>
@@ -188,7 +188,7 @@ export default function CodeSelectionPage() {
                 <h2 className="text-lg font-bold sm:text-xl">
                   Upload Screenshot or Enter URL
                 </h2>
-                <div className="relative w-40 md:hidden">
+                <div className="relative min-w-40 md:hidden">
                   <div
                     onClick={() => {
                       setModal((pre) => !pre);
