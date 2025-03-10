@@ -142,7 +142,7 @@ export default function CodeSelectionPage() {
     );
   };
 
-  console.log("codeOptions", codeOptions);
+
 
   return (
     <CommonContainer>

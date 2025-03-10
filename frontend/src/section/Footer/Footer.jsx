@@ -3,7 +3,7 @@ import CommonContainer from "../../common/CommonContainer";
 
 const Footer = () => {
   return (
-    <footer className="w-full py-6 mt-auto text-center text-white bg-gray-900">
+    <footer className="w-full py-6 mt-auto overflow-hidden text-center text-white bg-gray-900 ">
       <CommonContainer>
         <div className="flex flex-wrap justify-center gap-4 ">
           <Link to="/terms" className="hover:underline">
