@@ -37,10 +37,10 @@ const Navbar = () => {
             <div className="flex space-x-4">
               {menu.map((item, i) => (
                 <Link
-                  className={` border-b  border-transparent font-medium transition-colors duration-200 ${
+                  className={` border-b  border-transparent font-medium transition-colors duration-200 text-grayColor ${
                     isActive(item.link)
-                      ? " border-b  border-gray-700 text-gray-800"
-                      : "border-none"
+                      ? " border-b border-gray-500 font-bold "
+                      : "border-none  font-normal"
                   }`}
                   to={item.link}
                   key={i}
@@ -60,7 +60,7 @@ const Navbar = () => {
               aria-expanded="false"
             >
               <p className="text-2xl">
-                {isMenuOpen ? <AiOutlineMenu /> : <IoClose />}
+                {isMenuOpen ? <IoClose /> : <AiOutlineMenu />}
               </p>
             </button>
           </div>

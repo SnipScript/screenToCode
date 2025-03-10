@@ -40,33 +40,53 @@ const About = () => {
           }
         />
         <FooterList title={"Key Features"} list={list.mission} />
-        <Paragraph
-          title={"Powered by Open Source"}
-          des={
-            "SnipScript.ai integrates screenshot-to-code, an open-source project by Abi, to enhance its core functionality. We believe in the power of open-source development and contribute back to improving AI-driven code generation projects whenever possible."
-          }
-        />
+
+        <div>
+          <h4 className="text-lg font-semibold">Powered by Open Source</h4>
+          <p>
+            SnipScript.ai integrates
+            <a
+              className="px-1 text-blue-500 underline"
+              href="https://github.com/abi/screenshot-to-code"
+              target="_blank"
+              title="https://github.com/abi/screenshot-to-code"
+            >
+              screenshot-to-code
+            </a>
+            , an open-source project by Abi, to enhance its core functionality.
+            We believe in the power of open-source development and contribute
+            back to improving AI-driven code generation projects whenever
+            possible.
+          </p>
+        </div>
+
         <FooterList title={"Why Choose SnipScript.ai?"} list={list.choose} />
         <FooterList title={"Future Roadmap"} list={list.roadmap} />
         <Paragraph
           title={"User Testimonials"}
           des={
-            "SnipScript.ai lets me bridge the gap between design and development without writing code! – Sam R., UI Designer"
+            "SnipScript.ai lets me bridge the gap between design and development without writing code! "
           }
+          bold={"– Sam R., UI Designer"}
         />
         <Paragraph
           title={"UI Designer "}
           des={
-            "SnipScript.ai saved me hours of manual coding by instantly converting my UI mockups into production-ready Tailwind CSS components! – Alex W. ,Frontend Developer"
+            "SnipScript.ai saved me hours of manual coding by instantly converting my UI mockups into production-ready Tailwind CSS components!"
           }
+          bold={"– Alex W. ,Frontend Developer"}
         />
-        <Paragraph
-          title={"Contact Us"}
-          des={
-            "For inquiries, partnerships, or support, reach out to us at support@snipscript.ai."
-          }
-        />
+        <Paragraph title={""} des={""} bold={""} />
 
+        <div>
+          <h4 className="text-lg font-semibold">Contact Us</h4>
+          <p>
+            For inquiries, partnerships, or support, reach out to us at
+            <a className="px-1 text-blue-500 underline">
+              support@snipscript.ai.
+            </a>
+          </p>
+        </div>
       </div>
     </CommonContainer>
   );
