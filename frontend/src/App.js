@@ -16,6 +16,7 @@ import Terms from "./section/Footer/Terms";
 import Privacy from "./section/Footer/Privacy";
 import Refund from "./section/Footer/Refund";
 import Faqs from "./section/Footer/Faqs";
+import AuthPage from "./pages/LoginSignup";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/app" element={<MainPage />} />
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/pricing" element={<PricingPlan />} />
         <Route path="/admin" element={<AdminBackend />} />
         <Route path="/about" element={<About />} />

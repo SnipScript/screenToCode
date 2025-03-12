@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png"
+import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { useUser } from "@clerk/clerk-react";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-  const { user } = useUser();
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const isActive = (path) => {
-    return location.pathname === path;
   };
   const menu = [
     { label: "Home", link: "/" },
@@ -36,20 +29,15 @@ const Navbar = () => {
           <div className="hidden md:flex md:items-center md:space-x-4">
             <div className="flex space-x-4">
               {menu.map((item, i) => (
-                <Link
-                  className={` border-b  border-transparent font-medium transition-colors duration-200 text-grayColor ${
-                    isActive(item.link)
-                      ? " border-b border-gray-500 font-bold "
-                      : "border-none  font-normal"
-                  }`}
+                <NavLink
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
                   to={item.link}
                   key={i}
                 >
                   {item.label}
-                </Link>
+                </NavLink>
               ))}
             </div>
-            {user && <button className="px-4 py-2 rounded-full">Logout</button>}
           </div>
 
           {/* Mobile menu button */}
