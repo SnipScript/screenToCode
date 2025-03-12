@@ -3,3 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.active {
+  border-bottom: 1.5px solid rgba(65, 61, 61, 0.517);
+  font-weight: 600;
+}
