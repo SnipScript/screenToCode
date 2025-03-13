@@ -24,7 +24,7 @@ export default function AuthPage() {
   const navigate = useNavigate();
 
   const login = async (email, password) => {
-    const loadId = toast.loading("Loading...");
+    setIsLoading(true);
     try {
       const response = await loginUser(email, password);
       Cookies.set("accessToken", response?.access);
@@ -33,29 +33,26 @@ export default function AuthPage() {
       navigate("/");
     } catch (error) {
       console.log(error);
-      toast.dismiss(loadId);
       if (error?.status === 401) {
         return toast.error("Incorrect email or password");
       }
-      // toast.error(`${error?.response?.data?.detail}`);
       toast.error(`Something went wrong! Try later.`);
     } finally {
-      toast.dismiss(loadId);
+      setIsLoading(false);
     }
   };
 
   const register = async (email, password) => {
-    const loadId = toast.loading("Loading...");
+    setIsLoading(true);
     try {
       const response = await registerUser(email, password);
       toast.success("Sign up successfully");
       setEmail("");
       setPassword("");
-      setIsSignUp(false);
       setError("");
+      setIsSignUp(false);
     } catch (error) {
       console.log(error);
-      toast.dismiss(loadId);
       if (error?.status === 400) {
         return toast.error(
           `${
@@ -66,7 +63,7 @@ export default function AuthPage() {
       }
       toast.error(`Something went wrong! Try later.`);
     } finally {
-      toast.dismiss(loadId);
+      setIsLoading(false);
     }
   };
 
@@ -179,6 +176,7 @@ export default function AuthPage() {
         <Button
           className="w-full py-3 text-white bg-black"
           onClick={handleAuth}
+          isLoading={isLoading}
         >
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>

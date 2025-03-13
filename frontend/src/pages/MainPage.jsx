@@ -7,6 +7,7 @@ import Editor from "@monaco-editor/react"; // Monaco Editor for live code previe
 import CommonContainer from "../common/CommonContainer";
 import CommonSpace from "../common/CommonSpace";
 import { BsCodeSquare } from "react-icons/bs";
+import Spinner from "../components/ui/Spinner";
 const codeOptions = [
   {
     name: "HTML + CSS",
@@ -113,6 +114,8 @@ export default function CodeSelectionPage() {
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
+  const [droppedFile, setDroppedFile] = useState(null);
+  const [isCreatingCode, setIsCreatingCode] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -142,7 +145,33 @@ export default function CodeSelectionPage() {
     );
   };
 
+  //==========================================================
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setDroppedFile(file);
+    } else {
+      alert("Please drop an image file");
+    }
+  };
 
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setDroppedFile(file);
+    } else {
+      alert("Please select an image file");
+    }
+  };
+
+  const handleGenerateImageToCode = async () => {
+    setIsCreatingCode(true);
+  };
 
   return (
     <CommonContainer>
@@ -160,7 +189,7 @@ export default function CodeSelectionPage() {
                       key={option.value}
                       className={`p-4 cursor-pointer rounded-lg border  ${
                         selectedFormat.value === option.value
-                          ? "border-green-500 bg-gray-200"
+                          ? "border-2 border-green-500 bg-gray-200"
                           : "border-gray-300"
                       }`}
                       onClick={() => {
@@ -205,7 +234,7 @@ export default function CodeSelectionPage() {
                             key={option.value}
                             className={`p-0 cursor-pointer rounded-lg border  ${
                               selectedFormat.value === option.value
-                                ? "border-green-500 bg-gray-200"
+                                ? "border-2 border-green-500 bg-gray-200"
                                 : "border-gray-300"
                             }`}
                             onClick={() => {
@@ -228,12 +257,62 @@ export default function CodeSelectionPage() {
                 </div>
               </div>
               <div className="flex flex-col w-full gap-6">
-                <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+                {/* <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
                   <p className="text-gray-500">
                     Drag & drop a screenshot here, or click to upload
                   </p>
+                </div> */}
+
+                <div className="w-full">
+                  <div
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
+                    style={{
+                      margin: "0 auto",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-input"
+                    />
+                    <label
+                      htmlFor="file-input"
+                      className="text-gray-500 text-center"
+                    >
+                      Drag & drop a screenshot here, or click to upload
+                    </label>
+                  </div>
+                  <div
+                    className={`flex ${
+                      isCreatingCode ? "justify-between" : "justify-end "
+                    } my-2`}
+                  >
+                    {isCreatingCode && <Spinner />}
+                    <Button
+                      className="px-6 py-3 text-white bg-blue-500 rounded-lg"
+                      onClick={handleGenerateImageToCode}
+                    >
+                      Generate Code
+                    </Button>
+                  </div>
+                  <div className="flex justify-center">
+                    {droppedFile && (
+                      <div className="mt-1">
+                        <h4 className="font-semibold text-center">Preview:</h4>
+                        <img
+                          src={URL.createObjectURL(droppedFile)}
+                          alt="Preview"
+                          className="max-w-full max-h-40"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 ">
+                {/* <div className="flex items-center gap-4 ">
                   <Input
                     className="flex-1 w-40"
                     placeholder="Enter URL to capture"
@@ -241,10 +320,10 @@ export default function CodeSelectionPage() {
                   <Button className="px-6 py-3 text-white bg-gray-700 rounded-lg ">
                     Capture
                   </Button>
-                </div>
+                </div> */}
 
                 {/* AI Text-to-Code Feature */}
-                <div className="">
+                {/* <div className="">
                   <h3 className="text-lg font-bold">Generate Code from Text</h3>
                   <div className="flex items-center gap-4">
                     <Input
@@ -260,7 +339,7 @@ export default function CodeSelectionPage() {
                       Generate
                     </Button>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Live Code Editor & Export Options */}
                 <div className="text-white rounded-lg shadow-lg bg-grayColor ">
