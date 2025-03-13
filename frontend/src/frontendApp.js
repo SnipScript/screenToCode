@@ -1,44 +1,31 @@
 // React Frontend API Integration
 
-const API_BASE_URL = "https://yourbackend.com"; // Update with your deployed backend URL
+import axios from "axios";
+
+const API_BASE_URL = "https://72fa-103-174-189-33.ngrok-free.app/api";
 
 // User Authentication
 export async function registerUser(email, password) {
   try {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    const response = await fetch(`${API_BASE_URL}/register`, {
-      method: "POST",
-      body: formData,
+    const { data } = await axios.post(`${API_BASE_URL}/signup/`, {
+      email,
+      password,
     });
-    return await response.json();
+    return data;
   } catch (error) {
-    console.error("Error registering user:", error);
-    return { error: "Failed to register. Try again." };
+    throw error;
   }
 }
 
 export async function loginUser(email, password) {
   try {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    const response = await fetch(`${API_BASE_URL}/login`, {
-      method: "POST",
-      body: formData,
+    const { data } = await axios.post(`${API_BASE_URL}/signin/`, {
+      email,
+      password,
     });
-    const data = await response.json();
-
-    if (data.access_token) {
-      localStorage.setItem("token", data.access_token);
-    }
     return data;
   } catch (error) {
-    console.error("Error logging in:", error);
-    return { error: "Invalid credentials. Try again." };
+    throw error;
   }
 }
 
