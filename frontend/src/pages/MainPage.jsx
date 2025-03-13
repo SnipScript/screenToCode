@@ -198,7 +198,7 @@ export default function CodeSelectionPage() {
                     <BsCodeSquare />
                   </div>
                   {modal && (
-                    <div className="overflow-hidden h-[700px] absolute top-10  z-50 w-full bg-gray-100 p-4 rounded-xl">
+                    <div className="overflow-hidden h-[700px] absolute top-10  z-10 w-full bg-gray-100 p-4 rounded-xl">
                       <div className="flex flex-col h-full gap-6 overflow-y-auto ">
                         {codeOptions.map((option) => (
                           <Card
@@ -214,11 +214,7 @@ export default function CodeSelectionPage() {
                             }}
                           >
                             <CardContent className="flex items-center gap-3 p-1">
-                              {/* <span className="text-2xl">{option.icon}</span> */}
                               <div>
-                                {/* <h3 className="text-lg font-semibold">
-                                  {option.name}
-                                </h3> */}
                                 <p className="text-sm text-gray-600">
                                   {option.desc}
                                 </p>
