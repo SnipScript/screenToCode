@@ -10,7 +10,6 @@ import MainPage from "./pages/MainPage";
 import PricingPlan from "./pages/PricingPlan";
 import AdminBackend from "./pages/AdminBackend";
 import Footer from "./section/Footer/Footer";
-import Auth from "./pages/Auth";
 import About from "./section/Footer/About";
 import Terms from "./section/Footer/Terms";
 import Privacy from "./section/Footer/Privacy";

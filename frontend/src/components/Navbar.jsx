@@ -21,7 +21,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <CommonContainer>
         <div className="flex items-center justify-between w-full h-16 ">
-          <Link to="/" className="max-w-28">
+          <Link to="/" className="max-w-16">
             <img src={logo} alt="SnipScript" />
           </Link>
 
