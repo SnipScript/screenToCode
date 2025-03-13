@@ -111,6 +111,10 @@ const codeOptions = [
 export default function CodeSelectionPage() {
   const [modal, setModal] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
+
+
+  console.log("codeOptions",selectedFormat)
+
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
 
@@ -141,8 +145,6 @@ export default function CodeSelectionPage() {
       `/* AI-generated code for: ${textPrompt} */\n<div>Generated Code Here</div>`
     );
   };
-
-
 
   return (
     <CommonContainer>
