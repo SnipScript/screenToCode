@@ -10,7 +10,6 @@ import Homepage from "./pages/Homepage";
 import PricingPlan from "./pages/PricingPlan";
 import AdminBackend from "./pages/AdminBackend";
 import Footer from "./section/Footer/Footer";
-import Auth from "./pages/Auth";
 import About from "./section/Footer/About";
 import Terms from "./section/Footer/Terms";
 import Privacy from "./section/Footer/Privacy";
@@ -27,14 +26,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route
-          path="/app"
-          element={
-            <PrivateRoute>
-              <MainPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path="/app" element={<MainPage />} />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/pricing" element={<PricingPlan />} />
         <Route path="/admin" element={<AdminBackend />} />
