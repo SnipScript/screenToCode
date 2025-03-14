@@ -1,7 +1,18 @@
 import React, { useState } from "react";
-import  Button  from "../components/ui/Button";
-import  Input  from "../components/ui/Input";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import {
+  auth,
+  googleProvider,
+  signInWithPopup,
+  githubProvider,
+} from "../firebase/firebase";
+import { loginUser, registerUser } from "../frontendApp";
+import toast, { Toaster } from "react-hot-toast";
+
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -9,15 +20,94 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const login = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await loginUser(email, password);
+      Cookies.set("accessToken", response?.access, { expires: 1 / 24 });
+      Cookies.set("refreshToken", response?.refresh);
+      setError("");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      if (error?.status === 401) {
+        return toast.error("Incorrect email or password");
+      }
+      toast.error(`Something went wrong! Try later.`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = async (email, password) => {
+    setIsLoading(true);
+    try {
+      const response = await registerUser(email, password);
+      toast.success("Sign up successfully");
+      setEmail("");
+      setPassword("");
+      setError("");
+      setIsSignUp(false);
+    } catch (error) {
+      console.log(error);
+      if (error?.status === 400) {
+        return toast.error(
+          `${
+            error?.response?.data?.email[0] ||
+            error?.response?.data?.password[0]
+          }`
+        );
+      }
+      toast.error(`Something went wrong! Try later.`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Function to handle authentication
-  const handleAuth = () => {
+  const handleAuth = async () => {
     if (!email || !password) {
       setError("Please fill in all fields.");
       return;
     }
-    setError(""); // Clear errors on success
-    alert(`${isSignUp ? "Registered" : "Logged in"} successfully!`);
+    if (isSignUp) {
+      register(email, password);
+    } else {
+      login(email, password);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const { email, uid } = result.user;
+      console.log("Google User", { uid, email });
+      if (isSignUp) {
+        register(email, uid);
+      } else {
+        login(email, uid);
+      }
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      toast.error("Something went wrong!");
+    }
+  };
+  const handleGithubSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, githubProvider);
+      const { uid, email } = result.user;
+      if (isSignUp) {
+        register(email, uid);
+      } else {
+        login(email, uid);
+      }
+    } catch (error) {
+      console.error("GitHub Sign-In Error:", error);
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -34,10 +124,16 @@ export default function AuthPage() {
 
         {/* Social Login */}
         <div className="flex justify-center gap-4 mb-4">
-          <Button className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200">
+          <Button
+            className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
+            onClick={handleGithubSignIn}
+          >
             <FaGithub className="text-xl" /> GitHub
           </Button>
-          <Button className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200">
+          <Button
+            className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
+            onClick={handleGoogleSignIn}
+          >
             <FaGoogle className="text-xl text-red-500" /> Google
           </Button>
         </div>
@@ -80,6 +176,7 @@ export default function AuthPage() {
         <Button
           className="w-full py-3 text-white bg-black"
           onClick={handleAuth}
+          isLoading={isLoading}
         >
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>
@@ -87,7 +184,7 @@ export default function AuthPage() {
         <p className="mt-4 text-sm text-center">
           {isSignUp ? "Already have an account?" : "Don't have an account?"}
           <button
-            className="font-semibold text-blue-600"
+            className="font-semibold text-blue-600 ml-1"
             onClick={() => setIsSignUp(!isSignUp)}
           >
             {isSignUp ? "Sign in" : "Sign up"}
@@ -102,6 +199,7 @@ export default function AuthPage() {
           .
         </p>
       </div>
+      <Toaster position="top-right" />
     </div>
   );
 }
