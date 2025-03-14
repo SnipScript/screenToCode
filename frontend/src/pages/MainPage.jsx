@@ -130,12 +130,13 @@ const codeOptions = [
 export default function CodeSelectionPage() {
   const [modal, setModal] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
+
+  console.log("codeOptions", selectedFormat);
+
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
-
-  console.log(code);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -165,48 +166,67 @@ export default function CodeSelectionPage() {
     );
   };
 
-  //==========================================================
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    // Extract the dropped files
+    const files = event.dataTransfer.files;
+
+    if (files.length > 0) {
+      const file = files[0];
+
+      // Check if the file is an image
+      if (file.type.startsWith("image/")) {
+        setDroppedFile(file); // Update state with the dropped file
+
+        // Create a FileReader to read the image file
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          console.log("Image uploaded:", e.target.result);
+          // Handle the uploaded image data (e.g., set state, display preview, etc.)
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        alert("Please upload a valid image file.");
+      }
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
     if (file && file.type.startsWith("image/")) {
-      setDroppedFile(file);
+      setDroppedFile(file); // Update state with the selected file
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        console.log("File selected:", e.target.result);
+        // Handle the uploaded image data (e.g., set state, display preview, etc.)
+      };
+      reader.readAsDataURL(file);
     } else {
-      alert("Please drop an image file");
+      alert("Please select a valid image file.");
     }
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith("image/")) {
-      setDroppedFile(file);
-    } else {
-      alert("Please select an image file");
-    }
-  };
-
-  const handleGenerateImageToCode = async () => {
-    if (!selectedFormat.value) {
-      return toast.error("Please select desired format");
-    }
-    if (!droppedFile) {
-      return toast.error("Please choose image");
-    }
+  const handleGenerateCode = async () => {
     const formData = new FormData();
-    formData.append("prompt", `please give me ${selectedFormat.value} code`);
     formData.append("image", droppedFile);
+    formData.append("prompt", `please give me ${selectedFormat.value} code`);
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
-      setCode(response?.data?.flutter_code);
+      setCode(response.data.flutter_code);
       console.log(response);
     } catch (error) {
-      toast.error("Something went wrong");
-      console.log("error from code", error);
+      console.log(error);
     } finally {
       setIsCreatingCode(false);
     }
@@ -334,7 +354,7 @@ export default function CodeSelectionPage() {
                     {isCreatingCode && <Spinner />}
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateImageToCode}
+                      onClick={handleGenerateCode}
                     >
                       Generate Code
                     </Button>
