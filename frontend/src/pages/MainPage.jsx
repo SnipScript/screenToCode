@@ -8,6 +8,10 @@ import CommonContainer from "../common/CommonContainer";
 import CommonSpace from "../common/CommonSpace";
 import { BsCodeSquare } from "react-icons/bs";
 import Spinner from "../components/ui/Spinner";
+import toast from "react-hot-toast";
+import { generateCode } from "../frontendApp";
+import CodeRunner from "../components/CodeRunner";
+import HTMLCodeRunner from "../components/HTMLRunner";
 const codeOptions = [
   {
     name: "HTML + CSS",
@@ -15,6 +19,7 @@ const codeOptions = [
     icon: "🌐",
     desc: "Basic HTML & CSS output",
     template: "<div>Hello World</div>",
+    framework: "vanilla",
   },
   {
     name: "Tailwind CSS",
@@ -22,6 +27,7 @@ const codeOptions = [
     icon: "🎨",
     desc: "Utility-first CSS framework",
     template: '<div class="text-xl font-bold">Hello Tailwind</div>',
+    framework: "react",
   },
   {
     name: "React + Tailwind",
@@ -30,6 +36,7 @@ const codeOptions = [
     desc: "React components with Tailwind",
     template:
       'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
+    framework: "react",
   },
   {
     name: "Vue + Tailwind",
@@ -38,6 +45,7 @@ const codeOptions = [
     desc: "Vue.js components styled with Tailwind",
     template:
       '<template><div class="text-xl font-bold">Hello Vue</div></template>',
+    framework: "vue",
   },
   {
     name: "Bootstrap",
@@ -46,6 +54,8 @@ const codeOptions = [
     desc: "Bootstrap-based component output",
     template:
       '<div class="container"><h1 class="display-4">Hello Bootstrap</h1></div>',
+    // framework: "bootstrap",
+    framework: "react",
   },
   {
     name: "Flutter",
@@ -54,6 +64,7 @@ const codeOptions = [
     desc: "Flutter UI components",
     template:
       'Widget build(BuildContext context) { return Text("Hello Flutter"); }',
+    framework: "react",
   },
   {
     name: "Svelte",
@@ -62,6 +73,7 @@ const codeOptions = [
     desc: "Svelte framework output",
     template:
       '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>',
+    framework: "svelte",
   },
   {
     name: "Angular",
@@ -69,6 +81,7 @@ const codeOptions = [
     icon: "🟥",
     desc: "Angular component structure",
     template: "<h1>Hello Angular</h1>",
+    framework: "angular",
   },
   {
     name: "Next.js",
@@ -77,6 +90,7 @@ const codeOptions = [
     desc: "Next.js components",
     template:
       "export default function Home() { return <h1>Hello Next.js</h1>; }",
+    framework: "react",
   },
   {
     name: "Nuxt.js",
@@ -84,6 +98,7 @@ const codeOptions = [
     icon: "🟩",
     desc: "Nuxt.js components for Vue",
     template: "<template><h1>Hello Nuxt.js</h1></template>",
+    framework: "react",
   },
   {
     name: "Qwik",
@@ -91,6 +106,7 @@ const codeOptions = [
     icon: "⚡",
     desc: "Qwik framework optimized for speed",
     template: "<div>Hello Qwik</div>",
+    framework: "react",
   },
   {
     name: "Solid.js",
@@ -98,6 +114,7 @@ const codeOptions = [
     icon: "🔷",
     desc: "Solid.js UI components",
     template: "const App = () => <h1>Hello Solid.js</h1>;",
+    framework: "solid",
   },
   {
     name: "Web Components",
@@ -106,6 +123,7 @@ const codeOptions = [
     desc: "Standardized Web Components",
     template:
       'class HelloComponent extends HTMLElement { connectedCallback() { this.innerHTML = "<h1>Hello Web Components</h1>"; } } customElements.define("hello-component", HelloComponent);',
+    framework: "react",
   },
 ];
 
@@ -116,6 +134,8 @@ export default function CodeSelectionPage() {
   const [textPrompt, setTextPrompt] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
+
+  console.log(code);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -170,7 +190,26 @@ export default function CodeSelectionPage() {
   };
 
   const handleGenerateImageToCode = async () => {
-    setIsCreatingCode(true);
+    if (!selectedFormat.value) {
+      return toast.error("Please select desired format");
+    }
+    if (!droppedFile) {
+      return toast.error("Please choose image");
+    }
+    const formData = new FormData();
+    formData.append("prompt", `please give me ${selectedFormat.value} code`);
+    formData.append("image", droppedFile);
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      setCode(response?.data?.flutter_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong");
+      console.log("error from code", error);
+    } finally {
+      setIsCreatingCode(false);
+    }
   };
 
   return (
@@ -215,7 +254,8 @@ export default function CodeSelectionPage() {
             <div className="w-full md:w-2/3 ">
               <div className="flex items-center justify-between w-full pb-2 ">
                 <h2 className="text-lg font-bold sm:text-xl">
-                  Upload Screenshot or Enter URL
+                  {/* Upload Screenshot or Enter URL */}
+                  Upload Screenshot
                 </h2>
                 <div className="relative min-w-40 md:hidden">
                   <div
@@ -239,7 +279,7 @@ export default function CodeSelectionPage() {
                             }`}
                             onClick={() => {
                               setSelectedFormat(option);
-                              setCode(option.template);
+                              // setCode(option.template);
                             }}
                           >
                             <CardContent className="flex items-center gap-3 p-1">
@@ -374,6 +414,12 @@ export default function CodeSelectionPage() {
                     </button>
                   </div>
                 </div>
+
+                {/* live preview */}
+                <CodeRunner
+                  code={`${code}`}
+                  framework={selectedFormat.framework}
+                />
               </div>
             </div>
           </div>

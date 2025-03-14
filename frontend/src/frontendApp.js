@@ -1,8 +1,9 @@
 // React Frontend API Integration
-
+import Cookies from "js-cookie";
 import axios from "axios";
-
 const API_BASE_URL = "https://72fa-103-174-189-33.ngrok-free.app/api";
+
+const token = Cookies.get("accessToken");
 
 // User Authentication
 export async function registerUser(email, password) {
@@ -47,13 +48,19 @@ export async function uploadScreenshot(file) {
 }
 
 // Fetch AI-Generated Code
-export async function fetchGeneratedCode() {
+export async function generateCode(payload) {
+  console.log("token", token);
   try {
-    const response = await fetch(`${API_BASE_URL}/generated-code`);
-    return await response.json();
+    const response = await axios.post(`${API_BASE_URL}/imgtocode/`, payload, {
+      headers: {
+        Authorization: "Bearer " + token,
+        // Authorization: token,
+      },
+    });
+    return response;
   } catch (error) {
     console.error("Error fetching generated code:", error);
-    return { error: "Failed to retrieve generated code." };
+    throw error;
   }
 }
 

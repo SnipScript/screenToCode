@@ -27,7 +27,7 @@ export default function AuthPage() {
     setIsLoading(true);
     try {
       const response = await loginUser(email, password);
-      Cookies.set("accessToken", response?.access);
+      Cookies.set("accessToken", response?.access, { expires: 1 / 24 });
       Cookies.set("refreshToken", response?.refresh);
       setError("");
       navigate("/");
