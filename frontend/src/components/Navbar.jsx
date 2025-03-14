@@ -14,7 +14,7 @@ const Navbar = () => {
     { label: "App", link: "/app" },
     { label: "Pricing", link: "/pricing" },
     { label: "Login", link: "/auth" },
-    { label: "Sign Up", link: "/auth" },
+    // { label: "Sign Up", link: "/auth" },
   ];
 
   return (
