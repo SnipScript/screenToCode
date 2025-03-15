@@ -34,7 +34,7 @@ export default function AuthPage() {
     } catch (error) {
       console.log(error);
       if (error?.status === 401) {
-        return toast.error("Incorrect email or password");
+        return toast.error(error?.response?.data?.detail);
       }
       toast.error(`Something went wrong! Try later.`);
     } finally {
@@ -51,6 +51,9 @@ export default function AuthPage() {
       setPassword("");
       setError("");
       setIsSignUp(false);
+      Cookies.set("accessToken", response?.access, { expires: 1 / 24 });
+      Cookies.set("refreshToken", response?.refresh);
+      navigate("/");
     } catch (error) {
       console.log(error);
       if (error?.status === 400) {

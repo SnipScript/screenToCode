@@ -99,7 +99,7 @@ export default function CodeSelectionPage() {
     }
   };
 
-  const handleGenerateCode = async () => {
+  const handleGenerateCodeWithImage = async () => {
     const formData = new FormData();
     formData.append("image", droppedFile);
     formData.append(
@@ -109,7 +109,24 @@ export default function CodeSelectionPage() {
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
-      setCode(response.data.flutter_code);
+      setCode(response.data.responsed_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong! Please try later.");
+      console.log(error);
+    } finally {
+      setIsCreatingCode(false);
+    }
+  };
+
+  const handleGenerateTextToCode = async () => {
+    const formData = new FormData();
+    // formData.append("image", droppedFile);
+    formData.append("prompt", `${textPrompt}`);
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      setCode(response.data.responsed_code);
       console.log(response);
     } catch (error) {
       toast.error("Something went wrong! Please try later.");
@@ -238,7 +255,7 @@ export default function CodeSelectionPage() {
                     onDragOver={handleDragOver}
                     onClick={() =>
                       document.getElementById("file-input").click()
-                    } // Trigger input on div click
+                    } // Click handler to trigger file input
                     className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
                     style={{
                       margin: "0 auto",
@@ -251,12 +268,9 @@ export default function CodeSelectionPage() {
                       className="hidden"
                       id="file-input"
                     />
-                    <label
-                      htmlFor="file-input"
-                      className="text-gray-500 text-center"
-                    >
+                    <span className="text-gray-500 text-center">
                       Drag & drop a screenshot here, or click to upload
-                    </label>
+                    </span>
                   </div>
 
                   <div
@@ -267,7 +281,7 @@ export default function CodeSelectionPage() {
                     {isCreatingCode && <Spinner />}
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateCode}
+                      onClick={handleGenerateCodeWithImage}
                     >
                       Generate Code
                     </Button>
@@ -296,7 +310,7 @@ export default function CodeSelectionPage() {
                 </div> */}
 
                 {/* AI Text-to-Code Feature */}
-                {/* <div className="">
+                <div className="">
                   <h3 className="text-lg font-bold">Generate Code from Text</h3>
                   <div className="flex items-center gap-4">
                     <Input
@@ -307,12 +321,12 @@ export default function CodeSelectionPage() {
                     />
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateFromText}
+                      onClick={handleGenerateTextToCode}
                     >
                       Generate
                     </Button>
                   </div>
-                </div> */}
+                </div>
 
                 {/* Live Code Editor & Export Options */}
                 <div className="text-white rounded-lg shadow-lg bg-grayColor ">
