@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
-import { BsCheck } from "react-icons/bs";
 import CommonContainer from "../../common/CommonContainer";
 import CommonHeader from "../../common/CommonHeader";
 import { IoClose } from "react-icons/io5";
+import { BsCheck } from "react-icons/bs";
 
 const price = [
   {
@@ -79,7 +79,7 @@ const Priceing = () => {
             <div className="p-2 rounded-md shadow max-w-96">
               <div
                 onClick={() => {
-                  setConversion(false);
+                  setConversion((pre) => !pre);
                 }}
                 className="ml-auto text-xl cursor-pointer w-fit"
               >
