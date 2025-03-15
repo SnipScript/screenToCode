@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
 import { BsCheck } from "react-icons/bs";
 import CommonContainer from "../../common/CommonContainer";
 import CommonHeader from "../../common/CommonHeader";
+import { IoClose } from "react-icons/io5";
+
 const price = [
   {
     plan: "Free Plan",
@@ -59,12 +61,38 @@ const price = [
   },
 ];
 const Priceing = () => {
+  const [conversion, setConversion] = useState(false);
   return (
     <CommonContainer>
       <CommonSpace>
-        <CommonHeader className="pb-10">Pricing Plans</CommonHeader>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 ">
+        <CommonHeader className="">Pricing Plans</CommonHeader>
+        <div
+          className="py-2 text-center cursor-pointer"
+          onClick={() => {
+            setConversion(true);
+          }}
+        >
+          What is a conversion ?
+        </div>
+        <div className="flex items-center justify-center pb-10">
+          {conversion && (
+            <div className="p-2 rounded-md shadow max-w-96">
+              <div
+                onClick={() => {
+                  setConversion(false);
+                }}
+                className="ml-auto text-xl cursor-pointer w-fit"
+              >
+                <IoClose />
+              </div>
+              📷 ➡️ 💻 A conversion refers to turning a website screenshot into
+              editable HTML & CSS (or another selected format).Each time you
+              generate code from an image, it counts as one conversion.
+              <p></p>
+            </div>
+          )}
+        </div>
+        <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
           {price.map((item, index) => (
             <Card
               key={index}

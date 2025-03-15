@@ -8,7 +8,6 @@ import PricingButton from "../section/price/PricingButton";
 import SapceBottom from "../common/SapceBottom";
 import CommonHeader from "../common/CommonHeader";
 
-
 const PricingPage = () => {
   const [billingCycle, setBillingCycle] = useState("monthly");
 
@@ -27,7 +26,7 @@ const PricingPage = () => {
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
             />
-            <div className="grid grid-cols-1 gap-6 py-10 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid w-full max-w-6xl grid-cols-1 gap-6 py-10 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
               {pricingPlans.map((plan, index) => (
                 <div
                   key={index}
