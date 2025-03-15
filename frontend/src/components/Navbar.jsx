@@ -4,8 +4,16 @@ import logo from "../assets/logo.png";
 import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
+import Cookies from "js-cookie";
 const Navbar = () => {
+  const token = Cookies.get("accessToken");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleLogOut = () => {
+    Cookies.remove("accessToken");
+    window.location.reload();
+  };
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -13,7 +21,7 @@ const Navbar = () => {
     { label: "Home", link: "/" },
     { label: "App", link: "/app" },
     { label: "Pricing", link: "/pricing" },
-    { label: "Login", link: "/auth" },
+    // { label: "Login", link: "/auth" },
     // { label: "Sign Up", link: "/auth" },
   ];
 
@@ -37,6 +45,23 @@ const Navbar = () => {
                   {item.label}
                 </NavLink>
               ))}
+              {!token && (
+                <NavLink
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
+                  to={"/auth"}
+                  key={"/auth"}
+                >
+                  Login
+                </NavLink>
+              )}
+              {token && (
+                <button
+                  onClick={handleLogOut}
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
 
