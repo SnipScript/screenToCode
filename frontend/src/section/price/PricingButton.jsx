@@ -17,7 +17,7 @@ const PricingButton = ({ billingCycle, setBillingCycle }) => {
       <Button
         className={`px-6 py-3 ${
           billingCycle === "yearly"
-            ? "bg-grayColor text-white rounded-xl"
+            ? "bg-red-500 text-white rounded-xl"
             : "bg-gray-200 text-grayColor rounded-xl"
         }`}
         onClick={() => setBillingCycle("yearly")}
