@@ -5,6 +5,8 @@ import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import Cookies from "js-cookie";
+
+import { IoNotifications } from "react-icons/io5";
 const Navbar = () => {
   const token = Cookies.get("accessToken");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +23,7 @@ const Navbar = () => {
     { label: "Home", link: "/" },
     { label: "App", link: "/app" },
     { label: "Pricing", link: "/pricing" },
+
     // { label: "Login", link: "/auth" },
     // { label: "Sign Up", link: "/auth" },
   ];
@@ -28,7 +31,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <CommonContainer>
-        <div className="flex items-center justify-between w-full h-16 ">
+        <div className="flex items-center justify-between w-full h-20 ">
           <Link to="/" className="max-w-16">
             <img src={logo} alt="SnipScript" />
           </Link>
@@ -62,6 +65,14 @@ const Navbar = () => {
                   Logout
                 </button>
               )}
+              <Link to="/conversion" className="relative cursor-pointer ">
+                <span className="text-3xl">
+                  <IoNotifications />
+                </span>
+                <p className="absolute flex items-center justify-center w-6 h-6 p-1 font-bold text-white bg-red-500 rounded-full -top-3 left-4 ring-2 ring-white ">
+                  10
+                </p>
+              </Link>
             </div>
           </div>
 
