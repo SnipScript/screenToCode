@@ -8,7 +8,6 @@ import PricingButton from "../section/price/PricingButton";
 import SapceBottom from "../common/SapceBottom";
 import CommonHeader from "../common/CommonHeader";
 
-
 const PricingPage = () => {
   const [billingCycle, setBillingCycle] = useState("monthly");
 
