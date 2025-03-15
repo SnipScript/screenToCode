@@ -31,6 +31,7 @@ export default function AuthPage() {
       Cookies.set("refreshToken", response?.refresh);
       setError("");
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error?.status === 401) {
@@ -54,6 +55,7 @@ export default function AuthPage() {
       Cookies.set("accessToken", response?.access, { expires: 1 / 24 });
       Cookies.set("refreshToken", response?.refresh);
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error?.status === 400) {
