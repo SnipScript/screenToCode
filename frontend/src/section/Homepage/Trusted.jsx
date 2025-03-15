@@ -10,7 +10,7 @@ import huggingface from "../../assets/huggingface.svg";
 import adobe from "../../assets/adobe.png";
 import figma from "../../assets/figma.png";
 import mit from "../../assets/mit.png";
-import stanford from "../../assets/stanford.png";
+import stanford from "../../assets/Instacart.png";
 
 const company = [
   {
