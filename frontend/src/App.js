@@ -17,6 +17,9 @@ import Refund from "./section/Footer/Refund";
 import Faqs from "./section/Footer/Faqs";
 import AuthPage from "./pages/LoginSignup";
 import PrivateRoute from "./components/PrivateRoute";
+import Success from "./section/payment/Success";
+import Cancel from "./section/payment/Cancel";
+import Conversion from "./pages/Conversion";
 const MainPage = React.lazy(() => import("./pages/MainPage"));
 
 function App() {
@@ -41,6 +44,9 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/refund" element={<Refund />} />
         <Route path="/faqs" element={<Faqs />} />
+        <Route path="/test" element={<Success />} />
+        <Route path="/conversion" element={<Conversion />} />
+        
       </Routes>
       <Footer />
     </Router>
