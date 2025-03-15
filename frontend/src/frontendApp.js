@@ -3,8 +3,6 @@ import Cookies from "js-cookie";
 import axios from "axios";
 const API_BASE_URL = "https://72fa-103-174-189-33.ngrok-free.app/api";
 
-const token = Cookies.get("accessToken");
-
 // User Authentication
 export async function registerUser(email, password) {
   try {
@@ -49,7 +47,7 @@ export async function uploadScreenshot(file) {
 
 // Fetch AI-Generated Code
 export async function generateCode(payload) {
-  console.log("token", token);
+  const token = Cookies.get("accessToken");
   try {
     const response = await axios.post(`${API_BASE_URL}/imgtocode/`, payload, {
       headers: {
