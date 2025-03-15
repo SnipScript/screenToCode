@@ -12,9 +12,9 @@ const PrivateRoute = ({ children }) => {
     }
   }, [token, navigate]); // This will run whenever token changes
 
-  if (!token) {
-    return null; // Or a loading spinner or placeholder while redirecting
-  }
+  // if (!token) {
+  //   return null; // Or a loading spinner or placeholder while redirecting
+  // }
 
   return children;
 };

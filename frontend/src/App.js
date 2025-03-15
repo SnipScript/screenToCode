@@ -17,7 +17,6 @@ import Refund from "./section/Footer/Refund";
 import Faqs from "./section/Footer/Faqs";
 import AuthPage from "./pages/LoginSignup";
 import PrivateRoute from "./components/PrivateRoute";
-
 const MainPage = React.lazy(() => import("./pages/MainPage"));
 
 function App() {
@@ -26,7 +25,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/app" element={<MainPage />} />
+        <Route
+          path="/app"
+          element={
+            <PrivateRoute>
+              <MainPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/pricing" element={<PricingPlan />} />
         <Route path="/admin" element={<AdminBackend />} />
