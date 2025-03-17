@@ -20,6 +20,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Success from "./section/payment/Success";
 import Cancel from "./section/payment/Cancel";
 import Conversion from "./pages/Conversion";
+import Profile from "./pages/Profile";
 const MainPage = React.lazy(() => import("./pages/MainPage"));
 
 function App() {
@@ -44,8 +45,10 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/refund" element={<Refund />} />
         <Route path="/faqs" element={<Faqs />} />
-        <Route path="/test" element={<Success />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/cancel" element={<Cancel />} />
         <Route path="/conversion" element={<Conversion />} />
+        <Route path="/profile" element={<Profile />} />
         
       </Routes>
       <Footer />

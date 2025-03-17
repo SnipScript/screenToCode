@@ -16,7 +16,7 @@ const Cancel = () => {
           Try again to subscribe
         </p>
         <Link
-          to={""}
+          to={"/"}
           className="px-3 py-1 my-4 text-red-600 transition-all border-2 border-red-600 rounded hover:bg-red-600 hover:text-white"
         >
           Go Dashboard

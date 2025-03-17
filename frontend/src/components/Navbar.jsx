@@ -5,7 +5,6 @@ import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import Cookies from "js-cookie";
-
 import { IoNotifications } from "react-icons/io5";
 const Navbar = () => {
   const token = Cookies.get("accessToken");
@@ -23,9 +22,6 @@ const Navbar = () => {
     { label: "Home", link: "/" },
     { label: "App", link: "/app" },
     { label: "Pricing", link: "/pricing" },
-
-    // { label: "Login", link: "/auth" },
-    // { label: "Sign Up", link: "/auth" },
   ];
 
   return (
@@ -38,7 +34,7 @@ const Navbar = () => {
 
           {/* Desktop menu */}
           <div className="hidden md:flex md:items-center md:space-x-4">
-            <div className="flex space-x-4">
+            <div className="flex items-center space-x-4">
               {menu.map((item, i) => (
                 <NavLink
                   className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
@@ -57,14 +53,16 @@ const Navbar = () => {
                   Login
                 </NavLink>
               )}
+
               {token && (
-                <button
-                  onClick={handleLogOut}
-                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
+                <NavLink
+                  to="/profile"
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor `}
                 >
-                  Logout
-                </button>
+                  Profile
+                </NavLink>
               )}
+
               <Link to="/conversion" className="relative cursor-pointer ">
                 <span className="text-3xl">
                   <IoNotifications />
@@ -73,6 +71,14 @@ const Navbar = () => {
                   10
                 </p>
               </Link>
+              {token && (
+                <button
+                  onClick={handleLogOut}
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor`}
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
 
