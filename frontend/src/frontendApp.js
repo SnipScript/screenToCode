@@ -1,44 +1,29 @@
 // React Frontend API Integration
+import Cookies from "js-cookie";
+import axios from "axios";
+export const API_BASE_URL = "https://bguess-django.onrender.com/api";
 
-const API_BASE_URL = "https://yourbackend.com"; // Update with your deployed backend URL
-
-// User Authentication
 export async function registerUser(email, password) {
   try {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    const response = await fetch(`${API_BASE_URL}/register`, {
-      method: "POST",
-      body: formData,
+    const { data } = await axios.post(`${API_BASE_URL}/signup/`, {
+      email,
+      password,
     });
-    return await response.json();
+    return data;
   } catch (error) {
-    console.error("Error registering user:", error);
-    return { error: "Failed to register. Try again." };
+    throw error;
   }
 }
 
 export async function loginUser(email, password) {
   try {
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("password", password);
-
-    const response = await fetch(`${API_BASE_URL}/login`, {
-      method: "POST",
-      body: formData,
+    const { data } = await axios.post(`${API_BASE_URL}/signin/`, {
+      email,
+      password,
     });
-    const data = await response.json();
-
-    if (data.access_token) {
-      localStorage.setItem("token", data.access_token);
-    }
     return data;
   } catch (error) {
-    console.error("Error logging in:", error);
-    return { error: "Invalid credentials. Try again." };
+    throw error;
   }
 }
 
@@ -48,7 +33,7 @@ export async function uploadScreenshot(file) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const response = await fetch(`${API_BASE_URL}/upload/`, {
       method: "POST",
       body: formData,
     });
@@ -60,13 +45,19 @@ export async function uploadScreenshot(file) {
 }
 
 // Fetch AI-Generated Code
-export async function fetchGeneratedCode() {
+export async function generateCode(payload) {
+  const token = Cookies.get("accessToken");
   try {
-    const response = await fetch(`${API_BASE_URL}/generated-code`);
-    return await response.json();
+    const response = await axios.post(`${API_BASE_URL}/imgtocode/`, payload, {
+      headers: {
+        Authorization: "Bearer " + token,
+        // Authorization: token,
+      },
+    });
+    return response;
   } catch (error) {
     console.error("Error fetching generated code:", error);
-    return { error: "Failed to retrieve generated code." };
+    throw error;
   }
 }
 
@@ -77,7 +68,7 @@ export async function createCheckoutSession(email, plan) {
     formData.append("email", email);
     formData.append("plan", plan);
 
-    const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
+    const response = await fetch(`${API_BASE_URL}/create-checkout-session/`, {
       method: "POST",
       body: formData,
     });

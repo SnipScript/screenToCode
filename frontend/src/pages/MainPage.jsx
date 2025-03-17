@@ -7,112 +7,20 @@ import Editor from "@monaco-editor/react"; // Monaco Editor for live code previe
 import CommonContainer from "../common/CommonContainer";
 import CommonSpace from "../common/CommonSpace";
 import { BsCodeSquare } from "react-icons/bs";
-const codeOptions = [
-  {
-    name: "HTML + CSS",
-    value: "html",
-    icon: "🌐",
-    desc: "Basic HTML & CSS output",
-    template: "<div>Hello World</div>",
-  },
-  {
-    name: "Tailwind CSS",
-    value: "tailwind",
-    icon: "🎨",
-    desc: "Utility-first CSS framework",
-    template: '<div class="text-xl font-bold">Hello Tailwind</div>',
-  },
-  {
-    name: "React + Tailwind",
-    value: "react",
-    icon: "⚛️",
-    desc: "React components with Tailwind",
-    template:
-      'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
-  },
-  {
-    name: "Vue + Tailwind",
-    value: "vue",
-    icon: "🟢",
-    desc: "Vue.js components styled with Tailwind",
-    template:
-      '<template><div class="text-xl font-bold">Hello Vue</div></template>',
-  },
-  {
-    name: "Bootstrap",
-    value: "bootstrap",
-    icon: "📦",
-    desc: "Bootstrap-based component output",
-    template:
-      '<div class="container"><h1 class="display-4">Hello Bootstrap</h1></div>',
-  },
-  {
-    name: "Flutter",
-    value: "flutter",
-    icon: "💙",
-    desc: "Flutter UI components",
-    template:
-      'Widget build(BuildContext context) { return Text("Hello Flutter"); }',
-  },
-  {
-    name: "Svelte",
-    value: "svelte",
-    icon: "🔥",
-    desc: "Svelte framework output",
-    template:
-      '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>',
-  },
-  {
-    name: "Angular",
-    value: "angular",
-    icon: "🟥",
-    desc: "Angular component structure",
-    template: "<h1>Hello Angular</h1>",
-  },
-  {
-    name: "Next.js",
-    value: "nextjs",
-    icon: "⬛",
-    desc: "Next.js components",
-    template:
-      "export default function Home() { return <h1>Hello Next.js</h1>; }",
-  },
-  {
-    name: "Nuxt.js",
-    value: "nuxtjs",
-    icon: "🟩",
-    desc: "Nuxt.js components for Vue",
-    template: "<template><h1>Hello Nuxt.js</h1></template>",
-  },
-  {
-    name: "Qwik",
-    value: "qwik",
-    icon: "⚡",
-    desc: "Qwik framework optimized for speed",
-    template: "<div>Hello Qwik</div>",
-  },
-  {
-    name: "Solid.js",
-    value: "solidjs",
-    icon: "🔷",
-    desc: "Solid.js UI components",
-    template: "const App = () => <h1>Hello Solid.js</h1>;",
-  },
-  {
-    name: "Web Components",
-    value: "web_components",
-    icon: "🖥️",
-    desc: "Standardized Web Components",
-    template:
-      'class HelloComponent extends HTMLElement { connectedCallback() { this.innerHTML = "<h1>Hello Web Components</h1>"; } } customElements.define("hello-component", HelloComponent);',
-  },
-];
+import Spinner from "../components/ui/Spinner";
+import toast, { Toaster } from "react-hot-toast";
+import { generateCode } from "../frontendApp";
+import CodeRunner from "../components/CodeRunner";
+import HTMLRunner from "../components/HTMLRunner";
+import { codeOptions } from "../data/data";
 
 export default function CodeSelectionPage() {
   const [modal, setModal] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
+  const [droppedFile, setDroppedFile] = useState(null);
+  const [isCreatingCode, setIsCreatingCode] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -142,7 +50,91 @@ export default function CodeSelectionPage() {
     );
   };
 
-  console.log("codeOptions", codeOptions);
+  const handleDrop = (event) => {
+    event.preventDefault();
+
+    // Extract the dropped files
+    const files = event.dataTransfer.files;
+
+    if (files.length > 0) {
+      const file = files[0];
+
+      // Check if the file is an image
+      if (file.type.startsWith("image/")) {
+        setDroppedFile(file); // Update state with the dropped file
+
+        // Create a FileReader to read the image file
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          console.log("Image uploaded:", e.target.result);
+          // Handle the uploaded image data (e.g., set state, display preview, etc.)
+        };
+
+        reader.readAsDataURL(file);
+      } else {
+        alert("Please upload a valid image file.");
+      }
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file && file.type.startsWith("image/")) {
+      setDroppedFile(file); // Update state with the selected file
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        // Handle the uploaded image data (e.g., set state, display preview, etc.)
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Please select a valid image file.");
+    }
+  };
+
+  const handleGenerateCodeWithImage = async () => {
+    const formData = new FormData();
+    formData.append("image", droppedFile);
+    formData.append(
+      "prompt",
+      `please give me ${selectedFormat.value} code. I want to implement within single file`
+    );
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      setCode(response.data.responsed_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong! Please try later.");
+      console.log(error);
+    } finally {
+      setIsCreatingCode(false);
+    }
+  };
+
+  const handleGenerateTextToCode = async () => {
+    const formData = new FormData();
+    // formData.append("image", droppedFile);
+    formData.append("prompt", `${textPrompt}`);
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      setCode(response.data.responsed_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong! Please try later.");
+      console.log(error);
+    } finally {
+      setIsCreatingCode(false);
+    }
+  };
 
   return (
     <CommonContainer>
@@ -160,7 +152,7 @@ export default function CodeSelectionPage() {
                       key={option.value}
                       className={`p-4 cursor-pointer rounded-lg border  ${
                         selectedFormat.value === option.value
-                          ? "border-green-500 bg-gray-200"
+                          ? "border-2 border-green-500 bg-gray-200"
                           : "border-gray-300"
                       }`}
                       onClick={() => {
@@ -186,9 +178,10 @@ export default function CodeSelectionPage() {
             <div className="w-full md:w-2/3 ">
               <div className="flex items-center justify-between w-full pb-2 ">
                 <h2 className="text-lg font-bold sm:text-xl">
-                  Upload Screenshot or Enter URL
+                  {/* Upload Screenshot or Enter URL */}
+                  Upload Screenshot
                 </h2>
-                <div className="relative w-40 md:hidden">
+                <div className="relative min-w-40 md:hidden">
                   <div
                     onClick={() => {
                       setModal((pre) => !pre);
@@ -198,27 +191,23 @@ export default function CodeSelectionPage() {
                     <BsCodeSquare />
                   </div>
                   {modal && (
-                    <div className="overflow-hidden h-[700px] absolute top-10  z-50 w-full bg-gray-100 p-4 rounded-xl">
+                    <div className="overflow-hidden h-[700px] absolute top-10  z-10 w-full bg-gray-100 p-4 rounded-xl">
                       <div className="flex flex-col h-full gap-6 overflow-y-auto ">
                         {codeOptions.map((option) => (
                           <Card
                             key={option.value}
                             className={`p-0 cursor-pointer rounded-lg border  ${
                               selectedFormat.value === option.value
-                                ? "border-green-500 bg-gray-200"
+                                ? "border-2 border-green-500 bg-gray-200"
                                 : "border-gray-300"
                             }`}
                             onClick={() => {
                               setSelectedFormat(option);
-                              setCode(option.template);
+                              // setCode(option.template);
                             }}
                           >
                             <CardContent className="flex items-center gap-3 p-1">
-                              {/* <span className="text-2xl">{option.icon}</span> */}
                               <div>
-                                {/* <h3 className="text-lg font-semibold">
-                                  {option.name}
-                                </h3> */}
                                 <p className="text-sm text-gray-600">
                                   {option.desc}
                                 </p>
@@ -232,12 +221,85 @@ export default function CodeSelectionPage() {
                 </div>
               </div>
               <div className="flex flex-col w-full gap-6">
-                <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
+                {/* <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
                   <p className="text-gray-500">
                     Drag & drop a screenshot here, or click to upload
                   </p>
+                </div> */}
+
+                <div className="w-full">
+                  {/* <div
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
+                    style={{
+                      margin: "0 auto",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-input"
+                    />
+                    <label
+                      htmlFor="file-input"
+                      className="text-gray-500 text-center"
+                    >
+                      Drag & drop a screenshot here, or click to upload
+                    </label>
+                  </div> */}
+                  <div
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onClick={() =>
+                      document.getElementById("file-input").click()
+                    } // Click handler to trigger file input
+                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
+                    style={{
+                      margin: "0 auto",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-input"
+                    />
+                    <span className="text-gray-500 text-center">
+                      Drag & drop a screenshot here, or click to upload
+                    </span>
+                  </div>
+
+                  <div
+                    className={`flex ${
+                      isCreatingCode ? "justify-between" : "justify-end "
+                    } my-2`}
+                  >
+                    {isCreatingCode && <Spinner />}
+                    <Button
+                      className="px-6 py-3 text-white bg-blue-500 rounded-lg"
+                      onClick={handleGenerateCodeWithImage}
+                    >
+                      Generate Code
+                    </Button>
+                  </div>
+                  <div className="flex justify-center">
+                    {droppedFile && (
+                      <div className="mt-1">
+                        <h4 className="font-semibold text-center">Preview:</h4>
+                        <img
+                          src={URL.createObjectURL(droppedFile)}
+                          alt="Preview"
+                          className="max-w-full max-h-40"
+                        />
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 ">
+                {/* <div className="flex items-center gap-4 ">
                   <Input
                     className="flex-1 w-40"
                     placeholder="Enter URL to capture"
@@ -245,7 +307,7 @@ export default function CodeSelectionPage() {
                   <Button className="px-6 py-3 text-white bg-gray-700 rounded-lg ">
                     Capture
                   </Button>
-                </div>
+                </div> */}
 
                 {/* AI Text-to-Code Feature */}
                 <div className="">
@@ -259,7 +321,7 @@ export default function CodeSelectionPage() {
                     />
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateFromText}
+                      onClick={handleGenerateTextToCode}
                     >
                       Generate
                     </Button>
@@ -299,9 +361,31 @@ export default function CodeSelectionPage() {
                     </button>
                   </div>
                 </div>
+
+                {/* ===============live preview======================== */}
+                {selectedFormat.hasPreview ? (
+                  <CodeRunner
+                    code={`${code}`}
+                    framework={selectedFormat.framework}
+                  />
+                ) : selectedFormat.value == "html" ||
+                  selectedFormat.value == "tailwind" ? (
+                  ""
+                ) : (
+                  <div className="bg-blue-100 text-blue-700 p-4 rounded-lg shadow-md">
+                    <h4 className="text-xl font-medium">
+                      Preview is not available
+                    </h4>
+                  </div>
+                )}
+                {selectedFormat.value == "html" ||
+                  (selectedFormat.value == "tailwind" && (
+                    <HTMLRunner htmlContent={code} />
+                  ))}
               </div>
             </div>
           </div>
+          <Toaster position="top-right" />
         </div>
       </CommonSpace>
     </CommonContainer>
