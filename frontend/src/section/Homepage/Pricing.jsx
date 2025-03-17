@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
 import CommonContainer from "../../common/CommonContainer";
 import CommonHeader from "../../common/CommonHeader";
 import { IoClose } from "react-icons/io5";
 import { BsCheck } from "react-icons/bs";
-
+import axios from "axios";
+import Cookies from "js-cookie";
 const price = [
   {
     plan: "Free Plan",
     price: "$0/mo",
+    id: 1,
     features: [
       "5 conversions/month",
       "Basic HTML & CSS only",
@@ -22,6 +24,7 @@ const price = [
   {
     plan: "Basic Plan",
     price: "$10/mo",
+    id: 2,
     features: [
       "50 conversions",
       "Full framework support",
@@ -32,6 +35,7 @@ const price = [
   {
     plan: "Pro Plan",
     price: "$20/mo",
+    id: 3,
     features: [
       "150 conversions",
       "AI-powered editor",
@@ -39,29 +43,44 @@ const price = [
       "No watermark",
     ],
   },
-  {
-    plan: "Business Plan",
-    price: "$40/mo",
-    features: [
-      "500 conversions",
-      "AI-powered editor",
-      "Priority processing",
-      "No watermark",
-    ],
-  },
-  {
-    plan: "Pay-As-You-Go",
-    price: "$15 for 100 conversions",
-    features: [
-      "One-time purchase",
-      "AI-powered editor",
-      "Priority processing",
-      "No watermark",
-    ],
-  },
+  // {
+  //   plan: "Business Plan",
+  //   price: "$40/mo",
+  //   features: [
+  //     "500 conversions",
+  //     "AI-powered editor",
+  //     "Priority processing",
+  //     "No watermark",
+  //   ],
+  // },
+  // {
+  //   plan: "Pay-As-You-Go",
+  //   price: "$15 for 100 conversions",
+  //   features: [
+  //     "One-time purchase",
+  //     "AI-powered editor",
+  //     "Priority processing",
+  //     "No watermark",
+  //   ],
+  // },
 ];
-const Priceing = () => {
+
+const Priceing = ({ data }) => {
   const [conversion, setConversion] = useState(false);
+  const token = Cookies.get("accessToken");
+  const subscribe = async (id) => {
+    const { data } = await axios.post(
+      `https://bguess-django.onrender.com/api/checkout/${id}/`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    if (data) {
+      window.location.href = data.checkout_url;
+    }
+  };
+
   return (
     <CommonContainer>
       <CommonSpace>
@@ -69,7 +88,7 @@ const Priceing = () => {
         <div
           className="py-2 text-center cursor-pointer"
           onClick={() => {
-            setConversion(true);
+            setConversion((pre) => !pre);
           }}
         >
           What is a conversion ?
@@ -104,7 +123,7 @@ const Priceing = () => {
               </CommonHeader>
 
               <div className="flex flex-col gap-2">
-                {item.features.map((feature, i) => (
+                {item?.features?.map((feature, i) => (
                   <div key={i} className="flex items-start gap-2 ">
                     <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
                       <span>
@@ -116,7 +135,12 @@ const Priceing = () => {
                 ))}
               </div>
 
-              <button className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max ">
+              <button
+                onClick={() => {
+                  subscribe(item.id);
+                }}
+                className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
+              >
                 Get Started
               </button>
             </Card>
