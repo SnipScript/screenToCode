@@ -100,14 +100,10 @@ const Navbar = () => {
       {/* Mobile menu, show/hide based on menu state */}
       {isMenuOpen && (
         <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg sm:px-3">
+          <div className="flex flex-col gap-2 px-2 pt-2 pb-3 space-y-1 bg-white shadow-lg sm:px-3">
             {menu.map((item, i) => (
-              <Link
-                className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  isActive(item.link)
-                    ? "text-primary-600 bg-primary-50"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-primary-600"
-                }`}
+              <NavLink
+                className={`border-b   !border-transparent font-medium transition-colors duration-200 text-grayColor `}
                 onClick={() => {
                   setIsMenuOpen(false);
                 }}
@@ -115,8 +111,52 @@ const Navbar = () => {
                 key={i}
               >
                 {item.label}
-              </Link>
+              </NavLink>
             ))}
+            {token && (
+              <NavLink
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+                to="/profile"
+                className={`border-b  !border-transparent font-medium transition-colors duration-200 text-grayColor `}
+              >
+                Profile
+              </NavLink>
+            )}
+
+            <NavLink
+              onClick={() => {
+                setIsMenuOpen(false);
+              }}
+              to="/conversion"
+              className="flex items-center gap-1 cursor-pointer !border-transparent  "
+            >
+              <span className="text-lg">Conversion</span>
+              <p className="flex items-center justify-center w-6 h-6 p-1 font-bold text-white bg-red-500 rounded-full ">
+                10
+              </p>
+            </NavLink>
+            {!token && (
+              <NavLink
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+                className={`border-b  !border-transparent font-medium transition-colors duration-200 text-grayColor`}
+                to={"/auth"}
+                key={"/auth"}
+              >
+                Login
+              </NavLink>
+            )}
+            {token && (
+              <NavLink
+                onClick={handleLogOut}
+                className={`border-b  !border-transparent font-medium transition-colors duration-200 text-grayColor`}
+              >
+                Logout
+              </NavLink>
+            )}
           </div>
         </div>
       )}
