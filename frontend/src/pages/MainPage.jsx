@@ -39,8 +39,11 @@ export default function CodeSelectionPage() {
   // Function to copy code to clipboard
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
-    alert("Code copied to clipboard!");
+    // alert("Code copied to clipboard!");
+    toast.success("Code copied to clipboard!");
   };
+
+  console.log(selectedFormat, "selected format");
 
   // Simulate AI-generated code from text prompt
   const handleGenerateFromText = () => {
@@ -104,7 +107,7 @@ export default function CodeSelectionPage() {
     formData.append("image", droppedFile);
     formData.append(
       "prompt",
-      `please give me ${selectedFormat.value} code. I want to implement within single file`
+      `please give me ${selectedFormat.desc} code. I want to implement within single file`
     );
     try {
       setIsCreatingCode(true);
@@ -126,6 +129,7 @@ export default function CodeSelectionPage() {
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
+      console.log(response);
       setCode(response.data.responsed_code);
       console.log(response);
     } catch (error) {
@@ -221,35 +225,7 @@ export default function CodeSelectionPage() {
                 </div>
               </div>
               <div className="flex flex-col w-full gap-6">
-                {/* <div className="flex items-center justify-center h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50">
-                  <p className="text-gray-500">
-                    Drag & drop a screenshot here, or click to upload
-                  </p>
-                </div> */}
-
                 <div className="w-full">
-                  {/* <div
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
-                    style={{
-                      margin: "0 auto",
-                    }}
-                  >
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                      className="hidden"
-                      id="file-input"
-                    />
-                    <label
-                      htmlFor="file-input"
-                      className="text-gray-500 text-center"
-                    >
-                      Drag & drop a screenshot here, or click to upload
-                    </label>
-                  </div> */}
                   <div
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
@@ -288,13 +264,25 @@ export default function CodeSelectionPage() {
                   </div>
                   <div className="flex justify-center">
                     {droppedFile && (
-                      <div className="mt-1">
-                        <h4 className="font-semibold text-center">Preview:</h4>
-                        <img
-                          src={URL.createObjectURL(droppedFile)}
-                          alt="Preview"
-                          className="max-w-full max-h-40"
-                        />
+                      <div className="mt-1 flex items-center gap-3">
+                        <div>
+                          <h4 className="font-semibold text-center">
+                            Preview:
+                          </h4>
+                          <img
+                            src={URL.createObjectURL(droppedFile)}
+                            alt="Preview"
+                            className="max-w-full max-h-40"
+                          />
+                        </div>
+                        <div>
+                          <button
+                            className="bg-red-400 px-4 py-2 rounded text-white hover:bg-red-500"
+                            onClick={() => setDroppedFile(null)}
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -378,10 +366,12 @@ export default function CodeSelectionPage() {
                     </h4>
                   </div>
                 )}
-                {selectedFormat.value == "html" ||
-                  (selectedFormat.value == "tailwind" && (
-                    <HTMLRunner htmlContent={code} />
-                  ))}
+                {/* for html and html with tailwind preview */}
+                {selectedFormat.value == "html" ? (
+                  <HTMLRunner htmlContent={code} />
+                ) : selectedFormat.value == "tailwind" ? (
+                  <HTMLRunner htmlContent={code} title="HTML with Tailwind" />
+                ) : null}
               </div>
             </div>
           </div>
