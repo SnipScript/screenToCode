@@ -124,7 +124,7 @@ const Pricing = ({ data, isLoading }) => {
         </div>
         <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
           {isLoading
-            ? list.map(() => <Loading />)
+            ? list.map((item, i) => <Loading key={i} />)
             : data?.data?.map((item, index) => (
                 <Card
                   key={index}
