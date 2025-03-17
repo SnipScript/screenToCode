@@ -7,6 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { BsCheck } from "react-icons/bs";
 import axios from "axios";
 import Cookies from "js-cookie";
+import Loading from "./Loading";
 const price = [
   {
     plan: "Free Plan",
@@ -64,20 +65,30 @@ const price = [
   //   ],
   // },
 ];
-
-const Priceing = ({ data }) => {
+const Pricing = ({ data, isLoading }) => {
+  const list = new Array(5).fill(null);
   const [conversion, setConversion] = useState(false);
   const token = Cookies.get("accessToken");
+  const baseurl = process.env.VITE_BACKEND_URL;
+  const [loading, setLoading] = useState(false);
+
   const subscribe = async (id) => {
-    const { data } = await axios.post(
-      `https://bguess-django.onrender.com/api/checkout/${id}/`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${token}` },
+    setLoading(true);
+    try {
+      const { data } = await axios.post(
+        `${baseurl}/checkout/${id}/`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (data) {
+        window.location.href = data.checkout_url;
       }
-    );
-    if (data) {
-      window.location.href = data.checkout_url;
+    } catch (error) {
+      console.log("subscribe fetching error", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,43 +123,48 @@ const Priceing = ({ data }) => {
           )}
         </div>
         <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
-          {price.map((item, index) => (
-            <Card
-              key={index}
-              className="flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer "
-            >
-              <CommonHeader className="text-start">{item.plan}</CommonHeader>
-              <CommonHeader className="font-semibold text-start">
-                {item.price}
-              </CommonHeader>
+          {isLoading
+            ? list.map(() => <Loading />)
+            : data?.data?.map((item, index) => (
+                <Card
+                  key={index}
+                  className="flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer "
+                >
+                  <CommonHeader className="text-start">
+                    {item.name}
+                  </CommonHeader>
+                  <CommonHeader className="font-semibold text-start">
+                    ${item.price}
+                    <span className="text-lg">/{item.package_type}</span>
+                  </CommonHeader>
 
-              <div className="flex flex-col gap-2">
-                {item?.features?.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-2 ">
-                    <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
-                      <span>
-                        <BsCheck />
-                      </span>
-                    </div>
-                    <p className="text-lg font-medium ">{feature}</p>
+                  <div className="flex flex-col gap-2">
+                    {item?.features?.map((feature, i) => (
+                      <div key={i} className="flex items-start gap-2 ">
+                        <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
+                          <span>
+                            <BsCheck />
+                          </span>
+                        </div>
+                        <p className="text-lg font-medium ">{feature.name}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
 
-              <button
-                onClick={() => {
-                  subscribe(item.id);
-                }}
-                className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
-              >
-                Get Started
-              </button>
-            </Card>
-          ))}
+                  <button
+                    onClick={() => {
+                      subscribe(item.id);
+                    }}
+                    className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
+                  >
+                    {loading ? "Processing" : "Get Started"}
+                  </button>
+                </Card>
+              ))}
         </div>
       </CommonSpace>
     </CommonContainer>
   );
 };
 
-export default Priceing;
+export default Pricing;
