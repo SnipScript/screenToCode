@@ -9,7 +9,7 @@ const Button = ({
 }) => {
   const baseStyles = "px-4 py-2  focus:outline-none";
   const variantStyles = {
-    default: "bg-black text-white hover:bg-grayColor",
+    default: " text-white bg-grayColor",
     outline:
       "border border-grayColor text-grayColor hover:bg-grayColor hover:text-white",
   };

@@ -8,131 +8,15 @@ import CommonContainer from "../common/CommonContainer";
 import CommonSpace from "../common/CommonSpace";
 import { BsCodeSquare } from "react-icons/bs";
 import Spinner from "../components/ui/Spinner";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { generateCode } from "../frontendApp";
 import CodeRunner from "../components/CodeRunner";
-import HTMLCodeRunner from "../components/HTMLRunner";
-const codeOptions = [
-  {
-    name: "HTML + CSS",
-    value: "html",
-    icon: "🌐",
-    desc: "Basic HTML & CSS output",
-    template: "<div>Hello World</div>",
-    framework: "vanilla",
-  },
-  {
-    name: "Tailwind CSS",
-    value: "tailwind",
-    icon: "🎨",
-    desc: "Utility-first CSS framework",
-    template: '<div class="text-xl font-bold">Hello Tailwind</div>',
-    framework: "react",
-  },
-  {
-    name: "React + Tailwind",
-    value: "react",
-    icon: "⚛️",
-    desc: "React components with Tailwind",
-    template:
-      'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
-    framework: "react",
-  },
-  {
-    name: "Vue + Tailwind",
-    value: "vue",
-    icon: "🟢",
-    desc: "Vue.js components styled with Tailwind",
-    template:
-      '<template><div class="text-xl font-bold">Hello Vue</div></template>',
-    framework: "vue",
-  },
-  {
-    name: "Bootstrap",
-    value: "bootstrap",
-    icon: "📦",
-    desc: "Bootstrap-based component output",
-    template:
-      '<div class="container"><h1 class="display-4">Hello Bootstrap</h1></div>',
-    // framework: "bootstrap",
-    framework: "react",
-  },
-  {
-    name: "Flutter",
-    value: "flutter",
-    icon: "💙",
-    desc: "Flutter UI components",
-    template:
-      'Widget build(BuildContext context) { return Text("Hello Flutter"); }',
-    framework: "react",
-  },
-  {
-    name: "Svelte",
-    value: "svelte",
-    icon: "🔥",
-    desc: "Svelte framework output",
-    template:
-      '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>',
-    framework: "svelte",
-  },
-  {
-    name: "Angular",
-    value: "angular",
-    icon: "🟥",
-    desc: "Angular component structure",
-    template: "<h1>Hello Angular</h1>",
-    framework: "angular",
-  },
-  {
-    name: "Next.js",
-    value: "nextjs",
-    icon: "⬛",
-    desc: "Next.js components",
-    template:
-      "export default function Home() { return <h1>Hello Next.js</h1>; }",
-    framework: "react",
-  },
-  {
-    name: "Nuxt.js",
-    value: "nuxtjs",
-    icon: "🟩",
-    desc: "Nuxt.js components for Vue",
-    template: "<template><h1>Hello Nuxt.js</h1></template>",
-    framework: "react",
-  },
-  {
-    name: "Qwik",
-    value: "qwik",
-    icon: "⚡",
-    desc: "Qwik framework optimized for speed",
-    template: "<div>Hello Qwik</div>",
-    framework: "react",
-  },
-  {
-    name: "Solid.js",
-    value: "solidjs",
-    icon: "🔷",
-    desc: "Solid.js UI components",
-    template: "const App = () => <h1>Hello Solid.js</h1>;",
-    framework: "solid",
-  },
-  {
-    name: "Web Components",
-    value: "web_components",
-    icon: "🖥️",
-    desc: "Standardized Web Components",
-    template:
-      'class HelloComponent extends HTMLElement { connectedCallback() { this.innerHTML = "<h1>Hello Web Components</h1>"; } } customElements.define("hello-component", HelloComponent);',
-    framework: "react",
-  },
-];
+import HTMLRunner from "../components/HTMLRunner";
+import { codeOptions } from "../data/data";
 
 export default function CodeSelectionPage() {
   const [modal, setModal] = useState(false);
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
-
-  console.log("codeOptions", selectedFormat);
-
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
@@ -207,7 +91,6 @@ export default function CodeSelectionPage() {
 
       const reader = new FileReader();
       reader.onload = (e) => {
-        console.log("File selected:", e.target.result);
         // Handle the uploaded image data (e.g., set state, display preview, etc.)
       };
       reader.readAsDataURL(file);
@@ -216,16 +99,37 @@ export default function CodeSelectionPage() {
     }
   };
 
-  const handleGenerateCode = async () => {
+  const handleGenerateCodeWithImage = async () => {
     const formData = new FormData();
     formData.append("image", droppedFile);
-    formData.append("prompt", `please give me ${selectedFormat.value} code`);
+    formData.append(
+      "prompt",
+      `please give me ${selectedFormat.value} code. I want to implement within single file`
+    );
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
-      setCode(response.data.flutter_code);
+      setCode(response.data.responsed_code);
       console.log(response);
     } catch (error) {
+      toast.error("Something went wrong! Please try later.");
+      console.log(error);
+    } finally {
+      setIsCreatingCode(false);
+    }
+  };
+
+  const handleGenerateTextToCode = async () => {
+    const formData = new FormData();
+    // formData.append("image", droppedFile);
+    formData.append("prompt", `${textPrompt}`);
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      setCode(response.data.responsed_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong! Please try later.");
       console.log(error);
     } finally {
       setIsCreatingCode(false);
@@ -324,7 +228,7 @@ export default function CodeSelectionPage() {
                 </div> */}
 
                 <div className="w-full">
-                  <div
+                  {/* <div
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                     className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
@@ -345,7 +249,30 @@ export default function CodeSelectionPage() {
                     >
                       Drag & drop a screenshot here, or click to upload
                     </label>
+                  </div> */}
+                  <div
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onClick={() =>
+                      document.getElementById("file-input").click()
+                    } // Click handler to trigger file input
+                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
+                    style={{
+                      margin: "0 auto",
+                    }}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-input"
+                    />
+                    <span className="text-gray-500 text-center">
+                      Drag & drop a screenshot here, or click to upload
+                    </span>
                   </div>
+
                   <div
                     className={`flex ${
                       isCreatingCode ? "justify-between" : "justify-end "
@@ -354,7 +281,7 @@ export default function CodeSelectionPage() {
                     {isCreatingCode && <Spinner />}
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateCode}
+                      onClick={handleGenerateCodeWithImage}
                     >
                       Generate Code
                     </Button>
@@ -383,7 +310,7 @@ export default function CodeSelectionPage() {
                 </div> */}
 
                 {/* AI Text-to-Code Feature */}
-                {/* <div className="">
+                <div className="">
                   <h3 className="text-lg font-bold">Generate Code from Text</h3>
                   <div className="flex items-center gap-4">
                     <Input
@@ -394,12 +321,12 @@ export default function CodeSelectionPage() {
                     />
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateFromText}
+                      onClick={handleGenerateTextToCode}
                     >
                       Generate
                     </Button>
                   </div>
-                </div> */}
+                </div>
 
                 {/* Live Code Editor & Export Options */}
                 <div className="text-white rounded-lg shadow-lg bg-grayColor ">
@@ -435,14 +362,30 @@ export default function CodeSelectionPage() {
                   </div>
                 </div>
 
-                {/* live preview */}
-                <CodeRunner
-                  code={`${code}`}
-                  framework={selectedFormat.framework}
-                />
+                {/* ===============live preview======================== */}
+                {selectedFormat.hasPreview ? (
+                  <CodeRunner
+                    code={`${code}`}
+                    framework={selectedFormat.framework}
+                  />
+                ) : selectedFormat.value == "html" ||
+                  selectedFormat.value == "tailwind" ? (
+                  ""
+                ) : (
+                  <div className="bg-blue-100 text-blue-700 p-4 rounded-lg shadow-md">
+                    <h4 className="text-xl font-medium">
+                      Preview is not available
+                    </h4>
+                  </div>
+                )}
+                {selectedFormat.value == "html" ||
+                  (selectedFormat.value == "tailwind" && (
+                    <HTMLRunner htmlContent={code} />
+                  ))}
               </div>
             </div>
           </div>
+          <Toaster position="top-right" />
         </div>
       </CommonSpace>
     </CommonContainer>

@@ -1,10 +1,11 @@
 // React Frontend API Integration
 import Cookies from "js-cookie";
 import axios from "axios";
-const API_BASE_URL = "https://72fa-103-174-189-33.ngrok-free.app/api";
+export const API_BASE_URL = "https://bguess-django.onrender.com/api"
 
-const token = Cookies.get("accessToken");
 
+
+// https://8dcb-103-174-189-33.ngrok-free.app/api/
 // User Authentication
 export async function registerUser(email, password) {
   try {
@@ -16,6 +17,8 @@ export async function registerUser(email, password) {
   } catch (error) {
     throw error;
   }
+
+ 
 }
 
 export async function loginUser(email, password) {
@@ -36,7 +39,7 @@ export async function uploadScreenshot(file) {
     const formData = new FormData();
     formData.append("file", file);
 
-    const response = await fetch(`${API_BASE_URL}/upload`, {
+    const response = await fetch(`${API_BASE_URL}/upload/`, {
       method: "POST",
       body: formData,
     });
@@ -49,7 +52,7 @@ export async function uploadScreenshot(file) {
 
 // Fetch AI-Generated Code
 export async function generateCode(payload) {
-  console.log("token", token);
+  const token = Cookies.get("accessToken");
   try {
     const response = await axios.post(`${API_BASE_URL}/imgtocode/`, payload, {
       headers: {
@@ -71,7 +74,7 @@ export async function createCheckoutSession(email, plan) {
     formData.append("email", email);
     formData.append("plan", plan);
 
-    const response = await fetch(`${API_BASE_URL}/create-checkout-session`, {
+    const response = await fetch(`${API_BASE_URL}/create-checkout-session/`, {
       method: "POST",
       body: formData,
     });

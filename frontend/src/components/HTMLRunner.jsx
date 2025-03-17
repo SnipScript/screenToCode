@@ -1,30 +1,17 @@
 import React from "react";
-import { Sandpack } from "@codesandbox/sandpack-react";
 
-export default function HTMLCodeRunner({ code }) {
+const HTMLRunner = ({ htmlContent }) => {
   return (
-    <Sandpack
-      template="vanilla" // Use the "vanilla" template for plain HTML/JS
-      files={{
-        "/index.html": `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML Preview</title>
-    <!-- You can add other external CSS/CDN links here -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body class="bg-gray-100">
-    ${code} <!-- Inject your HTML code here -->
-  </body>
-</html>`,
-      }}
-      options={{
-        showLineNumbers: true, // Optional: Show line numbers in editor
-        editorHeight: 400, // Optional: Set editor height
-        showConsole: false, // Optional: Hide the console if not needed
-      }}
-    />
+    <div className="max-w-4xl w-full mx-auto p-4 bg-white shadow-lg rounded-lg overflow-hidden">
+      <h3 className="text-3xl text-center font-semibold text-gray-800 mb-4 border-b-2">
+        HTML Preview
+      </h3>
+      <div
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
+    </div>
   );
-}
+};
+
+export default HTMLRunner;

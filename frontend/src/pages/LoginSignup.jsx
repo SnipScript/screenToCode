@@ -31,10 +31,11 @@ export default function AuthPage() {
       Cookies.set("refreshToken", response?.refresh);
       setError("");
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error?.status === 401) {
-        return toast.error("Incorrect email or password");
+        return toast.error(error?.response?.data?.detail);
       }
       toast.error(`Something went wrong! Try later.`);
     } finally {
@@ -51,6 +52,10 @@ export default function AuthPage() {
       setPassword("");
       setError("");
       setIsSignUp(false);
+      Cookies.set("accessToken", response?.access, { expires: 1 / 24 });
+      Cookies.set("refreshToken", response?.refresh);
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
       if (error?.status === 400) {
@@ -182,9 +187,9 @@ export default function AuthPage() {
         </Button>
 
         <p className="mt-4 text-sm text-center">
-          {isSignUp ? "Already have an account?" : "Don't have an account?"}
+          {isSignUp ? "Already have an account ?" : "Don't have an account ?"}
           <button
-            className="font-semibold text-blue-600 ml-1"
+            className="ml-1 font-semibold text-blue-600"
             onClick={() => setIsSignUp(!isSignUp)}
           >
             {isSignUp ? "Sign in" : "Sign up"}
