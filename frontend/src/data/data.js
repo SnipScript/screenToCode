@@ -12,7 +12,8 @@ export const codeOptions = [
     name: "Tailwind CSS",
     value: "tailwind",
     icon: "🎨",
-    desc: "Utility-first CSS framework",
+    // desc: "Utility-first CSS framework",
+    desc: "Basic HTML and design with tailwind",
     template: '<div class="text-xl font-bold">Hello Tailwind</div>',
     framework: "html",
     hasPreview: false,
@@ -21,7 +22,7 @@ export const codeOptions = [
     name: "React + Tailwind",
     value: "react",
     icon: "⚛️",
-    desc: "React components with Tailwind",
+    desc: "React components styled with Tailwind",
     template:
       'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
     framework: "react",
