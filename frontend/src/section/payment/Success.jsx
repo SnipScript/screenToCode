@@ -17,7 +17,7 @@ const Success = () => {
         </p>
 
         <Link
-          to={""}
+          to={"/"}
           className="px-3 py-1 my-4 text-green-600 transition-all border-2 border-green-600 rounded hover:bg-green-600 hover:text-white"
         >
           Go Dashboard
