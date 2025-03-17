@@ -64,36 +64,53 @@ const pricingPlans = [
 
 const PricingPage = () => {
   const [billingCycle, setBillingCycle] = useState("monthly");
-
+  const baseurl = process.env.VITE_BACKEND_URL;
+  const [loading, setLoading] = useState(false);
   const token = Cookies.get("accessToken");
 
   const [data, setData] = useState(null);
-  const baseURL = "https://bguess-django.onrender.com/api/packages/";
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get(baseURL, {
+  console.log("data", data);
+  console.log("isLoading", isLoading);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`${baseurl}/packages/`, {
         headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        setData(response.data);
       });
-  }, []);
-
-  const subscribe = async (id) => {
-    const { data } = await axios.post(
-      `https://bguess-django.onrender.com/api/checkout/${id}/`,
-      {},
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
-    console.log("data", data);
-    if (data) {
-      window.location.href = data.checkout_url;
+      setData(res.data);
+      console.log("res", res);
+    } catch (error) {
+      console.log("Data fetching error", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const subscribe = async (id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.post(
+        `${baseurl}/checkout/${id}/`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (data) {
+        window.location.href = data.checkout_url;
+      }
+    } catch (error) {
+      console.log("subscribe fetching error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="min-h-screen bg-gray-100 text-grayColor font-Nunito">
       <CommonContainer>
@@ -110,7 +127,7 @@ const PricingPage = () => {
               setBillingCycle={setBillingCycle}
             />
             <div className="grid w-full max-w-6xl grid-cols-1 gap-6 py-10 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-              {pricingPlans.map((item, index) => (
+              {data?.data?.map((item, index) => (
                 <div
                   key={index}
                   className="bg-white shadow-md  flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer  "
@@ -128,12 +145,13 @@ const PricingPage = () => {
                   </div>
 
                   <p className="text-2xl font-semibold sm:text-4xl md:text-5xl">
+                    $
                     {typeof item.price === "string"
                       ? item.price
                       : billingCycle === "monthly"
                       ? item.price.monthly
                       : item.price.yearly}
-                    <span className="text-lg">/{item.period}</span>
+                    <span className="text-lg">/{item.package_type}</span>
                   </p>
                   <div className="flex flex-col gap-2">
                     {item.features.map((feature, i) => (
@@ -143,7 +161,7 @@ const PricingPage = () => {
                             <BsCheck />
                           </span>
                         </div>
-                        <p className="text-lg font-medium ">{feature}</p>
+                        <p className="text-lg font-medium ">{feature.name}</p>
                       </div>
                     ))}
                   </div>
