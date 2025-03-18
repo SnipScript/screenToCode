@@ -43,8 +43,6 @@ export default function CodeSelectionPage() {
     toast.success("Code copied to clipboard!");
   };
 
-  console.log(selectedFormat, "selected format");
-
   // Simulate AI-generated code from text prompt
   const handleGenerateFromText = () => {
     if (!textPrompt.trim()) return;
@@ -232,7 +230,7 @@ export default function CodeSelectionPage() {
                     onClick={() =>
                       document.getElementById("file-input").click()
                     } // Click handler to trigger file input
-                    className="w-full flex items-center justify-center min-h-40 p-6 border-2 border-gray-300 border-dashed rounded-lg bg-gray-50 cursor-pointer"
+                    className="flex items-center justify-center w-full p-6 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer min-h-40 bg-gray-50"
                     style={{
                       margin: "0 auto",
                     }}
@@ -244,7 +242,7 @@ export default function CodeSelectionPage() {
                       className="hidden"
                       id="file-input"
                     />
-                    <span className="text-gray-500 text-center">
+                    <span className="text-center text-gray-500">
                       Drag & drop a screenshot here, or click to upload
                     </span>
                   </div>
@@ -264,7 +262,7 @@ export default function CodeSelectionPage() {
                   </div>
                   <div className="flex justify-center">
                     {droppedFile && (
-                      <div className="mt-1 flex items-center gap-3">
+                      <div className="flex items-center gap-3 mt-1">
                         <div>
                           <h4 className="font-semibold text-center">
                             Preview:
@@ -277,7 +275,7 @@ export default function CodeSelectionPage() {
                         </div>
                         <div>
                           <button
-                            className="bg-red-400 px-4 py-2 rounded text-white hover:bg-red-500"
+                            className="px-4 py-2 text-white bg-red-400 rounded hover:bg-red-500"
                             onClick={() => setDroppedFile(null)}
                           >
                             Remove
@@ -360,7 +358,7 @@ export default function CodeSelectionPage() {
                   selectedFormat.value == "tailwind" ? (
                   ""
                 ) : (
-                  <div className="bg-blue-100 text-blue-700 p-4 rounded-lg shadow-md">
+                  <div className="p-4 text-blue-700 bg-blue-100 rounded-lg shadow-md">
                     <h4 className="text-xl font-medium">
                       Preview is not available
                     </h4>
