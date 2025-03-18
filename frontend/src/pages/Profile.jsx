@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import Cookies from "js-cookie";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 const Profile = () => {
   const baseurl = process.env.VITE_BACKEND_URL;
   const [isLoading, setIsLoading] = useState(false);
@@ -26,8 +26,12 @@ const Profile = () => {
     }
   };
 
+  console.log("id", data);
+
   const subscribeCancel = async (id) => {
     setLoading(true);
+
+    console.log("dadfdfd", id);
     try {
       const { data } = await axios.post(
         `${baseurl}/subscriptions/cancel/${id}/`,
@@ -37,6 +41,7 @@ const Profile = () => {
         }
       );
 
+      console.log("data", data);
       if (data) {
         toast.success(data?.message);
       }
@@ -118,12 +123,12 @@ const Profile = () => {
                     className="w-full "
                   >
                     <button className="w-full px-4 py-2 text-xl text-white bg-red-500 rounded-full">
-                      Cancel Plan
+                      {loading ? "processing..." : " Cancel Plan"}
                     </button>
                   </div>
                   <Link to={"/pricing"} className="w-full ">
                     <button className="w-full px-4 py-2 text-xl text-white bg-green-500 rounded-full">
-                      Upgrade Plan
+                      {isLoading ? "processing..." : "Upgrade Plan"}
                     </button>
                   </Link>
                 </div>
