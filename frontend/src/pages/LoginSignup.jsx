@@ -52,8 +52,8 @@ export default function AuthPage() {
       setPassword("");
       setError("");
       setIsSignUp(false);
-      Cookies.set("accessToken", response?.access, { expires: 1 });
-      Cookies.set("refreshToken", response?.refresh);
+      Cookies.set("accessToken", response?.tokens?.access, { expires: 1 });
+      Cookies.set("refreshToken", response?.tokens?.refresh);
       navigate("/");
       window.location.reload();
     } catch (error) {
