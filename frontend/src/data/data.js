@@ -14,7 +14,9 @@ export const codeOptions = [
     icon: "🎨",
     // desc: "Utility-first CSS framework",
     desc: "Basic HTML and design with tailwind",
-    template: '<div class="text-xl font-bold">Hello Tailwind</div>',
+    template: `<div class="text-xl font-bold text-center bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+  Hello Tailwind
+</div>`,
     framework: "html",
     hasPreview: false,
   },
@@ -23,8 +25,16 @@ export const codeOptions = [
     value: "react",
     icon: "⚛️",
     desc: "React components styled with Tailwind",
-    template:
-      'const Hello = () => (<div className="text-xl font-bold">Hello React</div>);',
+    template: `
+    const Hello = () => (
+      <div className="flex items-center justify-center h-screen bg-blue-100">
+        <div className="text-4xl font-semibold text-gray-800">
+          Hello, React with Tailwind!
+        </div>
+      </div>
+    );
+    export default Hello;
+  `,
     framework: "react",
     hasPreview: true,
   },
@@ -33,8 +43,25 @@ export const codeOptions = [
     value: "vue",
     icon: "🟢",
     desc: "Vue.js components styled with Tailwind",
-    template:
-      '<template><div class="text-xl font-bold">Hello Vue</div></template>',
+    template: `
+    <template>
+      <div class="flex items-center justify-center h-screen bg-green-100">
+        <div class="text-4xl font-semibold text-gray-800">
+          Hello, Vue with Tailwind!
+        </div>
+      </div>
+    </template>
+
+    <script>
+    export default {
+      name: 'HelloVue'
+    }
+    </script>
+
+    <style scoped>
+    /* Optional: Scoped styles can be added here */
+    </style>
+  `,
     framework: "vue",
     hasPreview: true,
   },
@@ -62,8 +89,20 @@ export const codeOptions = [
     value: "svelte",
     icon: "🔥",
     desc: "Svelte framework output",
-    template:
-      '<script> let message = "Hello Svelte"; </script><h1>{message}</h1>',
+    template: `
+    <script>
+      let message = "Hello Svelte";
+    </script>
+    
+    <style>
+      h1 {
+        color: #42b883;
+        font-size: 2rem;
+      }
+    </style>
+
+    <h1>{message}</h1>
+  `,
     framework: "svelte",
     hasPreview: true,
   },
@@ -74,7 +113,7 @@ export const codeOptions = [
     desc: "Angular component structure",
     template: "<h1>Hello Angular</h1>",
     framework: "angular",
-    hasPreview: true,
+    hasPreview: false,
   },
   {
     name: "Next.js",
