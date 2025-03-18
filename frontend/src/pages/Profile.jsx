@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import Cookies from "js-cookie";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 const Profile = () => {
   const baseurl = process.env.VITE_BACKEND_URL;
   const [isLoading, setIsLoading] = useState(false);
@@ -26,12 +26,8 @@ const Profile = () => {
     }
   };
 
-  console.log("id", data);
-
   const subscribeCancel = async (id) => {
     setLoading(true);
-
-    console.log("dadfdfd", id);
     try {
       const { data } = await axios.post(
         `${baseurl}/subscriptions/cancel/${id}/`,
@@ -40,13 +36,11 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-
-      console.log("data", data);
-      if (data) {
-        toast.success(data?.message);
-      }
+      toast.success("Cancelled subscription successfully.");
+      fetchData();
     } catch (error) {
-      console.log("subscribe cancel error", error);
+      console.log("Subscribe cancel error", error);
+      toast.error("Error cancelling subscription");
     } finally {
       setLoading(false);
     }
@@ -137,6 +131,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Toaster position="top-right" />
     </CommonContainer>
   );
 };
