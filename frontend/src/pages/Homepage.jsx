@@ -15,11 +15,8 @@ const Homepage = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`${baseurl}/packages/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(`${baseurl}/packages/`);
       setData(res.data);
-      console.log("res", res);
     } catch (error) {
       console.log("Data fetching error", error);
     } finally {
