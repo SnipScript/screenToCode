@@ -38,10 +38,12 @@ const Profile = () => {
       );
 
       if (data) {
+        fetchData();
         toast.success(data?.message);
       }
     } catch (error) {
-      console.log("subscribe cancel error", error);
+      console.log("Subscribe cancel error", error);
+      toast.error("Subscription cancel failed");
     } finally {
       setLoading(false);
     }
@@ -118,12 +120,12 @@ const Profile = () => {
                     className="w-full "
                   >
                     <button className="w-full px-4 py-2 text-xl text-white bg-red-500 rounded-full">
-                      Cancel Plan
+                      {loading ? "processing..." : " Cancel Plan"}
                     </button>
                   </div>
                   <Link to={"/pricing"} className="w-full ">
                     <button className="w-full px-4 py-2 text-xl text-white bg-green-500 rounded-full">
-                      Upgrade Plan
+                      {isLoading ? "processing..." : "Upgrade Plan"}
                     </button>
                   </Link>
                 </div>
@@ -132,6 +134,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Toaster position="top-right" />
     </CommonContainer>
   );
 };

@@ -19,12 +19,14 @@ export default function CodeSelectionPage() {
   const [selectedFormat, setSelectedFormat] = useState(codeOptions[0]);
   const [code, setCode] = useState(selectedFormat.template);
   const [textPrompt, setTextPrompt] = useState("");
+  const [url, setUrl] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
-    setCode(selectedFormat.template);
+    // setCode(selectedFormat.template);
+    setCode("");
   };
 
   // Function to download generated code
@@ -105,11 +107,12 @@ export default function CodeSelectionPage() {
     formData.append("image", droppedFile);
     formData.append(
       "prompt",
-      `please give me ${selectedFormat.desc} code. I want to implement within single file`
+      `please give me ${selectedFormat.value} code. I want to implement within single file`
     );
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
+      console.log(response.data);
       setCode(response.data.responsed_code);
       console.log(response);
     } catch (error) {
@@ -124,6 +127,26 @@ export default function CodeSelectionPage() {
     const formData = new FormData();
     // formData.append("image", droppedFile);
     formData.append("prompt", `${textPrompt}`);
+    try {
+      setIsCreatingCode(true);
+      const response = await generateCode(formData);
+      console.log(response);
+      setCode(response.data.responsed_code);
+      console.log(response);
+    } catch (error) {
+      toast.error("Something went wrong! Please try later.");
+      console.log(error);
+    } finally {
+      setIsCreatingCode(false);
+    }
+  };
+  const handleUrlToCode = async () => {
+    if (!url) {
+      return toast.error("Please provide a URL");
+    }
+    const formData = new FormData();
+    // formData.append("image", droppedFile);
+    formData.append("prompt", `${url}`);
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
@@ -285,15 +308,19 @@ export default function CodeSelectionPage() {
                     )}
                   </div>
                 </div>
-                {/* <div className="flex items-center gap-4 ">
+                <div className="flex items-center gap-4 ">
                   <Input
                     className="flex-1 w-40"
                     placeholder="Enter URL to capture"
+                    onChange={(e) => setUrl(e.target.value)}
                   />
-                  <Button className="px-6 py-3 text-white bg-gray-700 rounded-lg ">
+                  <Button
+                    className="px-6 py-3 text-white bg-gray-700 rounded-lg "
+                    onClick={handleUrlToCode}
+                  >
                     Capture
                   </Button>
-                </div> */}
+                </div>
 
                 {/* AI Text-to-Code Feature */}
                 <div className="">
