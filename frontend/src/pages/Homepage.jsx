@@ -4,10 +4,8 @@ import CTA from "../section/Homepage/CTA";
 import Hero from "../section/Homepage/Hero";
 import Pricing from "../section/Homepage/Pricing";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 const Homepage = () => {
-  const token = Cookies.get("accessToken");
   const baseurl = process.env.VITE_BACKEND_URL;
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,6 +22,7 @@ const Homepage = () => {
     }
   };
 
+  console.log("packagewjhkfd", data);
   useEffect(() => {
     fetchData();
   }, []);
