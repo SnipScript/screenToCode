@@ -1,4 +1,3 @@
-
 import Button from "../../components/ui/Button";
 
 const PricingButton = ({ billingCycle, setBillingCycle }) => {
@@ -10,7 +9,10 @@ const PricingButton = ({ billingCycle, setBillingCycle }) => {
             ? "bg-grayColor text-white rounded-xl"
             : "bg-gray-200 text-grayColor rounded-xl"
         }`}
-        onClick={() => setBillingCycle("monthly")}
+        onClick={() => {
+          setBillingCycle("monthly");
+          // setFilterData(data?.data);
+        }}
       >
         Monthly
       </Button>
@@ -20,7 +22,10 @@ const PricingButton = ({ billingCycle, setBillingCycle }) => {
             ? "bg-red-500 text-white rounded-xl"
             : "bg-gray-200 text-grayColor rounded-xl"
         }`}
-        onClick={() => setBillingCycle("yearly")}
+        onClick={() => {
+          setBillingCycle("yearly");
+          // applyFilter();
+        }}
       >
         Yearly (50% Off)
       </Button>
@@ -28,4 +33,4 @@ const PricingButton = ({ billingCycle, setBillingCycle }) => {
   );
 };
 
-export default PricingButton
+export default PricingButton;
