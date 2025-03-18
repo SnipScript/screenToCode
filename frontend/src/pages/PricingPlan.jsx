@@ -9,69 +9,6 @@ import CommonHeader from "../common/CommonHeader";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Loading from "../section/Homepage/Loading";
-const pricingPlans = [
-  {
-    name: "Free Plan",
-    price: "$0",
-    period: "month",
-    id: 1,
-    features: [
-      "5 conversions/month",
-      "Basic HTML & CSS only",
-      "No AI Editor",
-      "Watermarked output",
-      "Cannot download or save generated files",
-      "Can generate unlimited previews before conversion",
-    ],
-  },
-
-  {
-    name: "Basic Plan",
-    price: { monthly: "$10", yearly: "$5" },
-    id: 2,
-    period: "month",
-    features: [
-      "50 conversions",
-      "Full framework support",
-      "AI-powered editor (limited)",
-      "No watermark",
-    ],
-  },
-  {
-    name: "Pro Plan",
-    price: { monthly: "$20", yearly: "$10" },
-    id: 3,
-    period: "month",
-    features: [
-      "150 conversions",
-      "AI-powered editor",
-      "Priority processing",
-      "No watermark",
-    ],
-  },
-  {
-    name: "Business Plan",
-    price: { monthly: "$40", yearly: "$20" },
-    period: "month",
-    features: [
-      "500 conversions",
-      "AI-powered editor",
-      "Priority processing",
-      "No watermark",
-    ],
-  },
-  {
-    name: "Pay-As-You-Go",
-    price: "$15",
-    period: "one-time",
-    features: [
-      "100 conversions",
-      "AI-powered editor",
-      "Priority processing",
-      "No watermark",
-    ],
-  },
-];
 
 const PricingPage = () => {
   const list = new Array(5).fill(null);
@@ -80,7 +17,7 @@ const PricingPage = () => {
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const token = Cookies.get("accessToken");
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -113,9 +50,26 @@ const PricingPage = () => {
       setLoading(false);
     }
   };
+
+  // const [filterData, setFilterData] = useState([]);
+  // const applyFilter = async () => {
+  //   if (data) {
+  //     setFilterData(
+  //       data?.data?.filter((item) => {
+  //         console.log("item", item.discount);
+  //         return item.discount == "50";
+  //       })
+  //     );
+  //   } else {
+  //     setFilterData(data?.data);
+  //   }
+  // };
+
   useEffect(() => {
     fetchData();
+    // applyFilter();
   }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 text-grayColor font-Nunito">
       <CommonContainer>
@@ -130,6 +84,9 @@ const PricingPage = () => {
             <PricingButton
               billingCycle={billingCycle}
               setBillingCycle={setBillingCycle}
+              // applyFilter={applyFilter}
+              // setFilterData={setFilterData}
+              // data={data}
             />
             <div className="grid w-full max-w-6xl grid-cols-1 gap-6 py-10 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
               {isLoading

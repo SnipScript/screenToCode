@@ -36,11 +36,14 @@ const Profile = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      toast.success("Cancelled subscription successfully.");
-      fetchData();
+
+      if (data) {
+        fetchData();
+        toast.success(data?.message);
+      }
     } catch (error) {
       console.log("Subscribe cancel error", error);
-      toast.error("Error cancelling subscription");
+      toast.error("Subscription cancel failed");
     } finally {
       setLoading(false);
     }
