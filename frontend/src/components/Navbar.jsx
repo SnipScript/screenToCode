@@ -62,15 +62,6 @@ const Navbar = () => {
                   Profile
                 </NavLink>
               )}
-
-              <Link to="/conversion" className="relative cursor-pointer ">
-                <span className="text-3xl">
-                  <IoNotifications />
-                </span>
-                <p className="absolute flex items-center justify-center w-6 h-6 p-1 font-bold text-white bg-red-500 rounded-full -top-3 left-4 ring-2 ring-white ">
-                  10
-                </p>
-              </Link>
               {token && (
                 <button
                   onClick={handleLogOut}
@@ -124,19 +115,6 @@ const Navbar = () => {
                 Profile
               </NavLink>
             )}
-
-            <NavLink
-              onClick={() => {
-                setIsMenuOpen(false);
-              }}
-              to="/conversion"
-              className="flex items-center gap-1 cursor-pointer !border-transparent  "
-            >
-              <span className="text-lg">Conversion</span>
-              <p className="flex items-center justify-center w-6 h-6 p-1 font-bold text-white bg-red-500 rounded-full ">
-                10
-              </p>
-            </NavLink>
             {!token && (
               <NavLink
                 onClick={() => {
