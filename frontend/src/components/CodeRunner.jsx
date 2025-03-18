@@ -2,10 +2,38 @@ import React from "react";
 import { Sandpack } from "@codesandbox/sandpack-react";
 
 export default function CodeRunner({ code, framework }) {
+  let files = {};
+  // Use a switch statement to set the appropriate files based on the framework
+  switch (framework) {
+    case "react":
+      files = {
+        "/App.js": code, // For React, inject into App.js
+      };
+      break;
+    case "vue":
+      files = {
+        "src/App.vue": code, // For Vue, inject into App.vue
+      };
+      break;
+    case "svelte":
+      files = {
+        "App.svelte": code, // For svelte, inject into App.svelte
+      };
+      break;
+    case "vanilla":
+      files = {
+        "/index.js": code, // For Vanilla JS, inject into index.js
+      };
+      break;
+    default:
+      files = {
+        "/App.js": code, // Default to React if framework is unknown
+      };
+  }
   return (
     <Sandpack
       template={framework} // React, Vue, Vanilla JS, Svelte, etc.
-      files={{ "/App.js": code }} // Injects the code into App.js
+      files={files} // Inject the correct files based on the framework
       options={{
         showLineNumbers: true, // Enable line numbers
         editorHeight: 400, // Adjust editor height
