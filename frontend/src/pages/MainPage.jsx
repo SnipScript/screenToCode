@@ -43,8 +43,6 @@ export default function CodeSelectionPage() {
     toast.success("Code copied to clipboard!");
   };
 
-  console.log(selectedFormat, "selected format");
-
   // Simulate AI-generated code from text prompt
   const handleGenerateFromText = () => {
     if (!textPrompt.trim()) return;
@@ -107,11 +105,12 @@ export default function CodeSelectionPage() {
     formData.append("image", droppedFile);
     formData.append(
       "prompt",
-      `please give me ${selectedFormat.desc} code. I want to implement within single file`
+      `please give me ${selectedFormat.value} code. I want to implement within single file`
     );
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
+      console.log(response.data);
       setCode(response.data.responsed_code);
       console.log(response);
     } catch (error) {
