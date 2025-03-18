@@ -49,18 +49,28 @@ const pricingPlans = [
       "No watermark",
     ],
   },
-  // {
-  //   name: "Business Plan",
-  //   price: { monthly: "$40", yearly: "$20" },
-  //   period: "month",
-  //   features: ["500 conversions", "AI-powered editor", "Priority processing", "No watermark"],
-  // },
-  // {
-  //   name: "Pay-As-You-Go",
-  //   price: "$15",
-  //   period: "one-time",
-  //   features: ["100 conversions", "AI-powered editor", "Priority processing", "No watermark"],
-  // },
+  {
+    name: "Business Plan",
+    price: { monthly: "$40", yearly: "$20" },
+    period: "month",
+    features: [
+      "500 conversions",
+      "AI-powered editor",
+      "Priority processing",
+      "No watermark",
+    ],
+  },
+  {
+    name: "Pay-As-You-Go",
+    price: "$15",
+    period: "one-time",
+    features: [
+      "100 conversions",
+      "AI-powered editor",
+      "Priority processing",
+      "No watermark",
+    ],
+  },
 ];
 
 const PricingPage = () => {
@@ -75,9 +85,7 @@ const PricingPage = () => {
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(`${baseurl}/packages/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(`${baseurl}/packages/`);
       setData(res.data);
     } catch (error) {
       console.log("Data fetching error", error);
@@ -172,7 +180,7 @@ const PricingPage = () => {
                         }}
                         className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
                       >
-                        Subscribe
+                        {loading ? "processing..." : "Subscribe"}
                       </button>
                     </div>
                   ))}

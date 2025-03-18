@@ -157,7 +157,7 @@ const Pricing = ({ data, isLoading }) => {
                     }}
                     className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
                   >
-                    {loading ? "Processing" : "Get Started"}
+                    {loading ? "Processing..." : "Get Started"}
                   </button>
                 </Card>
               ))}
