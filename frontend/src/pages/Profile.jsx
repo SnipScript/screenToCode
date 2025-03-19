@@ -11,6 +11,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const token = Cookies.get("accessToken");
   const [data, setData] = useState(null);
+  const [conversion, setConversion] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
@@ -25,7 +26,18 @@ const Profile = () => {
       setIsLoading(false);
     }
   };
+  const FetchConversion = async () => {
+    try {
+      const res = await axios.get(`${baseurl}/history/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setConversion(res.data);
+    } catch (error) {
+      console.log("Data fetching error", error);
+    }
+  };
 
+  console.log("conversion", conversion);
   const subscribeCancel = async (id) => {
     setLoading(true);
     try {
@@ -51,6 +63,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchData();
+    FetchConversion();
   }, []);
   return (
     <CommonContainer>
@@ -106,9 +119,9 @@ const Profile = () => {
                     </h2>
                   </div>
                   <div className="flex items-center justify-between gap-2 px-2 ">
-                    <h2 className="font-semibold ">Conversion</h2>
+                    <h2 className="font-semibold ">Conversion left</h2>
                     <h2 className="font-semibold text-red-500">
-                      {data?.data?.conversation_left}
+                      {data?.data?.conversation_left - conversion?.length}
                     </h2>
                   </div>
                 </div>
