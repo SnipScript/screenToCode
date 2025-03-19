@@ -7,7 +7,7 @@ const HTMLRunner = ({ htmlContent, title = "HTML Preview" }) => {
         {title}
       </h3>
       <div
-        className="prose max-w-none"
+        className="prose max-w-none overflow-x-auto" // Add overflow-x-auto to handle horizontal overflow
         dangerouslySetInnerHTML={{ __html: htmlContent }}
       />
     </div>

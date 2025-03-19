@@ -1,6 +1,7 @@
 import CommonContainer from "../../common/CommonContainer";
 import Button from "../../components/ui/Button";
 import Trusted from "./Trusted";
+import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="py-16 bg-white shadow-md sm:py-20">
@@ -22,15 +23,19 @@ const Hero = () => {
             />
           </div>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row ">
-            <Button className="px-6 py-3 text-lg transition-all rounded-xl">
+            <Link
+              to="/app"
+              className="px-6 py-3 text-lg text-white transition-all rounded-xl bg-grayColor"
+            >
               Upload Screenshot
-            </Button>
-            <Button
+            </Link>
+            <Link
+              to="/app"
               variant="outline"
-              className="px-6 py-3 text-lg transition-all rounded-xl"
+              className="px-6 py-3 text-lg text-white transition-all rounded-xl bg-grayColor"
             >
               Enter Website URL
-            </Button>
+            </Link>
           </div>
         </div>
       </CommonContainer>
