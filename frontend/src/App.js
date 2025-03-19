@@ -1,12 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-// Import components
 import Navbar from "./components/Navbar";
-
-// Import all pages
 import Homepage from "./pages/Homepage";
-// import MainPage from "./pages/MainPage";
 import PricingPlan from "./pages/PricingPlan";
 import AdminBackend from "./pages/AdminBackend";
 import Footer from "./section/Footer/Footer";
@@ -19,7 +14,6 @@ import AuthPage from "./pages/LoginSignup";
 import PrivateRoute from "./components/PrivateRoute";
 import Success from "./section/payment/Success";
 import Cancel from "./section/payment/Cancel";
-import Conversion from "./pages/Conversion";
 import Profile from "./pages/Profile";
 const MainPage = React.lazy(() => import("./pages/MainPage"));
 
@@ -47,9 +41,7 @@ function App() {
         <Route path="/faqs" element={<Faqs />} />
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
-        <Route path="/conversion" element={<Conversion />} />
         <Route path="/profile" element={<Profile />} />
-        
       </Routes>
       <Footer />
     </Router>
