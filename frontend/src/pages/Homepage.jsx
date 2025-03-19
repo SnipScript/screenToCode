@@ -22,7 +22,6 @@ const Homepage = () => {
     }
   };
 
-  console.log("packagewjhkfd", data);
   useEffect(() => {
     fetchData();
   }, []);

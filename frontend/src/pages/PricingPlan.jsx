@@ -72,7 +72,6 @@ const PricingPage = () => {
       applyFilter();
     }
   }, [data]);
-  console.log("filterData", filterData);
 
   return (
     <div className="min-h-screen bg-gray-100 text-grayColor font-Nunito">
