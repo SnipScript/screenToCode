@@ -123,7 +123,7 @@ export const codeOptions = [
     template:
       "export default function Home() { return <h1>Hello Next.js</h1>; }",
     framework: "react",
-    hasPreview: false,
+    hasPreview: true,
   },
   {
     name: "Nuxt.js",
