@@ -1,7 +1,8 @@
 // React Frontend API Integration
 import Cookies from "js-cookie";
 import axios from "axios";
-export const API_BASE_URL = "https://bguess-django.onrender.com/api";
+// export const API_BASE_URL = "https://bguess-django.onrender.com/api";
+export const API_BASE_URL = process.env.VITE_BACKEND_URL;
 
 export async function registerUser(email, password) {
   try {
