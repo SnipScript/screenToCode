@@ -104,6 +104,9 @@ export default function CodeSelectionPage() {
   };
 
   const handleGenerateCodeWithImage = async () => {
+    if (!droppedFile) {
+      return toast.error("Please provide image");
+    }
     const formData = new FormData();
     formData.append("image", droppedFile);
     formData.append(
@@ -124,6 +127,10 @@ export default function CodeSelectionPage() {
   };
 
   const handleGenerateTextToCode = async () => {
+    if (!textPrompt) {
+      return toast.error("Please provide proper text to get code!");
+    }
+    setSelectedFormat({});
     const formData = new FormData();
     // formData.append("image", droppedFile);
     formData.append("prompt", `${textPrompt}`);
@@ -143,6 +150,7 @@ export default function CodeSelectionPage() {
     if (!url) {
       return toast.error("Please provide a URL");
     }
+    setSelectedFormat({});
     const formData = new FormData();
     // formData.append("image", droppedFile);
     formData.append("prompt", `${url}`);
@@ -380,7 +388,8 @@ export default function CodeSelectionPage() {
                     framework={selectedFormat.framework}
                   />
                 ) : selectedFormat.value == "html" ||
-                  selectedFormat.value == "tailwind" ? (
+                  selectedFormat.value == "tailwind" ||
+                  selectedFormat.value == "bootstrap" ? (
                   ""
                 ) : (
                   <div className="p-4 text-blue-700 bg-blue-100 rounded-lg shadow-md">
@@ -394,6 +403,8 @@ export default function CodeSelectionPage() {
                   <HTMLRunner htmlContent={code} />
                 ) : selectedFormat.value == "tailwind" ? (
                   <HTMLRunner htmlContent={code} title="HTML with Tailwind" />
+                ) : selectedFormat.value == "bootstrap" ? (
+                  <HTMLRunner htmlContent={code} title="HTML with Bootstrap" />
                 ) : null}
               </div>
             </div>
