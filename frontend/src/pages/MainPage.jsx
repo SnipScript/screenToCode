@@ -140,10 +140,14 @@ export default function CodeSelectionPage() {
     if (!url) {
       return toast.error("Please provide a URL");
     }
+    if (!textPrompt) {
+      return toast.error("Please provide a prompt");
+    }
     setSelectedFormat({});
     const formData = new FormData();
     // formData.append("image", droppedFile);
-    formData.append("prompt", `${url}`);
+    formData.append("prompt", `${textPrompt}`);
+    formData.append("url", `${url}`);
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
@@ -342,12 +346,14 @@ export default function CodeSelectionPage() {
                       placeholder="Describe what you want..."
                       className="flex-1 w-40 "
                     />
-                    <Button
-                      className="px-6 py-3 text-white bg-blue-500 rounded-lg"
-                      onClick={handleGenerateTextToCode}
-                    >
-                      Generate
-                    </Button>
+                    {!url && (
+                      <Button
+                        className="px-6 py-3 text-white bg-blue-500 rounded-lg"
+                        onClick={handleGenerateTextToCode}
+                      >
+                        Generate
+                      </Button>
+                    )}
                   </div>
                 </div>
 
