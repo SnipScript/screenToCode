@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import Card from "../../components/ui/Card";
 import CommonSpace from "../../common/CommonSpace";
 import CommonContainer from "../../common/CommonContainer";
@@ -37,7 +37,7 @@ const Features = () => {
           <CommonHeader className="pb-10"> Why Choose Us</CommonHeader>
           <div className="grid max-w-5xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 text-grayColor ">
             {support.map((feature, index) => (
-              <Card key={index} className="flex items-center gap-1 p-8 ">
+              <Card key={index} className="flex gap-1 p-8 ">
                 <span className="text-4xl">{feature.icon}</span>
                 <h2 className="text-2xl ">{feature.title}</h2>
               </Card>
@@ -49,4 +49,4 @@ const Features = () => {
   );
 };
 
-export default Features
+export default Features;

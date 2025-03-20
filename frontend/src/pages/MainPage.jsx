@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Card from "../components/ui/Card";
@@ -22,6 +22,7 @@ export default function CodeSelectionPage() {
   const [url, setUrl] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
+  const [isShowPreview, setIsShowPreview] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -103,6 +104,9 @@ export default function CodeSelectionPage() {
   };
 
   const handleGenerateCodeWithImage = async () => {
+    if (!droppedFile) {
+      return toast.error("Please provide image");
+    }
     const formData = new FormData();
     formData.append("image", droppedFile);
     formData.append(
@@ -123,6 +127,10 @@ export default function CodeSelectionPage() {
   };
 
   const handleGenerateTextToCode = async () => {
+    if (!textPrompt) {
+      return toast.error("Please provide proper text to get code!");
+    }
+    setSelectedFormat({});
     const formData = new FormData();
     // formData.append("image", droppedFile);
     formData.append("prompt", `${textPrompt}`);
@@ -142,6 +150,7 @@ export default function CodeSelectionPage() {
     if (!url) {
       return toast.error("Please provide a URL");
     }
+    setSelectedFormat({});
     const formData = new FormData();
     // formData.append("image", droppedFile);
     formData.append("prompt", `${url}`);
@@ -158,6 +167,16 @@ export default function CodeSelectionPage() {
     }
   };
 
+  const mobileMenu = useRef();
+  useEffect(() => {
+    const handler = (e) => {
+      if (!mobileMenu.current?.contains(e.target)) {
+        setModal(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+  });
   return (
     <CommonContainer>
       <CommonSpace>
@@ -199,7 +218,7 @@ export default function CodeSelectionPage() {
 
             <div className="w-full md:w-2/3 ">
               <div className="flex items-center justify-between w-full pb-2 ">
-                <h2 className="text-lg font-bold sm:text-xl">
+                <h2 className="text-xs font-bold sm:text-xl">
                   {/* Upload Screenshot or Enter URL */}
                   Upload Screenshot
                 </h2>
@@ -214,7 +233,10 @@ export default function CodeSelectionPage() {
                   </div>
                   {modal && (
                     <div className="overflow-hidden h-[700px] absolute top-10  z-10 w-full bg-gray-100 p-4 rounded-xl">
-                      <div className="flex flex-col h-full gap-6 overflow-y-auto ">
+                      <div
+                        ref={mobileMenu}
+                        className="flex flex-col h-full gap-6 overflow-y-auto "
+                      >
                         {codeOptions.map((option) => (
                           <Card
                             key={option.value}
@@ -225,6 +247,7 @@ export default function CodeSelectionPage() {
                             }`}
                             onClick={() => {
                               setSelectedFormat(option);
+                              // setModal(false);
                               // setCode(option.template);
                             }}
                           >
@@ -280,9 +303,9 @@ export default function CodeSelectionPage() {
                       Generate Code
                     </Button>
                   </div>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mx-auto max-w-[320px] sm:min-w-[450px] ">
                     {droppedFile && (
-                      <div className="flex items-center gap-3 mt-1">
+                      <div className="flex flex-col items-center gap-3 mt-1 sm:flex-row">
                         <div>
                           <h4 className="font-semibold text-center">
                             Preview:
@@ -290,10 +313,10 @@ export default function CodeSelectionPage() {
                           <img
                             src={URL.createObjectURL(droppedFile)}
                             alt="Preview"
-                            className="max-w-full max-h-40"
+                            className="w-full rounded-md"
                           />
                         </div>
-                        <div>
+                        <div className="self-end ">
                           <button
                             className="px-4 py-2 text-white bg-red-400 rounded hover:bg-red-500"
                             onClick={() => setDroppedFile(null)}
@@ -379,7 +402,8 @@ export default function CodeSelectionPage() {
                     framework={selectedFormat.framework}
                   />
                 ) : selectedFormat.value == "html" ||
-                  selectedFormat.value == "tailwind" ? (
+                  selectedFormat.value == "tailwind" ||
+                  selectedFormat.value == "bootstrap" ? (
                   ""
                 ) : (
                   <div className="p-4 text-blue-700 bg-blue-100 rounded-lg shadow-md">
@@ -393,6 +417,8 @@ export default function CodeSelectionPage() {
                   <HTMLRunner htmlContent={code} />
                 ) : selectedFormat.value == "tailwind" ? (
                   <HTMLRunner htmlContent={code} title="HTML with Tailwind" />
+                ) : selectedFormat.value == "bootstrap" ? (
+                  <HTMLRunner htmlContent={code} title="HTML with Bootstrap" />
                 ) : null}
               </div>
             </div>
