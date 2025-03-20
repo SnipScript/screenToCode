@@ -22,6 +22,7 @@ export default function CodeSelectionPage() {
   const [url, setUrl] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
+  const [isShowPreview, setIsShowPreview] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
