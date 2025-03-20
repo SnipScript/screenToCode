@@ -5,7 +5,6 @@ import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
 import Cookies from "js-cookie";
-import { IoNotifications } from "react-icons/io5";
 const Navbar = () => {
   const token = Cookies.get("accessToken");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
