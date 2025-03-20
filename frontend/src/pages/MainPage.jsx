@@ -289,9 +289,9 @@ export default function CodeSelectionPage() {
                       Generate Code
                     </Button>
                   </div>
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mx-auto max-w-[320px] sm:min-w-[450px] ">
                     {droppedFile && (
-                      <div className="flex items-center gap-3 mt-1">
+                      <div className="flex flex-col items-center gap-3 mt-1 sm:flex-row">
                         <div>
                           <h4 className="font-semibold text-center">
                             Preview:
@@ -299,10 +299,10 @@ export default function CodeSelectionPage() {
                           <img
                             src={URL.createObjectURL(droppedFile)}
                             alt="Preview"
-                            className="max-w-full max-h-40"
+                            className="w-full rounded-md"
                           />
                         </div>
-                        <div>
+                        <div className="self-end ">
                           <button
                             className="px-4 py-2 text-white bg-red-400 rounded hover:bg-red-500"
                             onClick={() => setDroppedFile(null)}
