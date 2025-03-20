@@ -1,5 +1,4 @@
 import CommonContainer from "../../common/CommonContainer";
-import Button from "../../components/ui/Button";
 import Trusted from "./Trusted";
 import { Link } from "react-router-dom";
 const Hero = () => {
