@@ -22,7 +22,6 @@ export default function CodeSelectionPage() {
   const [url, setUrl] = useState("");
   const [droppedFile, setDroppedFile] = useState(null);
   const [isCreatingCode, setIsCreatingCode] = useState(false);
-  const [isShowPreview, setIsShowPreview] = useState(false);
 
   // Function to reset code to its original template
   const handleResetCode = () => {
@@ -42,16 +41,7 @@ export default function CodeSelectionPage() {
   // Function to copy code to clipboard
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
-    // alert("Code copied to clipboard!");
     toast.success("Code copied to clipboard!");
-  };
-
-  // Simulate AI-generated code from text prompt
-  const handleGenerateFromText = () => {
-    if (!textPrompt.trim()) return;
-    setCode(
-      `/* AI-generated code for: ${textPrompt} */\n<div>Generated Code Here</div>`
-    );
   };
 
   const handleDrop = (event) => {
@@ -77,7 +67,7 @@ export default function CodeSelectionPage() {
 
         reader.readAsDataURL(file);
       } else {
-        alert("Please upload a valid image file.");
+        toast.error("Please upload a valid image file.");
       }
     }
   };
@@ -99,7 +89,7 @@ export default function CodeSelectionPage() {
       };
       reader.readAsDataURL(file);
     } else {
-      alert("Please select a valid image file.");
+      toast.error("Please select a valid image file.");
     }
   };
 
