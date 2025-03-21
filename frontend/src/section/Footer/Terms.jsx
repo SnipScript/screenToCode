@@ -36,9 +36,9 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>1.2.</b> Free users are limited to <b>5 conversions per
-              month </b> with basic <b>HTML & CSS</b> output and watermarked results.
-              Paid users
+              <b>1.2.</b> Free users are limited to{" "}
+              <b>5 conversions per month </b> with basic <b>HTML & CSS</b>{" "}
+              output and watermarked results. Paid users
             </p>
           </div>
           <div className="flex ">
@@ -109,7 +109,7 @@ const Terms = () => {
             </span>
             <p>
               <b>3.2.</b> Subscription fees are charged on a{" "}
-              <b>recurring basis</b>
+              <b className="mr-1">recurring basis</b>
               unless canceled by the user. One-time payments grant access to
               specific features or services without a recurring charge.
             </p>
@@ -193,8 +193,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>6.1. SnipScript.ai </b> strives for <b>high availability</b> but does
-              not guarantee uninterrupted service.
+              <b>6.1. SnipScript.ai </b> strives for <b>high availability</b>{" "}
+              but does not guarantee uninterrupted service.
             </p>
           </div>
           <div className="flex ">
@@ -202,8 +202,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>6.2. </b> Downtime may occur due to <b>maintenance, updates, or
-              unexpected technical issues.</b>
+              <b>6.2. </b> Downtime may occur due to{" "}
+              <b>maintenance, updates, or unexpected technical issues.</b>
             </p>
           </div>
           <div className="flex ">
@@ -211,19 +211,20 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>6.3. </b> SnipScript.ai is not responsible for <b>data loss due to
-              service disruptions.</b>
+              <b>6.3. </b> SnipScript.ai is not responsible for{" "}
+              <b>data loss due to service disruptions.</b>
             </p>
           </div>
         </div>
         <div>
-          <h4 className="text-lg font-medium">  7. Termination of Service</h4>
+          <h4 className="text-lg font-medium"> 7. Termination of Service</h4>
           <div className="flex ">
             <span className="pt-1 text-sm ">
               <GoDotFill />
             </span>
             <p>
-              <b>7.1.</b> <b>SnipScript.ai</b>    reserves the right to <b> suspend or terminate accounts</b>    that violate these terms.
+              <b>7.1.</b> <b>SnipScript.ai</b> reserves the right to{" "}
+              <b> suspend or terminate accounts</b> that violate these terms.
             </p>
           </div>
           <div className="flex ">
@@ -231,7 +232,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>7.2. </b> Accounts involved in <b>fraudulent activity</b>   may be permanently banned <b>without notice.</b>
+              <b>7.2. </b> Accounts involved in <b>fraudulent activity</b> may
+              be permanently banned <b>without notice.</b>
             </p>
           </div>
           <div className="flex ">
@@ -239,11 +241,12 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>7.3. </b>If required by <b> law or regulatory action, SnipScript.ai</b> may <b>restrict access to its services.</b>
+              <b>7.3. </b>If required by{" "}
+              <b> law or regulatory action, SnipScript.ai</b> may{" "}
+              <b>restrict access to its services.</b>
             </p>
           </div>
         </div>
-
 
         <div>
           <h4 className="text-lg font-medium"> 8. Limitation of Liability </h4>
@@ -252,8 +255,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>8.1. SnipScript.ai </b>  is provided <b>"as is"</b> without <b>warranties
-              of any kind.</b>
+              <b>8.1. SnipScript.ai </b> is provided <b>"as is"</b> without{" "}
+              <b>warranties of any kind.</b>
             </p>
           </div>
           <div className="flex ">
@@ -261,8 +264,10 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>8.2.  SnipScript.ai </b> is not responsible for <b>any errors, loss
-              of data, or third-party service disruptions.</b>
+              <b>8.2. SnipScript.ai </b> is not responsible for{" "}
+              <b>
+                any errors, loss of data, or third-party service disruptions.
+              </b>
             </p>
           </div>
           <div className="flex ">
@@ -270,7 +275,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>8.3. </b> Users assume <b>full responsibility</b> for how they use the
+              <b>8.3. </b> Users assume <b>full responsibility</b> for how they
+              use the
               <b> generated code.</b>
             </p>
           </div>
@@ -282,7 +288,7 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>9.1. SnipScript.ai </b>  may update these terms at any time.
+              <b>9.1. SnipScript.ai </b> may update these terms at any time.
               Users will be <b>notified of significant changes.</b>
             </p>
           </div>
@@ -291,8 +297,8 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>9.2. </b> Continued use of <b>SnipScript.ai </b> after changes take
-              effect constitutes <b>acceptance of the revised terms.</b>
+              <b>9.2. </b> Continued use of <b>SnipScript.ai </b> after changes
+              take effect constitutes <b>acceptance of the revised terms.</b>
             </p>
           </div>
         </div>
@@ -303,9 +309,9 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>10.1. </b> These <b>Terms of Service</b> shall be governed by the <b>laws
-              of [Your State/Country],</b> without regard to <b>conflict of law
-              principles.</b>
+              <b>10.1. </b> These <b>Terms of Service</b> shall be governed by
+              the <b>laws of [Your State/Country],</b> without regard to{" "}
+              <b>conflict of law principles.</b>
             </p>
           </div>
           <div className="flex ">
@@ -313,15 +319,28 @@ const Terms = () => {
               <GoDotFill />
             </span>
             <p>
-              <b>10.2.</b>Any <b>disputes</b>shall be resolved in the <b> courts of [Your State/Country].</b>
+              <b>10.2.</b>Any{" "}
+              <span className="mr-1">
+                <b>disputes</b>
+              </span>
+              shall be resolved in the <b> courts of [Your State/Country].</b>
             </p>
           </div>
         </div>
         <div>
           <h4 className="text-lg font-medium"> 11. Contact Us</h4>
           <p>
-            If you have any questions regarding these  <b>Terms of Service</b>, please
-            contact us at <span className="text-blue-500 underline ">support@snipscript.ai.</span>
+            If you have any questions regarding these <b>Terms of Service</b>,
+            please contact us at{" "}
+            {/* <span className="text-blue-500 underline">
+              support@snipscript.ai.
+            </span> */}
+            <a
+              className="text-blue-500 underline"
+              href="mailto:support@snipscript.ai"
+            >
+              support@snipscript.ai
+            </a>
           </p>
         </div>
       </div>

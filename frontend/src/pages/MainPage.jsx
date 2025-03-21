@@ -293,6 +293,7 @@ export default function CodeSelectionPage() {
                     <Button
                       className="px-6 py-3 text-white bg-blue-500 rounded-lg"
                       onClick={handleGenerateCodeWithImage}
+                      isDisabled={isCreatingCode}
                     >
                       Generate Code
                     </Button>
@@ -331,6 +332,7 @@ export default function CodeSelectionPage() {
                   <Button
                     className="px-6 py-3 text-white bg-gray-700 rounded-lg "
                     onClick={handleUrlToCode}
+                    isDisabled={isCreatingCode}
                   >
                     Capture
                   </Button>
@@ -350,6 +352,7 @@ export default function CodeSelectionPage() {
                       <Button
                         className="px-6 py-3 text-white bg-blue-500 rounded-lg"
                         onClick={handleGenerateTextToCode}
+                        isDisabled={isCreatingCode}
                       >
                         Generate
                       </Button>

@@ -8,6 +8,7 @@ import { BsCheck } from "react-icons/bs";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Loading from "./Loading";
+import toast, { Toaster } from "react-hot-toast";
 const price = [
   {
     plan: "Free Plan",
@@ -73,6 +74,10 @@ const Pricing = ({ data, isLoading }) => {
   const [loading, setLoading] = useState(false);
 
   const subscribe = async (id) => {
+    const token = Cookies.get("accessToken");
+    if (!token) {
+      return toast.error("Please log in to subscribe plan");
+    }
     setLoading(true);
     try {
       const { data } = await axios.post(
@@ -97,30 +102,30 @@ const Pricing = ({ data, isLoading }) => {
       <CommonSpace>
         <CommonHeader className="">Pricing Plans</CommonHeader>
         <div
-          className="py-2 text-center cursor-pointer"
-          onClick={() => {
-            setConversion((pre) => !pre);
-          }}
+          className="py-2 text-center"
+          // onClick={() => {
+          //   setConversion((pre) => !pre);
+          // }}
         >
           What is a conversion ?
         </div>
         <div className="flex items-center justify-center pb-10">
-          {conversion && (
+          {
             <div className="p-2 rounded-md shadow max-w-96">
-              <div
+              {/* <div
                 onClick={() => {
                   setConversion((pre) => !pre);
                 }}
                 className="ml-auto text-xl cursor-pointer w-fit"
               >
                 <IoClose />
-              </div>
+              </div> */}
               📷 ➡️ 💻 A conversion refers to turning a website screenshot into
               editable HTML & CSS (or another selected format).Each time you
               generate code from an image, it counts as one conversion.
               <p></p>
             </div>
-          )}
+          }
         </div>
         <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
           {isLoading
@@ -163,6 +168,7 @@ const Pricing = ({ data, isLoading }) => {
               ))}
         </div>
       </CommonSpace>
+      <Toaster position="top-right" />
     </CommonContainer>
   );
 };

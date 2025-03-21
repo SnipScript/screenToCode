@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
   auth,
   googleProvider,
@@ -198,9 +199,9 @@ export default function AuthPage() {
 
         <p className="mt-3 text-xs text-center text-gray-500">
           By signing up, you agree to our{" "}
-          <a href="#" className="text-blue-500">
+          <Link to={"/terms"} className="text-blue-500 italic">
             Terms of Service
-          </a>
+          </Link>
           .
         </p>
       </div>

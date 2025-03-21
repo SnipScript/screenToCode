@@ -54,7 +54,15 @@ const Refund = () => {
           des={
             "For any questions regarding this Refund & Dispute Policy, contact us at "
           }
-          bold={"support@snipscript.ai."}
+          // bold={"support@snipscript.ai."}
+          bold={
+            <a
+              className="text-blue-500 underline"
+              href="mailto:support@snipscript.ai"
+            >
+              support@snipscript.ai
+            </a>
+          }
         />
       </div>
     </CommonContainer>
