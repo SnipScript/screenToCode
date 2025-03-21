@@ -9,6 +9,7 @@ import CommonHeader from "../common/CommonHeader";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Loading from "../section/Homepage/Loading";
+import { Link } from "react-router-dom";
 
 const PricingPage = () => {
   const list = new Array(5).fill(null);
@@ -150,9 +151,9 @@ const PricingPage = () => {
             Every code generation and edit uses 1 credit. Cancel your
             subscription at any time.
             <br />
-            <a href="#" className="text-blue-600">
+            <Link to={"/faqs"} className="text-blue-600">
               For more information, visit our FAQs.
-            </a>
+            </Link>
           </p>
         </CommonSpace>
         <SapceBottom>
