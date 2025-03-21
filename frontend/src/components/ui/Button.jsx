@@ -6,6 +6,7 @@ const Button = ({
   onClick,
   variant = "default",
   isLoading = false,
+  isDisabled = false,
 }) => {
   const baseStyles = "px-4 py-2  focus:outline-none";
   const variantStyles = {
@@ -16,7 +17,7 @@ const Button = ({
 
   return (
     <button
-      disabled={isLoading}
+      disabled={isDisabled}
       className={`${baseStyles} ${variantStyles[variant]} ${className}`}
       onClick={onClick}
     >
