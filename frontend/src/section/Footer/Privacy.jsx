@@ -69,7 +69,15 @@ const Privacy = () => {
           des={
             "If you have any questions about this Privacy Policy, contact us at "
           }
-          bold={"support@snipscript.ai."}
+          // bold={"support@snipscript.ai."}
+          bold={
+            <a
+              className="text-blue-500 underline"
+              href="mailto:support@snipscript.ai"
+            >
+              support@snipscript.ai
+            </a>
+          }
         />
       </div>
     </CommonContainer>

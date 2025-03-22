@@ -9,6 +9,7 @@ import CommonHeader from "../common/CommonHeader";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Loading from "../section/Homepage/Loading";
+import { Link } from "react-router-dom";
 
 const PricingPage = () => {
   const list = new Array(5).fill(null);
@@ -94,65 +95,67 @@ const PricingPage = () => {
             <div className="grid w-full max-w-6xl grid-cols-1 gap-6 py-10 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
               {isLoading
                 ? list.map((item, i) => <Loading key={i} />)
-                : filterData.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-white shadow-md  flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer  "
-                    >
-                      <div>
-                        <CommonHeader className="text-start">
-                          {item.name}
-                        </CommonHeader>
+                : filterData
+                    ?.sort((a, b) => a.order - b.order)
+                    ?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="bg-white shadow-md  flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer  "
+                      >
+                        <div>
+                          <CommonHeader className="text-start">
+                            {item.name}
+                          </CommonHeader>
 
-                        {/* <p className="text-xl font-medium">
+                          {/* <p className="text-xl font-medium">
                       {plan.period === "one-time"
                         ? "One-time purchase"
                         : "Best for ongoing use"}
                     </p> */}
-                      </div>
+                        </div>
 
-                      <p className="text-2xl font-semibold sm:text-4xl md:text-5xl">
-                        $
-                        {typeof item.price === "string"
-                          ? item.price
-                          : billingCycle === "monthly"
-                          ? item.price.monthly
-                          : item.price.yearly}
-                        <span className="text-lg">/{item.package_type}</span>
-                      </p>
-                      <div className="flex flex-col gap-2">
-                        {item.features.map((feature, i) => (
-                          <div key={i} className="flex items-start gap-2 ">
-                            <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
-                              <span>
-                                <BsCheck />
-                              </span>
+                        <p className="text-2xl font-semibold sm:text-4xl md:text-5xl">
+                          $
+                          {typeof item.price === "string"
+                            ? item.price
+                            : billingCycle === "monthly"
+                            ? item.price.monthly
+                            : item.price.yearly}
+                          <span className="text-lg">/{item.package_type}</span>
+                        </p>
+                        <div className="flex flex-col gap-2">
+                          {item.features.map((feature, i) => (
+                            <div key={i} className="flex items-start gap-2 ">
+                              <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
+                                <span>
+                                  <BsCheck />
+                                </span>
+                              </div>
+                              <p className="text-lg font-medium ">
+                                {feature.name}
+                              </p>
                             </div>
-                            <p className="text-lg font-medium ">
-                              {feature.name}
-                            </p>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
+                        <button
+                          onClick={() => {
+                            subscribe(item.id);
+                          }}
+                          className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
+                        >
+                          {loading ? "processing..." : "Subscribe"}
+                        </button>
                       </div>
-                      <button
-                        onClick={() => {
-                          subscribe(item.id);
-                        }}
-                        className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
-                      >
-                        {loading ? "processing..." : "Subscribe"}
-                      </button>
-                    </div>
-                  ))}
+                    ))}
             </div>
           </div>
           <p className="text-sm text-center">
             Every code generation and edit uses 1 credit. Cancel your
             subscription at any time.
             <br />
-            <a href="#" className="text-blue-600">
+            <Link to={"/faqs"} className="text-blue-600">
               For more information, visit our FAQs.
-            </a>
+            </Link>
           </p>
         </CommonSpace>
         <SapceBottom>

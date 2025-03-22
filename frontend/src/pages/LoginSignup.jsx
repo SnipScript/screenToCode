@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import {
   auth,
   googleProvider,
@@ -132,12 +133,14 @@ export default function AuthPage() {
           <Button
             className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
             onClick={handleGithubSignIn}
+            isDisabled={isLoading}
           >
             <FaGithub className="text-xl" /> GitHub
           </Button>
           <Button
             className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
             onClick={handleGoogleSignIn}
+            isDisabled={isLoading}
           >
             <FaGoogle className="text-xl text-red-500" /> Google
           </Button>
@@ -182,6 +185,7 @@ export default function AuthPage() {
           className="w-full py-3 text-white bg-black"
           onClick={handleAuth}
           isLoading={isLoading}
+          isDisabled={isLoading}
         >
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>
@@ -198,9 +202,9 @@ export default function AuthPage() {
 
         <p className="mt-3 text-xs text-center text-gray-500">
           By signing up, you agree to our{" "}
-          <a href="#" className="text-blue-500">
+          <Link to={"/terms"} className="text-blue-500 italic">
             Terms of Service
-          </a>
+          </Link>
           .
         </p>
       </div>
