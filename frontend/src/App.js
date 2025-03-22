@@ -15,6 +15,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Success from "./section/payment/Success";
 import Cancel from "./section/payment/Cancel";
 import Profile from "./pages/Profile";
+import NotFound from "./components/NotFound";
 const MainPage = React.lazy(() => import("./pages/MainPage"));
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/success" element={<Success />} />
         <Route path="/cancel" element={<Cancel />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>

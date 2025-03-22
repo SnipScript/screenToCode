@@ -104,10 +104,22 @@ const Faqs = () => {
           <h4 className="text-lg font-semibold">
             What if I have a technical issue?
           </h4>
-          <p>
+          {/* <p>
             If you experience a problem, contact
             <b className="px-1">support@snipscript.ai</b> with details, and our
             support team will assist you.
+          </p> */}
+          <p>
+            If you experience a problem, contact
+            <b className="px-1">
+              <a
+                className="text-blue-500 underline"
+                href="mailto:support@snipscript.ai"
+              >
+                support@snipscript.ai
+              </a>
+            </b>
+            with details, and our support team will assist you.
           </p>
         </div>
 
@@ -138,7 +150,15 @@ const Faqs = () => {
         <Paragraph
           title={"How do I contact customer support?"}
           des={"For any questions or technical issues, reach out to "}
-          bold={"support@snipscript.ai."}
+          // bold={"support@snipscript.ai."}
+          bold={
+            <a
+              className="text-blue-500 underline"
+              href="mailto:support@snipscript.ai"
+            >
+              support@snipscript.ai
+            </a>
+          }
         />
       </div>
     </CommonContainer>
