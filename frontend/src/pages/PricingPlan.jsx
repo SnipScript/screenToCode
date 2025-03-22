@@ -96,7 +96,7 @@ const PricingPage = () => {
               {isLoading
                 ? list.map((item, i) => <Loading key={i} />)
                 : filterData
-                    ?.sort((a, b) => a.id - b.id)
+                    ?.sort((a, b) => a.order - b.order)
                     ?.map((item, index) => (
                       <div
                         key={index}

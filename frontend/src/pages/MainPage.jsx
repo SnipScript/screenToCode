@@ -107,7 +107,8 @@ export default function CodeSelectionPage() {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      toast.success("Congratulations! You have got code.");
+      // toast.success("Congratulations! You have got code.");
+      toast.success("Success!");
     } catch (error) {
       toast.error("Something went wrong! Please try later.");
       console.log(error);
@@ -128,7 +129,8 @@ export default function CodeSelectionPage() {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      toast.success("Congratulations! You have got code.");
+      // toast.success("Congratulations! You have got code.");
+      toast.success("Success!");
     } catch (error) {
       toast.error("Something went wrong! Please try later.");
       console.log(error);
@@ -152,7 +154,8 @@ export default function CodeSelectionPage() {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      toast.success("Congratulations! You have got code.");
+      // toast.success("Congratulations! You have got code.");
+      toast.success("Success!");
     } catch (error) {
       toast.error("Something went wrong! Please try later.");
       console.log(error);
