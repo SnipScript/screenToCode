@@ -97,6 +97,8 @@ const Pricing = ({ data, isLoading }) => {
     }
   };
 
+  console.log("plan data---", data?.data);
+
   return (
     <CommonContainer>
       <CommonSpace>
@@ -130,42 +132,44 @@ const Pricing = ({ data, isLoading }) => {
         <div className="grid max-w-6xl grid-cols-1 gap-6 mx-auto md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 ">
           {isLoading
             ? list.map((item, i) => <Loading key={i} />)
-            : data?.data?.map((item, index) => (
-                <Card
-                  key={index}
-                  className="flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer "
-                >
-                  <CommonHeader className="text-start">
-                    {item.name}
-                  </CommonHeader>
-                  <CommonHeader className="font-semibold text-start">
-                    ${item.price}
-                    <span className="text-lg">/{item.package_type}</span>
-                  </CommonHeader>
-
-                  <div className="flex flex-col gap-2">
-                    {item?.features?.map((feature, i) => (
-                      <div key={i} className="flex items-start gap-2 ">
-                        <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
-                          <span>
-                            <BsCheck />
-                          </span>
-                        </div>
-                        <p className="text-lg font-medium ">{feature.name}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => {
-                      subscribe(item.id);
-                    }}
-                    className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
+            : data?.data
+                ?.sort((a, b) => a.id - b.id)
+                ?.map((item, index) => (
+                  <Card
+                    key={index}
+                    className="flex flex-col gap-6  text-grayColor hover:bg-grayColor rounded-xl hover:translate-y-[-10px]  duration-500  hover:text-white px-6 py-8 group transition-all cursor-pointer "
                   >
-                    {loading ? "Processing..." : "Get Started"}
-                  </button>
-                </Card>
-              ))}
+                    <CommonHeader className="text-start">
+                      {item.name}
+                    </CommonHeader>
+                    <CommonHeader className="font-semibold text-start">
+                      ${item.price}
+                      <span className="text-lg">/{item.package_type}</span>
+                    </CommonHeader>
+
+                    <div className="flex flex-col gap-2">
+                      {item?.features?.map((feature, i) => (
+                        <div key={i} className="flex items-start gap-2 ">
+                          <div className="text-4xl text-white rounded-full group-hover:text-grayColor bg-grayColor group-hover:bg-white w-max">
+                            <span>
+                              <BsCheck />
+                            </span>
+                          </div>
+                          <p className="text-lg font-medium ">{feature.name}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        subscribe(item.id);
+                      }}
+                      className="self-center px-10 py-3 text-white rounded-full bg-grayColor group-hover:bg-white group-hover:text-grayColor w-max "
+                    >
+                      {loading ? "Processing..." : "Get Started"}
+                    </button>
+                  </Card>
+                ))}
         </div>
       </CommonSpace>
       <Toaster position="top-right" />
