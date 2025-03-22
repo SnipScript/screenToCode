@@ -62,7 +62,7 @@ const Navbar = () => {
                 </NavLink>
               )}
 
-              {
+              {token && (
                 <NavLink
                   onClick={() => {
                     setIsMenuOpen(false);
@@ -72,7 +72,7 @@ const Navbar = () => {
                 >
                   Dashboard
                 </NavLink>
-              }
+              )}
               {token && (
                 <button
                   onClick={handleLogOut}
@@ -126,7 +126,7 @@ const Navbar = () => {
                 Profile
               </NavLink>
             )}
-            {
+            {token && (
               <NavLink
                 onClick={() => {
                   setIsMenuOpen(false);
@@ -136,7 +136,7 @@ const Navbar = () => {
               >
                 Dashboard
               </NavLink>
-            }
+            )}
 
             {!token && (
               <NavLink
