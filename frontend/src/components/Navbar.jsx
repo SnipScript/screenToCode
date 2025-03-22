@@ -27,8 +27,8 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <CommonContainer>
         <div className="flex items-center justify-between w-full h-20 ">
-          <Link to="/" className="max-w-16">
-            <img src={logo} alt="SnipScript" />
+          <Link to="/" className="text-xl font-bold text-gray-800">
+            SnipScript
           </Link>
 
           {/* Desktop menu */}
@@ -63,15 +63,11 @@ const Navbar = () => {
               )}
 
               {token && (
-                <NavLink
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                  }}
-                  to="/dashboard"
-                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor `}
-                >
-                  Dashboard
-                </NavLink>
+                <button>
+                  <a href="https://bguess-django-g8f5.onrender.com/dashboard/">
+                    Dashboard
+                  </a>
+                </button>
               )}
               {token && (
                 <button
@@ -127,15 +123,16 @@ const Navbar = () => {
               </NavLink>
             )}
             {token && (
-              <NavLink
+              <button
+                className="text-left"
                 onClick={() => {
                   setIsMenuOpen(false);
                 }}
-                to="/dashboard"
-                className={`border-b  !border-transparent font-medium transition-colors duration-200 text-grayColor `}
               >
-                Dashboard
-              </NavLink>
+                <a href="https://bguess-django-g8f5.onrender.com/dashboard/">
+                  Dashboard
+                </a>
+              </button>
             )}
 
             {!token && (
