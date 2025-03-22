@@ -64,7 +64,7 @@ const Navbar = () => {
 
               {token && (
                 <button>
-                  <a href="https://bguess-django-g8f5.onrender.com/dashboard/">
+                  <a href="https://bguess-django-g8f5.onrender.com/dashboard/" target='_blank'>
                     Dashboard
                   </a>
                 </button>
@@ -129,7 +129,7 @@ const Navbar = () => {
                   setIsMenuOpen(false);
                 }}
               >
-                <a href="https://bguess-django-g8f5.onrender.com/dashboard/">
+                <a href="https://bguess-django-g8f5.onrender.com/dashboard/" target='_blank'>
                   Dashboard
                 </a>
               </button>
