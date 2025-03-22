@@ -133,12 +133,14 @@ export default function AuthPage() {
           <Button
             className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
             onClick={handleGithubSignIn}
+            isDisabled={isLoading}
           >
             <FaGithub className="text-xl" /> GitHub
           </Button>
           <Button
             className="flex items-center gap-2 px-6 py-3 text-gray-700 bg-gray-200"
             onClick={handleGoogleSignIn}
+            isDisabled={isLoading}
           >
             <FaGoogle className="text-xl text-red-500" /> Google
           </Button>
@@ -183,6 +185,7 @@ export default function AuthPage() {
           className="w-full py-3 text-white bg-black"
           onClick={handleAuth}
           isLoading={isLoading}
+          isDisabled={isLoading}
         >
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>
