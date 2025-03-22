@@ -61,6 +61,18 @@ const Navbar = () => {
                   Profile
                 </NavLink>
               )}
+
+              {
+                <NavLink
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                  }}
+                  to="/dashboard"
+                  className={`border-b  border-transparent font-medium transition-colors duration-200 text-grayColor `}
+                >
+                  Dashboard
+                </NavLink>
+              }
               {token && (
                 <button
                   onClick={handleLogOut}
@@ -114,6 +126,18 @@ const Navbar = () => {
                 Profile
               </NavLink>
             )}
+            {
+              <NavLink
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+                to="/dashboard"
+                className={`border-b  !border-transparent font-medium transition-colors duration-200 text-grayColor `}
+              >
+                Dashboard
+              </NavLink>
+            }
+
             {!token && (
               <NavLink
                 onClick={() => {
