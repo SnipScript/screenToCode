@@ -329,7 +329,7 @@ export default function CodeSelectionPage() {
                 <div className="flex items-center gap-4 ">
                   <Input
                     className="flex-1 w-40"
-                    placeholder="Enter URL to capture"
+                    placeholder="Enter Website URL"
                     onChange={(e) => setUrl(e.target.value)}
                   />
                   <Button

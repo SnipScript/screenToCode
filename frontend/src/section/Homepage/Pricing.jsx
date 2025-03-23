@@ -68,15 +68,13 @@ const price = [
 ];
 const Pricing = ({ data, isLoading }) => {
   const list = new Array(5).fill(null);
-  const [conversion, setConversion] = useState(false);
   const token = Cookies.get("accessToken");
   const baseurl = process.env.VITE_BACKEND_URL;
   const [loading, setLoading] = useState(false);
 
   const subscribe = async (id) => {
-    const token = Cookies.get("accessToken");
     if (!token) {
-      return toast.error("Please log in to subscribe plan");
+      return toast("🔒 You need to log in before selecting a plan");
     }
     setLoading(true);
     try {
@@ -97,31 +95,14 @@ const Pricing = ({ data, isLoading }) => {
     }
   };
 
-  console.log("plan data---", data?.data);
-
   return (
     <CommonContainer>
       <CommonSpace>
         <CommonHeader className="">Pricing Plans</CommonHeader>
-        <div
-          className="py-2 text-center"
-          // onClick={() => {
-          //   setConversion((pre) => !pre);
-          // }}
-        >
-          What is a conversion ?
-        </div>
+        <div className="py-2 text-center">What is a conversion ?</div>
         <div className="flex items-center justify-center pb-10">
           {
             <div className="p-2 rounded-md shadow max-w-96">
-              {/* <div
-                onClick={() => {
-                  setConversion((pre) => !pre);
-                }}
-                className="ml-auto text-xl cursor-pointer w-fit"
-              >
-                <IoClose />
-              </div> */}
               📷 ➡️ 💻 A conversion refers to turning a website screenshot into
               editable HTML & CSS (or another selected format).Each time you
               generate code from an image, it counts as one conversion.
