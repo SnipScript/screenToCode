@@ -37,7 +37,6 @@ const Profile = () => {
     }
   };
 
-  console.log("conversion", conversion);
   const subscribeCancel = async (id) => {
     setLoading(true);
     try {
@@ -98,13 +97,13 @@ const Profile = () => {
                 <div className="w-full p-4 bg-white rounded-md">
                   <h2 className="text-xl font-bold">Subscription start</h2>
                   <div className="flex items-center justify-between gap-2 ">
-                    <h2 className="font-semibold ">Subscription date</h2>
+                    <h2 className="font-semibold ">Start Date:</h2>
                     <h2 className="font-semibold ">
                       {moment(data?.data?.start_date).format("MMM Do YY")}
                     </h2>
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <h2 className="font-semibold ">Conversion</h2>
+                    <h2 className="font-semibold ">Conversions Used</h2>
                     <h2 className="font-semibold text-green-500 ">
                       {data?.data?.conversation_left}
                     </h2>
@@ -113,17 +112,13 @@ const Profile = () => {
                 <div className="w-full p-4 bg-white rounded-md">
                   <h2 className="text-xl font-bold ">Subscription end</h2>
                   <div className="flex items-center justify-between gap-2 ">
-                    <h2 className="font-semibold ">Subscription end</h2>
+                    <h2 className="font-semibold ">Ends After:</h2>
                     <h2 className="font-semibold ">
-                      {data?.data?.package === "Free Plan" ? (
-                        <>After used 5</>
-                      ) : (
-                        moment(data?.data?.end_date).format("MMM Do YY")
-                      )}
+                      {data?.data?.conversation_left} Conversions Used
                     </h2>
                   </div>
                   <div className="flex items-center justify-between gap-2 ">
-                    <h2 className="font-semibold ">Conversion left</h2>
+                    <h2 className="font-semibold ">Conversions Remaining:</h2>
                     <h2 className="font-semibold text-red-500">
                       {data?.data?.conversation_left - conversion?.length}
                     </h2>

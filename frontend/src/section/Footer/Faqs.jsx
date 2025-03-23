@@ -80,13 +80,20 @@ const Faqs = () => {
           }
         />
 
-        <FooterList
-          title={"What code output formats are supported?"}
-          subtile={
-            "SnipScript.ai supports multiple code output formats, including:"
-          }
-          list={list.icon}
-        />
+        <div>
+          <h4 className="text-lg font-medium">
+            What code output formats are supported?
+          </h4>
+          <p className="py-1">
+            SnipScript.ai supports multiple code output formats, including:
+          </p>
+          {list.icon.map((item, i) => (
+            <div key={i}>
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
+
         <Paragraph
           des={
             "Future updates may expand this list based on user feedback. Currently, SnipScript.ai supports PNG and JPG images for screenshot uploads. Additional formats may be added in the future."

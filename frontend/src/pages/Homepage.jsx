@@ -5,6 +5,7 @@ import Hero from "../section/Homepage/Hero";
 import Pricing from "../section/Homepage/Pricing";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 const Homepage = () => {
   const baseurl = process.env.VITE_BACKEND_URL;
   const [data, setData] = useState(null);

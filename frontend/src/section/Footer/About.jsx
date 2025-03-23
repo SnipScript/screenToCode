@@ -7,151 +7,91 @@ import { GoDotFill } from "react-icons/go";
 const About = () => {
   const list = {
     mission: [
-      "Convert website screenshots into structured HTML, CSS, and supported frameworks, while optimizing for clean, maintainable code.",
-      "Choose from multiple output formats, including Tailwind, Bootstrap, React, Vue, Angular, and more.",
-      "Free users get 5 conversions per month with basic HTML & CSS.",
-      "Paid users unlock unlimited conversions and AI-assisted code refinement.",
+      "Automatically generate HTML, CSS, or framework-specific code from website screenshots",
+      "Choose from multiple output formats including Tailwind CSS, Bootstrap, React, Vue, Angular, and more",
+      "Use up to 5 conversions per month on the free plan",
+      "Unlock unlimited conversions and enhanced code optimization with a paid subscription",
     ],
     choose: [
-      "AI-driven accuracy for generating clean, structured code.",
-      "Supports multiple frameworks for flexible development.",
-      "No manual coding required—perfect for designers and non-developers to bridge the gap between design and code.",
-      "Beginner-friendly, yet powerful for advanced developers.",
+      "Reliable, AI-enhanced code generation that saves time and reduces repetition",
+      "Flexible support for popular frontend frameworks and libraries",
+      "Accessible to non-developers and designers who want to experiment with code",
+      "Suitable for beginners, yet powerful enough for experienced devs and product teams",
     ],
     roadmap: [
-      "AI-assisted live editing.",
-      "Improved responsiveness & accessibility detection.",
-      "More output formats & custom styling options.",
-      "Figma Integration – Convert generated code into Figma design files for further editing and prototyping.",
+      "Real-time AI-assisted editing tools",
+      "Smarter responsiveness and accessibility detection",
+      "Expanded format support and styling customization",
+      "Figma integration to convert code into editable design files",
     ],
   };
+
   return (
     <CommonContainer>
       <div className="flex flex-col max-w-5xl gap-4 pt-4 pb-10">
         <div className="flex flex-col">
           <h2 className="text-lg font-semibold">About SnipScript.ai</h2>
           <p>
-            <b> SnipScript.ai</b> is an <b>AI-powered tool</b> designed to
-            simplify the process of <b>converting website screenshots</b> into
-            structured, editable <b>HTML, CSS, and framework-specific code.</b>{" "}
-            Whether you're a <b>developer</b> looking to quickly extract design
-            elements or a <b>beginner</b> experimenting with front-end
-            development, <b>SnipScript.ai</b> provides{" "}
-            <b>a seamless, automated solution.</b>
+            SnipScript.ai is an AI-powered platform that converts website
+            screenshots into clean, structured, and editable HTML, CSS, and
+            framework-specific code. Whether you're a developer streamlining
+            your workflow or a designer exploring front-end implementation,
+            SnipScript.ai provides a fast and reliable way to bridge visual
+            design and functional code.
           </p>
         </div>
         <div className="flex flex-col">
           <h2 className="text-lg font-semibold">Our Mission</h2>
           <p>
-            We aim to <b>bridge the gap between design and development</b> by
-            offering an <b>easy-to-use tool</b> that translates{" "}
-            <b>visual elements into functional code.</b> Our goal is to help
-            users <b>speed up their workflow</b>,{" "}
-            <b>enhance productivity, and reduce manual effort</b> required to{" "}
-            <b>recreate UI components.</b>
+            Our goal is to simplify and accelerate front-end development by
+            translating visual components into usable code. SnipScript.ai helps
+            reduce manual work, improve consistency, and support teams in
+            turning ideas into interfaces faster.
           </p>
         </div>
-
-        <div>
-          <h4 className="text-lg font-medium">Key Features</h4>
-          <div>
-            <p>
-              <b>✔ Convert website screenshots</b> into structured{" "}
-              <b>HTML, CSS, and supported frameworks</b> while optimizing for{" "}
-              <b>clean, maintainable code.</b>
-            </p>
-            <p>
-              ✔ Choose from <b>multiple output formats,</b> including{" "}
-              <b>Tailwind, Bootstrap, React, Vue, Angular, and more.</b>
-            </p>
-            <p>
-              <b> ✔ Free users get 5 conversions per month</b> with{" "}
-              <b> basic HTML & CSS.</b>
-            </p>
-            <p>
-              <b>✔ Paid users</b> unlock <b>unlimited conversions</b> and{" "}
-              <b>AI-assisted code refinement.</b>
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <h4 className="text-lg font-medium">Why Choose SnipScript.ai?</h4>
-          <div>
-            <p>
-              <b>✔ AI-driven accuracy </b>for generating{" "}
-              <b>clean, structured code.</b>
-            </p>
-            <p>
-              ✔ <b>Supports multiple frameworks </b>for{" "}
-              <b>flexible development.</b>
-            </p>
-            <p>
-              <b> ✔ No manual coding required—</b>perfect for{" "}
-              <b>designers and non-developers</b> to bridge the gap between{" "}
-              <b>design and code.</b>
-            </p>
-            <p>
-              <b>✔ Beginner-friendly,</b> yet{" "}
-              <b>powerful for advanced developers.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">Future Roadmap</h4>
+        <FooterList
+          title={"What You Can Do with SnipScript.ai"}
+          list={list.mission}
+        />
+        <FooterList
+          title={"Why Developers and Designers Use SnipScript.ai"}
+          list={list.choose}
+        />
+        <FooterList
+          title={"What’s Coming Next"}
+          subtile={
+            "We’re continuously building new features to support your workflow, including:"
+          }
+          list={list.roadmap}
+        />
+        <div className="flex flex-col">
+          <h2 className="text-lg font-semibold">What People Are Saying</h2>
           <p>
-            We are continuously improving <b>SnipScript.ai</b> and planning to
-            introduce:
+            SnipScript.ai helps me move faster from design to
+            development—without needing to write every line of code manually.”–
+            Sam R., UI Designer <br />
+            “It saved me hours by instantly converting my mockups into working
+            Tailwind components.”– Alex W., Frontend Developer
           </p>
-          <div>
-            <p>
-              <b>🚀 AI-assisted live editing.</b>
-            </p>
-            <p>
-              <b>📏 Improved responsiveness & accessibility detection.</b>
-            </p>
-            <p>
-              <b>🎨 More output formats & custom styling options.</b>
-            </p>
-            <p>
-              <b>🖌️ Figma Integration – </b> Convert generated code into{" "}
-              <b>Figma design files</b> for{" "}
-              <b>further editing and prototyping.</b>
-            </p>
-          </div>
         </div>
+        support@snipscript.ai
         <div>
-          <h4 className="text-lg font-medium"> User Testimonials</h4>
+          <h4 className="text-lg font-medium">Get in Touch</h4>
 
           <div>
             <p>
-              <b>📢 "SnipScript.ai </b> lets me bridge the gap between{" "}
-              <b>design and development</b> without writing code!"{" "}
-              <b>– Sam R., UI Designer</b>
+              Questions, feedback, or partnership inquiries? We’d love to hear
+              from you.
             </p>
-            <p>
-              <b>📢 "SnipScript.ai</b> saved me <b> hours of manual coding</b>{" "}
-              by instantly converting my{" "}
-              <b>
-                UI mockups into production-ready Tailwind CSS components!" –
-                Alex W., Frontend Developer
-              </b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">Contact Us</h4>
-
-          <div>
-            <p>
-              <b>For inquiries, partnerships, or support,</b> reach out to us at{" "}
+            <span>
+              📧
               <a
-                className="text-blue-500 underline"
+                className="ml-1 text-blue-500 underline"
                 href="mailto:support@snipscript.ai"
               >
                 support@snipscript.ai
               </a>
-            </p>
+            </span>
           </div>
         </div>
       </div>
