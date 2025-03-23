@@ -1,4 +1,4 @@
-import { LuBadgeCheck } from "react-icons/lu";
+import { GoDotFill } from "react-icons/go";
 const FooterList = ({ title, subtile, list }) => {
   return (
     <div>
@@ -6,8 +6,8 @@ const FooterList = ({ title, subtile, list }) => {
       <p className="py-1">{subtile}</p>
       {list.map((item, i) => (
         <div key={i} className="flex gap-1">
-          <span className="pt-1">
-            <LuBadgeCheck />
+          <span className="pt-1 text-sm">
+            <GoDotFill />
           </span>
           <p>{item}</p>
         </div>

@@ -1,346 +1,118 @@
 import CommonContainer from "../../common/CommonContainer";
 import { GoDotFill } from "react-icons/go";
+import FooterList from "./FooterList";
 
 const Terms = () => {
+  const list = {
+    Services: [
+      "SnipScript.ai provides tools that convert website screenshots into HTML and CSS code.",
+      "Free users are limited to five (5) conversions per month, with basic output and watermarked results.",
+      "Paid users receive access to additional features such as unlimited conversions and AI-assisted editing.",
+      "You may not use SnipScript.ai to create or distribute illegal, offensive, or harmful content.",
+    ],
+    Accounts: [
+      "You must provide accurate, complete information when creating an account.",
+      "We reserve the right to suspend or terminate accounts that violate these terms.",
+      "You are responsible for maintaining the confidentiality of your login credentials.",
+    ],
+    Subscriptions: [
+      "SnipScript.ai offers free and paid subscription plans, as well as one-time payment options.",
+      "Subscription fees are billed on a recurring basis unless canceled prior to the renewal date.",
+      "One-time payments provide access to specific features without recurring charges.",
+      "Refunds are not guaranteed and are subject to our [Refund & Dispute Policy].",
+      "You are responsible for managing and canceling your subscription to avoid future charges.",
+    ],
+    Property: [
+      "All content and technology used in SnipScript.ai are the property of SnipScript, Inc.",
+      "You retain ownership of any code you generate using the service and may use it for personal or commercial projects.",
+    ],
+    Responsibilities: [
+      " You may not use automated tools to scrape, abuse, or disrupt SnipScript.ai’s services.",
+      "You may not resell, repackage, or present SnipScript.ai as your own service.",
+      "You agree to comply with all applicable local, national, and international laws.",
+    ],
+    Availability: [
+      "We aim to provide consistent and reliable service but do not guarantee uninterrupted access.",
+      "Scheduled maintenance, updates, or unexpected technical issues may result in temporary downtime.",
+      "We are not responsible for any data loss caused by outages or technical failures.",
+    ],
+    Termination: [
+      "We reserve the right to suspend or terminate your account at any time for violations of these terms.",
+      "Accounts found to be engaged in fraud or abuse may be permanently banned without notice.",
+      "We may restrict access to services if required by law or legal process.",
+    ],
+    Limitation: [
+      "SnipScript.ai is provided “as is” without warranties of any kind, express or implied.",
+      "We are not liable for damages, data loss, or issues arising from third-party integrations.",
+      "You are solely responsible for how you use any code or content generated through our platform.",
+    ],
+    Modifications: [
+      "We may update these Terms of Service at any time.",
+      "You will be notified of material changes, and continued use of the service after updates indicates your acceptance.",
+    ],
+    Governing: [
+      "These Terms shall be governed by and interpreted in accordance with the laws of the State of Colorado, United States, without regard to its conflict of law provisions.",
+      "Any disputes arising from or relating to these Terms shall be resolved exclusively in the state or federal courts located in Denver County, Colorado, and you consent to the jurisdiction of those courts.",
+    ],
+  };
+
   return (
     <CommonContainer>
       <div className="flex flex-col max-w-5xl gap-4 pt-4 pb-10">
         <div className="flex flex-col">
           <h2 className="text-lg font-semibold">
-            SnipScript.ai Terms of Service
+            SnipScript.ai – Terms of Service
           </h2>
-          <h2 className="text-lg font-semibold">
-            Effective Date: March 16, 2025
-          </h2>
-
+          <span className="flex gap-1">
+            <p className="font-semibold">Effective Date: </p>
+            <p>March 16, 2025</p>
+          </span>
           <p>
-            Welcome to <b>SnipScript.ai!</b> By accessing or using our website
-            and services, you agree to comply with and be bound by the following
-            <b> Terms of Service.</b> If you do not agree with these terms,
-            please do not use <b> SnipScript.ai. </b>
+            Welcome to SnipScript.ai! By accessing or using our website and
+            services, you agree to comply with and be bound by the following
+            Terms of Service. If you do not agree with these terms, please do
+            not use SnipScript.ai.
           </p>
         </div>
-        <div>
-          <h4 className="text-lg font-medium">1. Use of Services</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>1.1. SnipScript.ai </b> provides a tool to convert website
-              screenshots into <b>HTML & CSS</b> code
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>1.2.</b> Free users are limited to{" "}
-              <b>5 conversions per month </b> with basic <b>HTML & CSS</b>{" "}
-              output and watermarked results. Paid users
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>1.3.</b> receive additional features, such as
-              <b> unlimited conversions and AI-assisted editing.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>1.4.</b> Users must not use <b>SnipScript.ai</b> to generate or
-              distribute <b>illegal, offensive, or harmful content.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">2. User Accounts</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>2.1. </b>Users must provide <b>accurate information</b> when
-              creating an account.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>2.2. SnipScript.ai </b> reserves the right to{" "}
-              <b>suspend or terminate accounts</b> for violations of these
-              terms.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>2.3 </b>Users are responsible for{" "}
-              <b>maintaining the security</b> of their login credentials.
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">3. Payment and Subscriptions</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>3.1. SnipScript.ai</b> offers{" "}
-              <b>free and paid subscription plans,</b>
-              as well as <b>one-time payment options.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>3.2.</b> Subscription fees are charged on a{" "}
-              <b className="mr-1">recurring basis</b>
-              unless canceled by the user. One-time payments grant access to
-              specific features or services without a recurring charge.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>3.3. Refunds </b> are generally not provided (see our{" "}
-              <b>Refund & Dispute Policy</b> for details).
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>3.4.</b> Users are responsible for{" "}
-              <b>canceling their subscription before renewal</b> to avoid
-              additional charges..
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">4. Intellectual Property</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>4.1. SnipScript.ai</b> and its underlying technology are owned
-              by <b>[Your Company]</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>4.2. </b> Users <b>retain ownership</b> of any code generated
-              through <b>SnipScript.ai </b> and may use it for{" "}
-              <b>personal or commercial projects.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium">5. User Responsibilities</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>5.1. </b> Users must not use <b>automated tools</b> to
-              excessively access or abuse <b>SnipScript.ai’s </b> resources.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>5.2. </b>. Users must not <b>redistribute SnipScript.ai</b> as
-              a standalone service or claim it as their own
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>5.3. </b> Users agree to comply with <b>all applicable laws</b>{" "}
-              when using <b>SnipScript.ai.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium"> 6. Service Availability </h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>6.1. SnipScript.ai </b> strives for <b>high availability</b>{" "}
-              but does not guarantee uninterrupted service.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>6.2. </b> Downtime may occur due to{" "}
-              <b>maintenance, updates, or unexpected technical issues.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>6.3. </b> SnipScript.ai is not responsible for{" "}
-              <b>data loss due to service disruptions.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium"> 7. Termination of Service</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>7.1.</b> <b>SnipScript.ai</b> reserves the right to{" "}
-              <b> suspend or terminate accounts</b> that violate these terms.
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>7.2. </b> Accounts involved in <b>fraudulent activity</b> may
-              be permanently banned <b>without notice.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>7.3. </b>If required by{" "}
-              <b> law or regulatory action, SnipScript.ai</b> may{" "}
-              <b>restrict access to its services.</b>
-            </p>
-          </div>
-        </div>
+        <FooterList title={"1. Use of Services"} list={list.Services} />
+        <FooterList title={"2. User Accounts"} list={list.Accounts} />
+        <FooterList
+          title={"3. Payments and Subscriptions"}
+          list={list.Subscriptions}
+        />
+        <FooterList title={"4. Intellectual Property"} list={list.Property} />
+        <FooterList
+          title={"5. User Responsibilities"}
+          list={list.Responsibilities}
+        />
+        <FooterList
+          title={"6. Service Availability"}
+          list={list.Availability}
+        />
+        <FooterList
+          title={"8. Limitation of Liability"}
+          list={list.Limitation}
+        />
+        <FooterList
+          title={"9. Modifications to Terms"}
+          list={list.Modifications}
+        />
+        <FooterList title={"10. Governing Law"} list={list.Governing} />
 
-        <div>
-          <h4 className="text-lg font-medium"> 8. Limitation of Liability </h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>8.1. SnipScript.ai </b> is provided <b>"as is"</b> without{" "}
-              <b>warranties of any kind.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>8.2. SnipScript.ai </b> is not responsible for{" "}
-              <b>
-                any errors, loss of data, or third-party service disruptions.
-              </b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>8.3. </b> Users assume <b>full responsibility</b> for how they
-              use the
-              <b> generated code.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium"> 9. Changes to Terms</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>9.1. SnipScript.ai </b> may update these terms at any time.
-              Users will be <b>notified of significant changes.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>9.2. </b> Continued use of <b>SnipScript.ai </b> after changes
-              take effect constitutes <b>acceptance of the revised terms.</b>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 className="text-lg font-medium"> 10. Governing Law</h4>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>10.1. </b> These <b>Terms of Service</b> shall be governed by
-              the <b>laws of [Your State/Country],</b> without regard to{" "}
-              <b>conflict of law principles.</b>
-            </p>
-          </div>
-          <div className="flex ">
-            <span className="pt-1 text-sm ">
-              <GoDotFill />
-            </span>
-            <p>
-              <b>10.2.</b>Any{" "}
-              <span className="mr-1">
-                <b>disputes</b>
-              </span>
-              shall be resolved in the <b> courts of [Your State/Country].</b>
-            </p>
-          </div>
-        </div>
         <div>
           <h4 className="text-lg font-medium"> 11. Contact Us</h4>
           <p>
-            If you have any questions regarding these <b>Terms of Service</b>,
-            please contact us at{" "}
-            {/* <span className="text-blue-500 underline">
-              support@snipscript.ai.
-            </span> */}
-            <a
-              className="text-blue-500 underline"
-              href="mailto:support@snipscript.ai"
-            >
-              support@snipscript.ai
-            </a>
+            Contact Us If you have questions or concerns about these Terms,
+            please contact us at: <br />
+            <span>
+              📧
+              <a
+                className="px-1 text-blue-500 underline"
+                href="mailto:support@snipscript.ai"
+              >
+                support@snipscript.ai
+              </a>
+            </span>
           </p>
         </div>
       </div>

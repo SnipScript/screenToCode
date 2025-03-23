@@ -10,6 +10,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import Loading from "../section/Homepage/Loading";
 import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const PricingPage = () => {
   const list = new Array(5).fill(null);
@@ -33,6 +34,9 @@ const PricingPage = () => {
   };
 
   const subscribe = async (id) => {
+    if (!token) {
+      return toast("🔒 You need to log in before selecting a plan");
+    }
     setLoading(true);
     try {
       const { data } = await axios.post(
@@ -161,6 +165,7 @@ const PricingPage = () => {
         <SapceBottom>
           <Trusted title="Trusted by developers and companies worldwide" />
         </SapceBottom>
+        <Toaster position="top-right" />
       </CommonContainer>
     </div>
   );
