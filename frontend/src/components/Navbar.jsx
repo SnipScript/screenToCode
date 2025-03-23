@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/sniplogo.png";
 import CommonContainer from "../common/CommonContainer";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
@@ -27,8 +27,8 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white shadow-md">
       <CommonContainer>
         <div className="flex items-center justify-between w-full h-20 ">
-          <Link to="/" className="text-xl font-bold text-gray-800">
-            SnipScript
+          <Link to="/">
+            <img className="cursor-pointer  max-w-32" src={logo} alt="snip" />
           </Link>
 
           {/* Desktop menu */}
