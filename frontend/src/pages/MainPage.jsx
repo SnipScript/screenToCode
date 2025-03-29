@@ -9,7 +9,7 @@ import CommonSpace from "../common/CommonSpace";
 import { BsCodeSquare } from "react-icons/bs";
 import Spinner from "../components/ui/Spinner";
 import toast, { Toaster } from "react-hot-toast";
-import { generateCode } from "../frontendApp";
+import { generateCode } from "../api/codeGeneration";
 import CodeRunner from "../components/CodeRunner";
 import HTMLRunner from "../components/HTMLRunner";
 import { codeOptions } from "../data/data";
@@ -25,7 +25,6 @@ export default function CodeSelectionPage() {
 
   // Function to reset code to its original template
   const handleResetCode = () => {
-    // setCode(selectedFormat.template);
     setCode("");
   };
 
@@ -46,26 +45,12 @@ export default function CodeSelectionPage() {
 
   const handleDrop = (event) => {
     event.preventDefault();
-
-    // Extract the dropped files
     const files = event.dataTransfer.files;
 
     if (files.length > 0) {
       const file = files[0];
-
-      // Check if the file is an image
       if (file.type.startsWith("image/")) {
-        setDroppedFile(file); // Update state with the dropped file
-
-        // Create a FileReader to read the image file
-        const reader = new FileReader();
-
-        reader.onload = (e) => {
-          console.log("Image uploaded:", e.target.result);
-          // Handle the uploaded image data (e.g., set state, display preview, etc.)
-        };
-
-        reader.readAsDataURL(file);
+        setDroppedFile(file);
       } else {
         toast.error("Please upload a valid image file.");
       }
@@ -79,15 +64,8 @@ export default function CodeSelectionPage() {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-
     if (file && file.type.startsWith("image/")) {
-      setDroppedFile(file); // Update state with the selected file
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        // Handle the uploaded image data (e.g., set state, display preview, etc.)
-      };
-      reader.readAsDataURL(file);
+      setDroppedFile(file);
     } else {
       toast.error("Please select a valid image file.");
     }
@@ -95,23 +73,23 @@ export default function CodeSelectionPage() {
 
   const handleGenerateCodeWithImage = async () => {
     if (!droppedFile) {
-      return toast.error("Please provide image");
+      return toast.error("Please provide an image");
     }
     const formData = new FormData();
     formData.append("image", droppedFile);
     formData.append(
       "prompt",
-      `please give me ${selectedFormat.value} code. I want to implement within single file`
+      `Generate ${selectedFormat.name} code for this design. Please provide a complete, working implementation.`
     );
+    
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      // toast.success("Congratulations! You have got code.");
-      toast.success("Success!");
+      toast.success("Code generated successfully!");
     } catch (error) {
-      toast.error("Something went wrong! Please try later.");
-      console.log(error);
+      console.error(error);
+      toast.error(error.response?.data?.error || "Failed to generate code. Please try again.");
     } finally {
       setIsCreatingCode(false);
     }
@@ -119,46 +97,50 @@ export default function CodeSelectionPage() {
 
   const handleGenerateTextToCode = async () => {
     if (!textPrompt) {
-      return toast.error("Please provide proper text to get code!");
+      return toast.error("Please provide a description of what you want to create");
     }
-    setSelectedFormat({});
     const formData = new FormData();
-    // formData.append("image", droppedFile);
-    formData.append("prompt", `${textPrompt}`);
+    formData.append(
+      "prompt",
+      `Generate ${selectedFormat.name} code for: ${textPrompt}. Please provide a complete, working implementation.`
+    );
+    
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      // toast.success("Congratulations! You have got code.");
-      toast.success("Success!");
+      toast.success("Code generated successfully!");
     } catch (error) {
-      toast.error("Something went wrong! Please try later.");
-      console.log(error);
+      console.error(error);
+      toast.error(error.response?.data?.error || "Failed to generate code. Please try again.");
     } finally {
       setIsCreatingCode(false);
     }
   };
+
   const handleUrlToCode = async () => {
     if (!url) {
       return toast.error("Please provide a URL");
     }
     if (!textPrompt) {
-      return toast.error("Please provide a prompt");
+      return toast.error("Please provide a description of what you want to create");
     }
-    setSelectedFormat({});
+    
     const formData = new FormData();
-    // formData.append("image", droppedFile);
-    formData.append("prompt", `${textPrompt}`);
-    formData.append("url", `${url}`);
+    formData.append("url", url);
+    formData.append(
+      "prompt",
+      `Generate ${selectedFormat.name} code for: ${textPrompt}. Please provide a complete, working implementation.`
+    );
+    
     try {
       setIsCreatingCode(true);
       const response = await generateCode(formData);
       setCode(response.data.responsed_code);
-      // toast.success("Congratulations! You have got code.");
-      toast.success("Success!");
+      toast.success("Code generated successfully!");
     } catch (error) {
-      toast.error("Something went wrong! Please try later.");
-      console.log(error);
+      console.error(error);
+      toast.error(error.response?.data?.error || "Failed to generate code. Please try again.");
     } finally {
       setIsCreatingCode(false);
     }
@@ -171,9 +153,10 @@ export default function CodeSelectionPage() {
         setModal(false);
       }
     };
-
     document.addEventListener("mousedown", handler);
-  });
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   return (
     <CommonContainer>
       <CommonSpace>

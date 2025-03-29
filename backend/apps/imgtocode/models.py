@@ -33,3 +33,15 @@ class DesignRequest(models.Model):
 
     def __str__(self):
         return f"Request by {self.user.email} on {self.created_at}"
+
+class UserDesignHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="design_history")
+    design_request = models.ForeignKey(DesignRequest, on_delete=models.CASCADE, related_name="history_entries")
+    created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, default="completed")  # completed, failed, in_progress
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"History entry for {self.user.email} on {self.created_at}"

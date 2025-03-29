@@ -15,6 +15,7 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import os
 
 
 
@@ -153,15 +154,15 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
 # Configure Cloudinary settings
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'de8c7djwu',
-    'API_KEY': '155326426895429',
-    'API_SECRET': 'cgCsEB2moUSKpnP3GGSVKHkMeVY'
+    'CLOUD_NAME': 'your_cloud_name',
+    'API_KEY': 'your_api_key',
+    'API_SECRET': 'your_api_secret',
 }
 
 cloudinary.config(
@@ -205,7 +206,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # CORS_ALLOW_ALL_ORIGINS = True
 
-# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:1234", 

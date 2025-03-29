@@ -13,7 +13,7 @@
 
 
 from rest_framework import serializers
-from .models import DesignRequest
+from .models import DesignRequest, UserDesignHistory
 
 class DesignRequestSerializer(serializers.Serializer):
     image = serializers.ImageField(required=False)
@@ -24,3 +24,10 @@ class DesignHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = DesignRequest
         fields = ["id", "prompt", "url", "image", "ai_response", "created_at"]
+
+class UserDesignHistorySerializer(serializers.ModelSerializer):
+    design_request = DesignHistorySerializer(read_only=True)
+    
+    class Meta:
+        model = UserDesignHistory
+        fields = ["id", "design_request", "created_at", "status"]
