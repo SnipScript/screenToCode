@@ -16,7 +16,7 @@ PACKAGE_TYPE = (
     ('month','MONTH'),
     ('year','YEAR'),
     ('week','WEEK'),
-    ('day','Day')
+    ('day','DAY')
 )
 class Package(models.Model):
     name = models.CharField(max_length=255)
